@@ -146,7 +146,6 @@ class PlusMinusFrag() : Fragment() {
         }
     }
 
-
     /*check if a game is stored in DB
      */
     private fun isGameInDB(game: Game): Boolean {
@@ -176,6 +175,7 @@ class PlusMinusFrag() : Fragment() {
             Log.d(TAG, gameModel.getLastGame().toString())
             previousGame = gameModel.getLastGame().game
             Log.d(TAG, previousGame.toString())
+
             uiThread {
                 setGameOnUI(previousGame!!)
             }
