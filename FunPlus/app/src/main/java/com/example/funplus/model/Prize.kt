@@ -1,4 +1,4 @@
-package com.example.funplus
+package com.example.funplus.model
 
 import android.graphics.drawable.Drawable
 

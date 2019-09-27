@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ArActivity">
+    tools:context=".control.ArActivity">
 
     <fragment
         android:id="@+id/arimage_fragment"
-        android:name="com.example.funplus.ArFrag"
+        android:name="com.example.funplus.control.ArFrag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"

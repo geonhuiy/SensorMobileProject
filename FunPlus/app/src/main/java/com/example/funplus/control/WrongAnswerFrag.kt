@@ -1,4 +1,4 @@
-package com.example.funplus
+package com.example.funplus.control
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.example.funplus.R
 import kotlinx.android.synthetic.main.wrong_answer_frag.*
 
 class WrongAnswerFrag : Fragment(){

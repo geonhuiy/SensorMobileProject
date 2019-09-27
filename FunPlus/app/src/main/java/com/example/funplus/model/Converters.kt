@@ -1,4 +1,4 @@
-package com.example.funplus
+package com.example.funplus.model
 
 import androidx.room.TypeConverter
 import java.util.*
@@ -26,6 +26,6 @@ class Converters {
         val sign = slicedValue[1]
         val num2 = slicedValue[2].toInt()
 
-        return Game(num1,num2,sign)
+        return Game(num1, num2, sign)
     }
 }

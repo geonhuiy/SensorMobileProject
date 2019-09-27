@@ -1,9 +1,10 @@
-package com.example.funplus
+package com.example.funplus.control
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.funplus.R
 import kotlinx.android.synthetic.main.activity_prize_list.*
 
 class PrizeListActivity : AppCompatActivity() {
