@@ -40,7 +40,7 @@ class PlusMinusFrag() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater?.inflate(R.layout.plus_minus_frag, container, false)
+        val view = inflater.inflate(R.layout.plus_minus_frag, container, false)
         return view
     }
 
@@ -49,7 +49,7 @@ class PlusMinusFrag() : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         gameDB = GameDB.get(this.context!!)
-        fManager = this!!.fragmentManager!!
+        fManager = this.fragmentManager!!
         correctAnswerFrag = CorrectAnswerFrag()
         wrongAnswerFrag = WrongAnswerFrag()
 
@@ -65,10 +65,10 @@ class PlusMinusFrag() : Fragment() {
                 try {
                     val answer = answerTxt.toInt()
                     if (answer == correctAnswer) {
-                        newGame?.let { it -> insertOrUpdateGameDB(it, true) }
+                        insertOrUpdateGameDB(newGame, true)
                         goToAnswerFrag(correctAnswerFrag)
                     } else {
-                        newGame?.let { it1 -> insertOrUpdateGameDB(it1, false) }
+                        insertOrUpdateGameDB(newGame, false)
                         goToAnswerFrag(wrongAnswerFrag)
                     }
                 } catch (e: Exception) {
@@ -151,9 +151,8 @@ class PlusMinusFrag() : Fragment() {
     private fun isGameInDB(game: Game): Boolean {
         val allGames = gameDB.gameDao().getAll()
         Log.d(TAG, "isGameInDB():" + allGames.size + " games stored in DB")
-        //allGames = ViewModelProviders.of(this).get(GameModel::class.java).getAllGames()
         var foundGameInDB = false
-        for (gameData: GameData in allGames!!) {
+        for (gameData: GameData in allGames) {
             if (gameData.game.equals(game)) {
                 foundGameInDB = true
                 break
@@ -214,7 +213,7 @@ class PlusMinusFrag() : Fragment() {
         } else {
             answer = num1 - num2
         }
-        Log.d(TAG, "getAnswer: " + num1 + sign + num2 + "=" + answer)
+        Log.d(TAG, "getAnswer: " + num1 + sign + num2 + " = " + answer)
         return answer
     }
 }
