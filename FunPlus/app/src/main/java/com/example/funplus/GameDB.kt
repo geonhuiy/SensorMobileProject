@@ -4,25 +4,28 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(
-    entities = [(GameRecorder::class)],
-    version = 1
+    entities = [(GameData::class)],
+    version = 1,
+    exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class GameDB : RoomDatabase() {
-    abstract fun gameDao(): GameRecorderDao
+    abstract fun gameDao(): GameDao
     companion object {
-        private var sInstance: GameDB? = null
+        private var gameDB: GameDB? = null
         @Synchronized
         fun get(context: Context): GameDB {
-            if (sInstance == null) {
-                sInstance =
+            if (gameDB == null) {
+                gameDB =
                     Room.databaseBuilder(
                         context.applicationContext,
-                        GameDB::class.java, "game.db"
+                        GameDB::class.java, "game.gameDB"
                     ).build()
             }
-            return sInstance!!
+            return gameDB!!
         }
     }
 }
