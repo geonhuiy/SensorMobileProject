@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -14,80 +14,108 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--<Button
-            android:id="@+id/frBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="French" />
-
-        <Button
-            android:id="@+id/cnBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chinese" />-->
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
         <Button
             android:id="@+id/num1Btn"
+            style="@android:style/DeviceDefault.ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/colorLightGray"
+            android:textColor="@color/colorLightBlue"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/signBtn"
+            style="@android:style/DeviceDefault.ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:textSize="30dp"
+            android:textColor="@color/colorRed"
+            android:background="@color/colorLightGray"
+            android:layout_marginEnd="5dp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/num2Btn"
+            style="@android:style/DeviceDefault.ButtonBar"
             android:layout_width="wrap_content"
+            android:background="@color/colorLightGray"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginEnd="5dp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/equalBtn"
+            style="@android:style/DeviceDefault.ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/colorLightGray"
             android:text="@string/equal_sign"
-            android:textSize="30dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/answerEt"
-        android:layout_width="250dp"
-        android:layout_height="85dp"
-        android:hint="?"
-        android:textSize="40dp"
-        android:inputType="number"
-        android:textAlignment="center"
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toTopOf="@+id/okBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/rb_checked_bg"
+            android:buttonTint="@color/colorRed"
+            android:padding="6dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/rb_checked_bg"
+            android:layout_marginTop="10dp"
+            android:buttonTint="@color/colorRed"
+            android:padding="6dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/rb_checked_bg"
+            android:layout_marginTop="10dp"
+            android:buttonTint="@color/colorRed"
+            android:padding="6dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="30sp" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/okBtn"
-        android:text="OK"
-        android:textColor="@color/colorPrimary"
+        android:text="@string/ok"
+        android:textColor="@color/colorLightGreen"
         android:textStyle="bold"
-        android:textSize="30dp"
-        android:layout_width="wrap_content"
+        android:textSize="30sp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
