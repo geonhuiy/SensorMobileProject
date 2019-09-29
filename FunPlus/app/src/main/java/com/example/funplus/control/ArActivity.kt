@@ -1,4 +1,4 @@
-package com.example.funplus
+package com.example.funplus.control
 
 import android.content.Intent
 import android.net.Uri
@@ -7,17 +7,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.funplus.R
 import com.google.ar.core.AugmentedImage
-import com.google.ar.core.Pose
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.FrameTime
-import com.google.ar.sceneform.Node
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_ar.*
-import org.jetbrains.anko.image
 
 class ArActivity : AppCompatActivity() {
 

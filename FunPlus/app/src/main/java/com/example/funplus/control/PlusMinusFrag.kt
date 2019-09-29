@@ -1,6 +1,5 @@
-package com.example.funplus
+package com.example.funplus.control
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
+import com.example.funplus.R
+import com.example.funplus.model.Game
+import com.example.funplus.model.GameDB
+import com.example.funplus.model.GameData
+import com.example.funplus.model.GameModel
 import kotlinx.android.synthetic.main.plus_minus_frag.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -117,9 +121,25 @@ class PlusMinusFrag() : Fragment() {
                 //create a new game
                 Log.d(TAG, "game not in DB")
                 if (isAnswerCorrect) {
-                    gameDB.gameDao().insert(GameData(0, game, 1, 0, Date())).toInt()
+                    gameDB.gameDao().insert(
+                        GameData(
+                            0,
+                            game,
+                            1,
+                            0,
+                            Date()
+                        )
+                    ).toInt()
                 } else {
-                    gameDB.gameDao().insert(GameData(0, game, 0, 1, Date())).toInt()
+                    gameDB.gameDao().insert(
+                        GameData(
+                            0,
+                            game,
+                            0,
+                            1,
+                            Date()
+                        )
+                    ).toInt()
                 }
             }
         }

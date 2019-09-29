@@ -1,4 +1,4 @@
-package com.example.funplus
+package com.example.funplus.control
 
 import android.content.Context
 import android.util.Log
@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.funplus.R
+import com.example.funplus.model.Prize
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.activity_ar.view.*
 import kotlinx.android.synthetic.main.prize_row.view.*
@@ -24,7 +26,7 @@ class PrizeListViewAdapter(var prizeList : List<Prize>, val context: Context) : 
        return prizeList.count()
     }
 
-    override fun onBindViewHolder(holder: PrizeListViewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.containerView.prizeCountTv.text = prizeList[position].count.toString()
         holder.containerView.prizeTypeIv.image = prizeList[position].img
 

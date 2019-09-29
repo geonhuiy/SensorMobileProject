@@ -1,4 +1,4 @@
-package com.example.funplus
+package com.example.funplus.control
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.funplus.R
 import kotlinx.android.synthetic.main.correct_answer_frag.*
 
 class CorrectAnswerFrag : Fragment() {

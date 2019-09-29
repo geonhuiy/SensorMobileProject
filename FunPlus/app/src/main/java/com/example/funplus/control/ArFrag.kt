@@ -1,4 +1,4 @@
-package com.example.funplus
+package com.example.funplus.control
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
