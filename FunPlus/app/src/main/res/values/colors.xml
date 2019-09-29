@@ -7,9 +7,11 @@
     <color name="colorPurple">#D428FA</color>
     <color name="colorRed">#EB0202</color>
     <color name="colorBlack">#020202</color>
+    <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightGray">#E4E4E4</color>
     <color name="colorGray">#AAAAAA</color>
     <color name="colorLightGreen">#4CAF50</color>
     <color name="colorLightBlue">#1649DD</color>
     <color name="colorLightOrange">#FFC881</color>
+    <color name="colorLightYellow">#FFF4AA</color>
 </resources>
