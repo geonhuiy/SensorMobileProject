@@ -7,7 +7,8 @@ import androidx.room.*
 data class Prize(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val imgName: String,
+    val imgToScan: String,
+    val prizeImg: Int,
     val count: Int
 )
 

@@ -8,12 +8,9 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
 import com.example.funplus.R
-import com.example.funplus.model.GameModel
 import com.example.funplus.model.Prize
 import com.example.funplus.model.PrizeDB
-import com.example.funplus.model.PrizeModel
 import com.google.ar.core.AugmentedImage
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.AnchorNode
@@ -30,17 +27,25 @@ class ArActivity : AppCompatActivity() {
     lateinit var prizeDB: PrizeDB
     lateinit var correctAnswerFrag: CorrectAnswerFrag
     var dbUpdated = false
-    val modelList = mutableListOf<ModelRenderable>()
-    val imgList =
+    val scanImgList =
         listOf<String>("giftbox", "masha", "minions", "mylittlepony", "pororo", "surprise")
-
+    val prizeImgList = listOf<Int>(
+        R.drawable.bdcake,
+        R.drawable.cupcake,
+        R.drawable.chocolate_cake,
+        R.drawable.hamburger,
+        R.drawable.pizza,
+        R.drawable.sugar
+    )
+    val modelList = mutableListOf<ModelRenderable>()
     private lateinit var fragment: ArFragment
     private var fitToScanImageView: ImageView? = null
-    private var fireRenderable: ModelRenderable? = null
-    private var waterRenderable: ModelRenderable? = null
-    private var woodRenderable: ModelRenderable? = null
+    private var bdCupcakeRenderable: ModelRenderable? = null
+    private var chocolateRenderable: ModelRenderable? = null
+    private var cupcakeRenderable: ModelRenderable? = null
     private var iceRenderable: ModelRenderable? = null
-    private var rockRenderable: ModelRenderable? = null
+    private var hamburgerRenderable: ModelRenderable? = null
+    private var pizzaRenderable: ModelRenderable? = null
     private var anchorNode: AnchorNode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,30 +57,18 @@ class ArActivity : AppCompatActivity() {
         fragment = supportFragmentManager.findFragmentById(R.id.arimage_fragment) as ArFragment
         fitToScanImageView = findViewById<ImageView>(R.id.fit_to_scan_img)
 
-
-        val ice = ModelRenderable.builder()
-            .setSource(this, Uri.parse("ice.sfb"))
-            .build()
-        ice.thenAccept { it -> iceRenderable = it }
-
-        // modelList.add(iceRenderable!!)
+        createRenderables()
 
         fragment.arSceneView.scene.addOnUpdateListener { frameTime ->
             onUpdate(frameTime)
         }
 
         seePrizeListBtn.setOnClickListener {
-            val intent = Intent(this, PrizeListActivity::class.java)
-            startActivity(intent)
-            Toast.makeText(this, "go to prize list activity", Toast.LENGTH_LONG).show()
-            finish()
+            goToPrizeList()
         }
 
         moreGameBtn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            Toast.makeText(this, "go back to main activity", Toast.LENGTH_LONG).show()
-            finish()
+            goToPlusMinus()
         }
     }
 
@@ -92,45 +85,31 @@ class ArActivity : AppCompatActivity() {
         // Get position of the sun
         updatedAugmentedImages.forEach {
             when (it.trackingState) {
-
-                TrackingState.PAUSED -> {
-                }
-                TrackingState.STOPPED -> {
-                }
                 TrackingState.TRACKING -> {
                     val anchors = it.anchors
                     if (anchors.isEmpty()) {
-                        fitToScanImageView?.visibility = View.GONE
-                        val pose = it.centerPose
-                        val anchor = it.createAnchor(pose)
-                        val anchorNode = AnchorNode(anchor)
-                        anchorNode.setParent(fragment.arSceneView.scene)
-                        val imgNode = TransformableNode(fragment.transformationSystem)
-                        imgNode.setParent(anchorNode)
+                        val imgNode = setUpNode(it)
 
                         Log.d(TAG + "ramdom: ", correctAnswerFrag.numList[0].toString())
 
                         val randomNum = getIntent().getIntExtra("randomNum", 0)
                         Log.d(TAG + "ramdom: ", randomNum.toString())
 
-                        if (it.name.equals(imgList[0]) && randomNum == correctAnswerFrag.numList[0]) {
-                            imgNode.renderable = iceRenderable
-                            imgNode.scaleController.maxScale = 0.05f
-                            imgNode.scaleController.minScale = 0.009f
-
-                            imgNode.setOnTapListener { hitTestResult, motionEvent ->
-                                Toast.makeText(this, "tap tap", Toast.LENGTH_LONG).show()
-
-                                Log.d(TAG + " dbUpdated 1 ", dbUpdated.toString())
-
-                                if (!dbUpdated) {
-                                    Log.d(TAG + " dbUpdated 2 ", dbUpdated.toString())
-                                    insertOrUpdatePrizeInDB(imgList[0])
-                                }
-
+                        var modelSet = false
+                        //loop through the lists of images and numbers
+                        //make sure the image matches with the number displayed
+                        //there are some cards, one side has a number(the number displayed on screen), the other has an image)
+                        for (index in 0..5) {
+                            if (it.name.equals(scanImgList[index]) && randomNum == correctAnswerFrag.numList[index]) {
+                                imgNode.renderable = modelList[index]
+                                imgNode.scaleController.maxScale = 0.05f
+                                imgNode.scaleController.minScale = 0.009f
+                                modelSet = true
+                                nodeTapListener(imgNode, index)
+                                break
                             }
-
-                        } else {
+                        }
+                        if (!modelSet) {
                             Toast.makeText(this, "no matching image", Toast.LENGTH_LONG).show()
                         }
                     }
@@ -139,17 +118,88 @@ class ArActivity : AppCompatActivity() {
         }
     }
 
+    private fun createRenderables() {
+        val bdCake = ModelRenderable.builder()
+            .setSource(this, Uri.parse("Birthday Cupcake.sfb"))
+            .build()
+        bdCake.thenAccept { it ->
+            bdCupcakeRenderable = it
+            modelList.add(bdCupcakeRenderable!!)
+        }
+
+        val chocolateCake = ModelRenderable.builder()
+            .setSource(this, Uri.parse("Chocolate Cake.sfb"))
+            .build()
+        chocolateCake.thenAccept { it ->
+            chocolateRenderable = it
+            modelList.add(chocolateRenderable!!)
+        }
+
+        val cupcake = ModelRenderable.builder()
+            .setSource(this, Uri.parse("cupcake.sfb"))
+            .build()
+        cupcake.thenAccept { it ->
+            cupcakeRenderable = it
+            modelList.add(cupcakeRenderable!!)
+        }
+
+        val hamberger = ModelRenderable.builder()
+            .setSource(this, Uri.parse("hamburgeres.sfb"))
+            .build()
+        hamberger.thenAccept { it ->
+            hamburgerRenderable = it
+            modelList.add(hamburgerRenderable!!)
+        }
+
+        val pizza = ModelRenderable.builder()
+            .setSource(this, Uri.parse("pizza.sfb"))
+            .build()
+        pizza.thenAccept { it ->
+            pizzaRenderable = it
+            modelList.add(pizzaRenderable!!)
+        }
+
+        val ice = ModelRenderable.builder()
+            .setSource(this, Uri.parse("ice.sfb"))
+            .build()
+        ice.thenAccept { it ->
+            iceRenderable = it
+            modelList.add(iceRenderable!!)
+        }
+    }
+
+    private fun setUpNode(it: AugmentedImage): TransformableNode {
+        fitToScanImageView?.visibility = View.GONE
+        val pose = it.centerPose
+        val anchor = it.createAnchor(pose)
+        val anchorNode = AnchorNode(anchor)
+        anchorNode.setParent(fragment.arSceneView.scene)
+        val imgNode = TransformableNode(fragment.transformationSystem)
+        imgNode.setParent(anchorNode)
+        return imgNode
+    }
+
+    //when user taps a model, the Prize associated with the model is added to db
+    private fun nodeTapListener(imgNode: TransformableNode, index: Int) {
+        imgNode.setOnTapListener { hitTestResult, motionEvent ->
+            if (!dbUpdated) {
+                insertOrUpdatePrizeInDB(scanImgList[index], prizeImgList[index])
+            }
+
+        }
+    }
+
 
     /*check if a prize is stored in DB
      */
-    private fun isPrizeInDB(imgName: String): Boolean {
+    private fun isPrizeInDB(imgToScan: String): Boolean {
         Log.d(TAG, "isPrizeInDB 1:")
         val allPrizes = prizeDB.prizeDao().getAllPrizes()
         Log.d(TAG, "isPrizeInDB():" + allPrizes.size + " prizes stored in DB")
         var isPrizeInDB = false
         if (allPrizes.count() != 0) {
             for (prize: Prize in allPrizes) {
-                if (prize.imgName == imgName) {
+                if (prize.imgToScan == imgToScan) {
                     isPrizeInDB = true
                     break
                 }
@@ -159,17 +209,20 @@ class ArActivity : AppCompatActivity() {
         return isPrizeInDB
     }
 
-    private fun insertOrUpdatePrizeInDB(imgName: String) {
+    /*if a Prize is already in db, update count
+       it not, insert into db
+    */
+    private fun insertOrUpdatePrizeInDB(imgToScan: String, prizeImg: Int) {
         Log.d(TAG, "insertOrUpdatePrizeInDB")
         var prizeCount = 1
         doAsync {
-            if (isPrizeInDB(imgName)) {
+            if (isPrizeInDB(imgToScan)) {
                 Log.d(TAG, "isPrizeInDB: true")
-                prizeDB.prizeDao().updatePrizeCount(imgName)
-                prizeCount = prizeDB.prizeDao().getPrizeCount(imgName)
+                prizeDB.prizeDao().updatePrizeCount(imgToScan)
+                prizeCount = prizeDB.prizeDao().getPrizeCount(imgToScan)
             } else {
                 Log.d(TAG, "isPrizeInDB: false")
-                prizeDB.prizeDao().insert(Prize(0, imgName, 1))
+                prizeDB.prizeDao().insert(Prize(0, imgToScan, prizeImg, 1))
             }
             uiThread {
                 prizeCountTv.text = prizeCount.toString()
@@ -177,7 +230,21 @@ class ArActivity : AppCompatActivity() {
                 prizeCountTv.visibility = View.VISIBLE
             }
             dbUpdated = true
-            Log.d(TAG+" dbUpdated 3 ", dbUpdated.toString())
         }
+    }
+
+
+    private fun goToPlusMinus() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        Toast.makeText(this, "go back to main activity", Toast.LENGTH_SHORT).show()
+        finish()
+    }
+
+    private fun goToPrizeList() {
+        val intent = Intent(this, PrizeListActivity::class.java)
+        startActivity(intent)
+        Toast.makeText(this, "go to see prize list", Toast.LENGTH_SHORT).show()
+        finish()
     }
 }

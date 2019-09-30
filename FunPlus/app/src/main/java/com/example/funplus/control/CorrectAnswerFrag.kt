@@ -17,7 +17,7 @@ import java.io.FileInputStream
 import java.io.IOException
 
 class CorrectAnswerFrag : Fragment() {
-    val numList = listOf<Int>(123, 234)
+    val numList = listOf<Int>(123, 234, 345, 456, 567, 678)
     lateinit var arActivity: ArActivity
     companion object {
 

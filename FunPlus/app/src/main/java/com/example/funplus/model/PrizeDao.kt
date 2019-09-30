@@ -18,11 +18,11 @@ interface PrizeDao {
     @Query("SELECT * FROM prize WHERE prize.id= :prizeId")
     fun getPrizeById(prizeId: Int): Prize
 
-    @Query("SELECT prize.count FROM prize WHERE prize.imgName= :imgName")
-    fun getPrizeCount(imgName: String): Int
+    @Query("SELECT prize.count FROM prize WHERE prize.imgToScan= :imgToScan")
+    fun getPrizeCount(imgToScan: String): Int
 
-    @Query("UPDATE prize SET count = count+1 WHERE prize.imgName= :imgName")
-    fun updatePrizeCount(imgName: String)
+    @Query("UPDATE prize SET count = count+1 WHERE prize.imgToScan= :imgToScan")
+    fun updatePrizeCount(imgToScan: String)
 }
 
 class PrizeModel(application: Application) : AndroidViewModel(application) {

@@ -67,3 +67,29 @@ sceneform.asset('sampledata/ant.obj',
         'default',
         'sampledata/ant.sfa',
         'src/main/assets/ant')
+
+
+sceneform.asset('sampledata/Birthday Cupcake.obj',
+        'default',
+        'sampledata/Birthday Cupcake.sfa',
+        'src/main/assets/Birthday Cupcake')
+
+sceneform.asset('sampledata/Chocolate Cake.obj',
+        'default',
+        'sampledata/Chocolate Cake.sfa',
+        'src/main/assets/Chocolate Cake')
+
+sceneform.asset('sampledata/cupcake.obj',
+        'default',
+        'sampledata/cupcake.sfa',
+        'src/main/assets/cupcake')
+
+sceneform.asset('sampledata/hamburgeres.obj',
+        'default',
+        'sampledata/hamburgeres.sfa',
+        'src/main/assets/hamburgeres')
+
+sceneform.asset('sampledata/pizza.obj',
+        'default',
+        'sampledata/pizza.sfa',
+        'src/main/assets/pizza')

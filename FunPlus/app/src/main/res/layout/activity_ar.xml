@@ -47,12 +47,14 @@
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-16dp">
+        android:padding="8dp"
+        android:background="@color/colorLightYellow"
+        android:backgroundTint="@color/colorLightGray"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/seePrizeListBtn"
