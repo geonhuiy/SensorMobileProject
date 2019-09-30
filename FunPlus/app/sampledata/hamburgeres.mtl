@@ -1,0 +1,59 @@
+# Blender MTL File: 'hamburgeres.blend'
+# Material Count: 5
+
+newmtl Material
+Ns 149.019608
+Ka 1.000000 1.000000 1.000000
+Kd 0.041774 0.002985 0.000140
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd textures\texturaHamburger.png
+map_Bump -bm 3.000000 textures\\texturaHamburger.png
+
+newmtl Material.001
+Ns 3.921569
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.102060 0.000000
+Ks 0.151007 0.151007 0.151007
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\texturaHamburger.png
+map_Bump -bm 0.200000 textures\\texturaHamburger.png
+
+newmtl Material.002
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\texturaHamburger.png
+
+newmtl Material.003
+Ns 35.294118
+Ka 1.000000 1.000000 1.000000
+Kd 0.737911 0.013702 0.000000
+Ks 0.127737 0.127737 0.127737
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\texturaHamburger.png
+
+newmtl Material.005
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\2b.png

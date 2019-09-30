@@ -9,20 +9,36 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="600dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/backToGameBtn"
+        app:layout_constraintBottom_toTopOf="@+id/imgBtnContainer"
         app:layout_constraintTop_toTopOf="parent"
+        tools:context=".control.PrizeListActivity"
+        tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/prize_row" />
 
-    <ImageButton
-        android:id="@+id/backToGameBtn"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/imgBtnContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:padding="8dp"
+        android:background="@color/colorLightYellow"
+        android:backgroundTint="@color/colorLightGray"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:id="@+id/backToGameBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="0dp"
+            android:src="@drawable/num123"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

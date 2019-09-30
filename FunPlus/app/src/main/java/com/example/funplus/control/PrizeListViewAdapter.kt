@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.funplus.R
 import com.example.funplus.model.Prize
@@ -13,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_ar.view.*
 import kotlinx.android.synthetic.main.prize_row.view.*
 import org.jetbrains.anko.image
 
-class PrizeListViewAdapter(var prizeList : List<Prize>, val context: Context) :  RecyclerView.Adapter<PrizeListViewAdapter.ViewHolder>(){
+class PrizeListViewAdapter(var prizeList : List<Prize>) :  RecyclerView.Adapter<PrizeListViewAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -27,8 +29,8 @@ class PrizeListViewAdapter(var prizeList : List<Prize>, val context: Context) : 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.containerView.prizeCountTv.text = prizeList[position].count.toString()
-        holder.containerView.prizeTypeIv.image = prizeList[position].img
+        holder.prizeCountTv.text = prizeList[position].count.toString()
+        holder.prizeImgIv.setImageResource(prizeList[position].prizeImg)
 
         holder.itemView.setOnClickListener {
             // fire recyclerView click event
@@ -39,8 +41,7 @@ class PrizeListViewAdapter(var prizeList : List<Prize>, val context: Context) : 
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
         LayoutContainer {
-
-        /* val txtName = itemView.findViewById<TextView>(R.id.txtName)
-         val txtPhone = itemView.findViewById<TextView>(R.id.txtPhone)*/
+        val prizeCountTv = itemView.findViewById<TextView>(R.id.singlePrizeCountTv)
+        val prizeImgIv = itemView.findViewById<ImageView>(R.id.prizeImgIv)
     }
 }

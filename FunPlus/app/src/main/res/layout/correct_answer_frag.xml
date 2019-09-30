@@ -1,42 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/happFaceIv"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
-        android:background="@color/colorAccent"
+        android:id="@+id/numTv"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:background="@color/colorLightYellow"
+        android:gravity="center"
         android:text="268"
         android:textAlignment="center"
-        android:textSize="50dp"
+        android:textColor="@color/colorPink"
+        android:textSize="90sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/readWordBtn"
+    <ImageButton
+        android:id="@+id/playNumAudioBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="audio"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorWhite"
+        android:src="@drawable/audio"
         app:layout_constraintBottom_toTopOf="@+id/goToScanBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.839"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/happFaceIv" />
+        app:layout_constraintTop_toBottomOf="@+id/numTv"
+        app:layout_constraintVertical_bias="0.022" />
 
-    <Button
+    <ImageButton
         android:id="@+id/goToScanBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round"
-        android:text="card"
+        android:backgroundTint="@color/colorWhite"
+        android:src="@drawable/camera"
+        android:padding="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="parent" />
 
 

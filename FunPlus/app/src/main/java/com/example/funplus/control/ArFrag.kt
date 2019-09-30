@@ -32,29 +32,33 @@ class ArFrag: ArFragment() {
         val augmentedImageDb = AugmentedImageDatabase(session)
         val assetManager = context!!.assets
 
-//        val fire = assetManager.open("fire.png")
-//        val augmentedImageBitmap1 = BitmapFactory.decodeStream(fire)
-//        augmentedImageDb.addImage("fire", augmentedImageBitmap1)
-//
-//        val water = assetManager.open("drop.png")
-//        val augmentedImageBitmap2 = BitmapFactory.decodeStream(water)
-//        augmentedImageDb.addImage("water", augmentedImageBitmap2)
-//
-//        val wood = assetManager.open("tree.png")
-//        val augmentedImageBitmap3 = BitmapFactory.decodeStream(wood)
-//        augmentedImageDb.addImage("wood", augmentedImageBitmap3)
+        val giftbox = assetManager.open("giftbox.jpg")
+        val augmentedImageBitmap1 = BitmapFactory.decodeStream(giftbox)
+        augmentedImageDb.addImage("giftbox", augmentedImageBitmap1)
+
+        val masha = assetManager.open("masha.jpg")
+        val augmentedImageBitmap2 = BitmapFactory.decodeStream(masha)
+        augmentedImageDb.addImage("masha", augmentedImageBitmap2)
+
+        val minions = assetManager.open("minions.jpg")
+        val augmentedImageBitmap3 = BitmapFactory.decodeStream(minions)
+        augmentedImageDb.addImage("minions", augmentedImageBitmap3)
 
         val ice = assetManager.open("ice.png")
         val augmentedImageBitmap4 = BitmapFactory.decodeStream(ice)
         augmentedImageDb.addImage("ice", augmentedImageBitmap4)
 
-//        val rock = assetManager.open("mountain.png")
-//        val augmentedImageBitmap5 = BitmapFactory.decodeStream(rock)
-//        augmentedImageDb.addImage("rock", augmentedImageBitmap5)
-//
-//        val sun = assetManager.open("sun.jpg")
-//        val augmentedImageBitmap6 = BitmapFactory.decodeStream(sun)
-//        augmentedImageDb.addImage("sun", augmentedImageBitmap6)
+        val mylittlepony = assetManager.open("mylittlepony.png")
+        val augmentedImageBitmap5 = BitmapFactory.decodeStream(mylittlepony)
+        augmentedImageDb.addImage("mylittlepony", augmentedImageBitmap5)
+
+        val pororo = assetManager.open("pororo.jpg")
+        val augmentedImageBitmap6 = BitmapFactory.decodeStream(pororo)
+        augmentedImageDb.addImage("pororo", augmentedImageBitmap6)
+
+        val surprise = assetManager.open("surprise.png")
+        val augmentedImageBitmap7 = BitmapFactory.decodeStream(surprise)
+        augmentedImageDb.addImage("surprise", augmentedImageBitmap7)
 
         config.augmentedImageDatabase = augmentedImageDb
     }
