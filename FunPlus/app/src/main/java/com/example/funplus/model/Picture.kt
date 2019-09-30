@@ -1,4 +1,4 @@
-package com.example.funplus
+package com.example.funplus.model
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import androidx.core.content.FileProvider
 import java.io.File
 
 
-class UserLocation() {
+class Picture {
 
     val captureReq = 0
     var photoPath: String = ""
