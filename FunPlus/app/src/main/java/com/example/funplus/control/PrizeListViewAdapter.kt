@@ -28,7 +28,7 @@ class PrizeListViewAdapter(var prizeList : List<Prize>, val context: Context) : 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.containerView.prizeCountTv.text = prizeList[position].count.toString()
-        holder.containerView.prizeTypeIv.image = prizeList[position].img
+        //holder.containerView.prizeTypeIv.image = prizeList[position].img
 
         holder.itemView.setOnClickListener {
             // fire recyclerView click event

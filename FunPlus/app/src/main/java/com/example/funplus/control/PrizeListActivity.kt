@@ -16,7 +16,7 @@ class PrizeListActivity : AppCompatActivity() {
         backToGameBtn.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "prize list activity: go back to main activity", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "from prize list activity: back to main activity", Toast.LENGTH_LONG).show()
             finish()
         }
     }

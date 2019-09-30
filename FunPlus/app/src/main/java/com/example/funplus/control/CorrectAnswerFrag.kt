@@ -17,6 +17,8 @@ import java.io.FileInputStream
 import java.io.IOException
 
 class CorrectAnswerFrag : Fragment() {
+    val numList = listOf<Int>(123, 234)
+    lateinit var arActivity: ArActivity
     companion object {
 
         @JvmStatic
@@ -34,7 +36,6 @@ class CorrectAnswerFrag : Fragment() {
         arguments?.let {
             // columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
-
     }
 
     override fun onCreateView(
@@ -64,15 +65,15 @@ class CorrectAnswerFrag : Fragment() {
 
         goToScanBtn.setOnClickListener {
             val intent = Intent(this.context, ArActivity::class.java)
+            intent.putExtra("randomNum", num)
             startActivity(intent)
             Toast.makeText(this.context, "go to ArActivity to scan image", Toast.LENGTH_LONG).show()
-           //  getActivity()!!.getSupportFragmentManager().popBackStack()
+            activity!!.supportFragmentManager.popBackStack()
         }
     }
 
-
     private fun showNumber(): Int{
-        val numList = listOf<Int>(123, 456, 789, 234, 567, 890)
+       // val numList = listOf<Int>(123, 234, 456, 567, 789,890)
         val randomNum = numList.random()
         numTv.text = randomNum.toString()
         Log.d(TAG+"showNumber - num: ", numTv.text.toString())
