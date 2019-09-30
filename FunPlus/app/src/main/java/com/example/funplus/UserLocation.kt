@@ -1,39 +1,30 @@
 package com.example.funplus
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.os.Environment
-import android.provider.MediaStore
-import androidx.core.content.FileProvider
-import java.io.File
+import android.app.Activity
+import android.util.Log
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 
-class UserLocation() {
+class UserLocation{
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    val captureReq = 0
-    var photoPath: String = ""
-
+    var currentLat: Double = 0.0
+    var currentLong: Double = 0.0
     /**
-     * Opens a camera application to take a picture
-     * Params are to access activity class functions in a non-activity class
-     * @param context Abstract class, handle to Android system
-     * @param activity Refers to MainActivity
+     * Gets the last known location of the device
+     * @param activity To use fusedLocationClient in a non-activity class
      */
-    fun takePicture(context: Context, activity: MainActivity) {
-        //File name and path
-        val filename = "sosImg"
-        val imgPath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        var imgFile: File? = null
-        imgFile = File.createTempFile(filename, ".jpg", imgPath)
-        photoPath = imgFile!!.absolutePath
-        val photoUri: Uri = FileProvider.getUriForFile(context, "com.domain.fileprovider", imgFile)
-
-        val captureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        //Starts camera activity
-        if (captureIntent.resolveActivity(context.packageManager) != null) {
-            captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-            activity.startActivityForResult(captureIntent, captureReq)
+    fun getLocation(activity: Activity) {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
+        //Gets the last known location with latitude and longitude when task is completed
+        fusedLocationClient.lastLocation.addOnCompleteListener{
+                task ->
+            if(task.isSuccessful && task.result != null) {
+                currentLat = task.result!!.latitude
+                currentLong = task.result!!.longitude
+                Log.d("GeoLoc", "${currentLat}")
+            }
         }
     }
 }
