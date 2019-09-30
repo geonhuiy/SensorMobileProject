@@ -25,8 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
 
-    private val captureReq = 0
-    private var photoPath: String = ""
+    private val userLocation = UserLocation()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             goToGameFrag(sosFrag)
         }
         fab_sos.setOnClickListener {
-            takePicture()
+            userLocation.takePicture(this,this)
         }
     }
 
@@ -68,32 +67,14 @@ class MainActivity : AppCompatActivity() {
         //fTransaction.addToBackStack(null)
         fTransaction.commit()
     }
-    /*
-     *Picture
-     */
-    private fun takePicture() {
-        //File name and path
-        val filename = "sosImg"
-        val imgPath = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        var imgFile: File? = null
-        imgFile = File.createTempFile(filename, ".jpg", imgPath)
-        photoPath = imgFile!!.absolutePath
-        val photoUri: Uri = FileProvider.getUriForFile(this, "com.domain.fileprovider", imgFile)
 
-        val captureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        //Starts camera activity
-        if(captureIntent.resolveActivity(packageManager)!= null) {
-            captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-            startActivityForResult(captureIntent, captureReq)
-        }
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == captureReq && resultCode == Activity.RESULT_OK) {
+        if(requestCode == userLocation.captureReq && resultCode == Activity.RESULT_OK) {
             //Gets a bitmap from picture taken with camera
-            val imgBitmap = BitmapFactory.decodeFile(photoPath)
-            Log.d("Photopath", photoPath)
+            val imgBitmap = BitmapFactory.decodeFile(userLocation.photoPath)
+            Log.d("Photopath", userLocation.photoPath)
         }
     }
 
