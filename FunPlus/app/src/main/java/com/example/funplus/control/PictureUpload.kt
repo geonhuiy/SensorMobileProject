@@ -1,12 +1,9 @@
-package com.example.funplus
+package com.example.funplus.control
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.util.Log
 import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
-import org.json.JSONObject
-import java.io.DataOutputStream
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL

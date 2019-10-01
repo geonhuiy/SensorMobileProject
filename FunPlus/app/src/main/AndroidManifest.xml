@@ -35,15 +35,14 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
-        <activity android:name=".PrizeListActivity"></activity>
-        <activity android:name=".ArActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".control.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".control.PrizeListActivity"></activity>
+        <activity android:name=".control.ArActivity" />
 
         <meta-data
             android:name="com.google.ar.core"
