@@ -1,13 +1,31 @@
 package com.example.funplus.control
 
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.example.funplus.R
+import com.example.funplus.utility.AudioPlayer
+import com.example.funplus.utility.AudioRecorder
+import kotlinx.android.synthetic.main.fragment_letter.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
 
-class LetterFrag : Fragment(){
+class LetterFrag : Fragment() {
+    val wordToImg = mutableMapOf<String, Int>(
+        Pair("apple", R.drawable.apple),
+        Pair("banana", R.drawable.banana),
+        Pair("cake", R.drawable.cake),
+        Pair("dog", R.drawable.dog),
+        Pair("egg", R.drawable.egg)
+    )
+
+    lateinit var audioRecorder: AudioRecorder
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,5 +37,54 @@ class LetterFrag : Fragment(){
         return view
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        audioRecorder = AudioRecorder(this.context!!)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        recordBtn.setOnTouchListener(object : View.OnTouchListener {
+
+            //record when button down, play when button up
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> { recordAudio()}
+                    MotionEvent.ACTION_UP   -> { playAudio() }
+                }
+                return v?.onTouchEvent(event) ?: true
+            }
+        })
+    }
+
+
+    //create thread and start recording
+    private fun recordAudio(){
+        Log.d(TAG, "record audio")
+        val recordThread = Thread(audioRecorder)
+        audioRecorder.isRecording = true
+        recordThread.start()
+    }
+
+
+    //get recorded file(via same path as stored when recording) to create inputstream
+    // create thread, and play audio
+    private fun playAudio() {
+        Log.d(TAG, "play audio")
+        audioRecorder.isRecording = false
+        val fileName = "mRec.raw"
+        val storageDir = this.context!!.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
+        lateinit var file: File
+        try {
+            file = File(storageDir.toString() + "/" + fileName)
+        } catch (ex: IOException) {
+            Log.d(TAG, ex.message!!)
+        }
+        val inputStream = FileInputStream(file)
+        val playAudio = AudioPlayer(inputStream)
+        val playAudioThread = Thread(playAudio)
+        playAudioThread.start()
+    }
 }
 

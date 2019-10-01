@@ -6,4 +6,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ok">OK</string>
+    <string name="press_button_to_record">press button to record, release button to listen</string>
+    <string name="press_button_to_see_previous_word">press button to see previous word</string>
+    <string name="press_button_to_see_next_work">press button to see next word</string>
+    <string name="what_do_you_see_in_the_picture">what do you see in the picture?</string>
+    <string name="apple">apple</string>
+    <string name="_123">123</string>
+    <string name="abc">abc</string>
 </resources>
