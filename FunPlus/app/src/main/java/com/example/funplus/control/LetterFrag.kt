@@ -8,10 +8,12 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.funplus.R
 import com.example.funplus.utility.AudioPlayer
 import com.example.funplus.utility.AudioRecorder
 import kotlinx.android.synthetic.main.fragment_letter.*
+import org.jetbrains.anko.image
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
@@ -23,6 +25,15 @@ class LetterFrag : Fragment() {
         Pair("cake", R.drawable.cake),
         Pair("dog", R.drawable.dog),
         Pair("egg", R.drawable.egg)
+    )
+    val wordList = mutableListOf<String>("Apple", "Banana", "Cake", "Dog", "Egg", "Fan")
+    val imgList = mutableListOf<Int>(
+        R.drawable.apple,
+        R.drawable.banana,
+        R.drawable.cake,
+        R.drawable.dog,
+        R.drawable.egg,
+        R.drawable.fan
     )
 
     lateinit var audioRecorder: AudioRecorder
@@ -50,17 +61,46 @@ class LetterFrag : Fragment() {
             //record when button down, play when button up
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 when (event?.action) {
-                    MotionEvent.ACTION_DOWN -> { recordAudio()}
-                    MotionEvent.ACTION_UP   -> { playAudio() }
+                    MotionEvent.ACTION_DOWN -> {
+                        recordAudio()
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        playAudio()
+                    }
                 }
                 return v?.onTouchEvent(event) ?: true
             }
         })
+
+        var currentIndex = 0
+        goNextBtn.setOnClickListener {
+            if (currentIndex < imgList.size-1) {
+                currentIndex++
+                wordImgBtn.setImageResource(imgList[currentIndex])
+                wordTv.text = wordList[currentIndex]
+            } else  {
+                currentIndex = 0
+                wordImgBtn.setImageResource(imgList[currentIndex])
+                wordTv.text = wordList[currentIndex]
+            }
+        }
+
+        goBackBtn.setOnClickListener {
+            if (currentIndex > 0) {
+                wordImgBtn.setImageResource(imgList[currentIndex -1])
+                wordTv.text = wordList[currentIndex -1]
+                currentIndex--
+            }else {
+                currentIndex = imgList.size-1
+                wordImgBtn.setImageResource(imgList[currentIndex])
+                wordTv.text = wordList[currentIndex]
+            }
+        }
     }
 
 
     //create thread and start recording
-    private fun recordAudio(){
+    private fun recordAudio() {
         Log.d(TAG, "record audio")
         val recordThread = Thread(audioRecorder)
         audioRecorder.isRecording = true
