@@ -16,19 +16,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="35dp" />-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-70dp">
+        tools:layout_editor_absoluteX="-70dp"
+        android:gravity="center">
 
         <Button
             android:id="@+id/goToNumberGameBtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="123"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_weight="1"
             tools:layout_editor_absoluteY="0dp" />
 
         <Button
@@ -36,19 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="abc"
-            app:layout_constraintEnd_toStartOf="@+id/goToNumberGameBtn"
-            app:layout_constraintStart_toEndOf="@+id/sosBtn"
+            android:layout_weight="1"
             tools:layout_editor_absoluteY="0dp" />
-
-        <Button
-            android:id="@+id/sosBtn"
-            android:text="sos"
-            android:background="@color/colorRed"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="0dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/fcontainer"
