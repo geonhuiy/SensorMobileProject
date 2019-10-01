@@ -51,14 +51,12 @@ class MainActivity : AppCompatActivity() {
         goToLetterGameBtn.setOnClickListener {
             goToGameFrag(letterFrag)
         }
-        sosBtn.setOnClickListener {
+        /*sosBtn.setOnClickListener {
             goToGameFrag(sosFrag)
-        }
+        }*/
         fab_sos.setOnClickListener {
             userPicture.takePicture(this, this)
             userLoc.getLocation(this)
-            Log.d("LATTT", currentLat.toString())
-            //upload.upload()
         }
     }
 
