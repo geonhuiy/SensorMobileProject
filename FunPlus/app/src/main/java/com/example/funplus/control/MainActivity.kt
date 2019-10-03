@@ -1,9 +1,14 @@
 package com.example.funplus.control
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
@@ -21,8 +26,10 @@ import java.io.ByteArrayOutputStream
 
 const val TAG = "DBG"
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var plusMinusFrag: NumberFrag
+
     private lateinit var letterFrag: LetterFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
@@ -49,7 +56,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     //display plus-minus game by default when app starts
+
     private fun showPlusMinusFrag() {
         Log.d(TAG, "showPlusMinusFrag()")
         plusMinusFrag = NumberFrag()
