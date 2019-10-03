@@ -1,13 +1,19 @@
 package com.example.funplus.control
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -20,7 +26,9 @@ import java.io.ByteArrayOutputStream
 
 const val TAG = "DBG"
 
-class MainActivity : AppCompatActivity() {
+
+
+class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var plusMinusFrag: NumberFrag
     private lateinit var letterFrag: LetterFrag
     private lateinit var fTransaction: FragmentTransaction
@@ -28,9 +36,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userPicture: Picture
     private lateinit var userLoc: UserLocation
 
+    private lateinit var sensorManager: SensorManager
+    private var stepCountSensor: Sensor? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepCountSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
         fManager = supportFragmentManager
         showPlusMinusFrag()
@@ -51,6 +64,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        sensorManager.registerListener(this, stepCountSensor, SensorManager.SENSOR_DELAY_FASTEST)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener(this)
+    }
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+        //Do something
+    }
+
+    override fun onSensorChanged(p0: SensorEvent) {
+        if (p0.sensor == stepCountSensor) {
+            //goToLetterGameBtn.text = p0.values[0].toString()
+            Log.d("Steps",p0.values[0].toString() )
+        }
+    }
+    
     //display plus-minus game by default when app starts
     private fun showPlusMinusFrag() {
         Log.d(TAG, "showPlusMinusFrag()")
