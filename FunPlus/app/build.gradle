@@ -65,18 +65,6 @@ dependencies {
 
 }
 
-
-sceneform.asset('sampledata/ice.obj',
-        'default',
-        'sampledata/ice.sfa',
-        'src/main/assets/ice')
-
-sceneform.asset('sampledata/ant.obj',
-        'default',
-        'sampledata/ant.sfa',
-        'src/main/assets/ant')
-
-
 sceneform.asset('sampledata/Birthday Cupcake.obj',
         'default',
         'sampledata/Birthday Cupcake.sfa',
@@ -101,3 +89,8 @@ sceneform.asset('sampledata/pizza.obj',
         'default',
         'sampledata/pizza.sfa',
         'src/main/assets/pizza')
+
+sceneform.asset('sampledata/diamond.obj',
+        'default',
+        'sampledata/diamond.sfa',
+        'src/main/assets/diamond')

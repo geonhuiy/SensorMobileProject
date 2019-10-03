@@ -15,6 +15,7 @@ import com.google.ar.core.AugmentedImage
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.FrameTime
+import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
@@ -23,36 +24,27 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
 class ArActivity : AppCompatActivity() {
+    companion object{
+        val imgList = listOf<String>(
+            "giftbox.jpg",
+            "masha.jpg",
+            "minions.jpg",
+            "mylittlepony.png",
+            "pororo.jpg",
+            "surprise.png"
+        )
+    }
 
     lateinit var prizeDB: PrizeDB
-    lateinit var correctAnswerFrag: CorrectAnswerFrag
     var dbUpdated = false
-    val scanImgList =
-        listOf<String>("giftbox", "masha", "minions", "mylittlepony", "pororo", "surprise")
-    val prizeImgList = listOf<Int>(
-        R.drawable.bdcake,
-        R.drawable.cupcake,
-        R.drawable.chocolate_cake,
-        R.drawable.hamburger,
-        R.drawable.pizza,
-        R.drawable.sugar
-    )
-    val modelList = mutableListOf<ModelRenderable>()
+    private var modelImgMap = mutableMapOf<Int, Pair<ModelRenderable, Int>>()
     private lateinit var fragment: ArFragment
     private var fitToScanImageView: ImageView? = null
-    private var bdCupcakeRenderable: ModelRenderable? = null
-    private var chocolateRenderable: ModelRenderable? = null
-    private var cupcakeRenderable: ModelRenderable? = null
-    private var iceRenderable: ModelRenderable? = null
-    private var hamburgerRenderable: ModelRenderable? = null
-    private var pizzaRenderable: ModelRenderable? = null
-    private var anchorNode: AnchorNode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ar)
 
-        correctAnswerFrag = CorrectAnswerFrag()
         prizeDB = PrizeDB.get(this)
         fragment = supportFragmentManager.findFragmentById(R.id.arimage_fragment) as ArFragment
         fitToScanImageView = findViewById<ImageView>(R.id.fit_to_scan_img)
@@ -78,32 +70,31 @@ class ArActivity : AppCompatActivity() {
         if (arFrame == null || arFrame.camera.trackingState != TrackingState.TRACKING) {
             return
         }
-
         val updatedAugmentedImages =
             arFrame.getUpdatedTrackables(AugmentedImage::class.java)
 
-        // Get position of the sun
         updatedAugmentedImages.forEach {
             when (it.trackingState) {
                 TrackingState.TRACKING -> {
                     val anchors = it.anchors
                     if (anchors.isEmpty()) {
-                        val imgNode = setUpNode(it)
+                        val imgNode = setupNode(it)
 
-                        Log.d(TAG + "ramdom: ", correctAnswerFrag.numList[0].toString())
+                        Log.d(TAG + "ramdom: ", CorrectAnswerFrag.numList[0].toString())
 
                         val randomNum = getIntent().getIntExtra("randomNum", 0)
                         Log.d(TAG + "ramdom: ", randomNum.toString())
 
                         var modelSet = false
-                        //loop through the lists of images and numbers
-                        //make sure the image matches with the number displayed
-                        //there are some cards, one side has a number(the number displayed on screen), the other has an image)
+                        /*loop through the lists of images and numbers
+                        *make sure the image matches with the image on the displayed number card
+                        there are some cards, one side has a number(the number displayed on screen), the other side has an image)
+                        */
                         for (index in 0..5) {
-                            if (it.name.equals(scanImgList[index]) && randomNum == correctAnswerFrag.numList[index]) {
-                                imgNode.renderable = modelList[index]
-                                imgNode.scaleController.maxScale = 0.05f
-                                imgNode.scaleController.minScale = 0.009f
+                            if (it.name == imgList[index] && randomNum == CorrectAnswerFrag.numList[index]) {
+                                imgNode.renderable = modelImgMap[index]?.first
+                                imgNode.scaleController.maxScale = 0.2F
+                                imgNode.scaleController.minScale = 0.09f
                                 modelSet = true
                                 nodeTapListener(imgNode, index)
                                 break
@@ -118,63 +109,41 @@ class ArActivity : AppCompatActivity() {
         }
     }
 
+
+    //create 3d models, and store each model in pair with an image of it
     private fun createRenderables() {
-        val bdCake = ModelRenderable.builder()
-            .setSource(this, Uri.parse("Birthday Cupcake.sfb"))
-            .build()
-        bdCake.thenAccept { it ->
-            bdCupcakeRenderable = it
-            modelList.add(bdCupcakeRenderable!!)
-        }
-
-        val chocolateCake = ModelRenderable.builder()
-            .setSource(this, Uri.parse("Chocolate Cake.sfb"))
-            .build()
-        chocolateCake.thenAccept { it ->
-            chocolateRenderable = it
-            modelList.add(chocolateRenderable!!)
-        }
-
-        val cupcake = ModelRenderable.builder()
-            .setSource(this, Uri.parse("cupcake.sfb"))
-            .build()
-        cupcake.thenAccept { it ->
-            cupcakeRenderable = it
-            modelList.add(cupcakeRenderable!!)
-        }
-
-        val hamberger = ModelRenderable.builder()
-            .setSource(this, Uri.parse("hamburgeres.sfb"))
-            .build()
-        hamberger.thenAccept { it ->
-            hamburgerRenderable = it
-            modelList.add(hamburgerRenderable!!)
-        }
-
-        val pizza = ModelRenderable.builder()
-            .setSource(this, Uri.parse("pizza.sfb"))
-            .build()
-        pizza.thenAccept { it ->
-            pizzaRenderable = it
-            modelList.add(pizzaRenderable!!)
-        }
-
-        val ice = ModelRenderable.builder()
-            .setSource(this, Uri.parse("ice.sfb"))
-            .build()
-        ice.thenAccept { it ->
-            iceRenderable = it
-            modelList.add(iceRenderable!!)
+        val uriList = listOf<String>(
+            "Birthday Cupcake.sfb",
+            "cupcake.sfb",
+            "Chocolate Cake.sfb",
+            "hamburgeres.sfb",
+            "pizza.sfb",
+            "diamond.sfb"
+        )
+        val prizeImgList = listOf<Int>(
+            R.drawable.bdcake,
+            R.drawable.cupcake,
+            R.drawable.chocolate_cake,
+            R.drawable.hamburger,
+            R.drawable.pizza,
+            R.drawable.sugar
+        )
+        for (i in 0..uriList.lastIndex) {
+            val model = ModelRenderable.builder().setSource(this, Uri.parse(uriList[i])).build()
+            model.thenAccept {
+                modelImgMap[i] = Pair(it!!, prizeImgList[i])
+            }
         }
     }
 
-    private fun setUpNode(it: AugmentedImage): TransformableNode {
+    private fun setupNode(it: AugmentedImage): TransformableNode {
         fitToScanImageView?.visibility = View.GONE
         val pose = it.centerPose
         val anchor = it.createAnchor(pose)
         val anchorNode = AnchorNode(anchor)
         anchorNode.setParent(fragment.arSceneView.scene)
         val imgNode = TransformableNode(fragment.transformationSystem)
+        imgNode.localScale = Vector3(0.4f, 0.4f, 0.4f)
         imgNode.setParent(anchorNode)
         return imgNode
     }
@@ -183,9 +152,8 @@ class ArActivity : AppCompatActivity() {
     private fun nodeTapListener(imgNode: TransformableNode, index: Int) {
         imgNode.setOnTapListener { hitTestResult, motionEvent ->
             if (!dbUpdated) {
-                insertOrUpdatePrizeInDB(scanImgList[index], prizeImgList[index])
+                insertOrUpdatePrizeInDB(imgList[index], modelImgMap[index]!!.second)
             }
-
         }
     }
 

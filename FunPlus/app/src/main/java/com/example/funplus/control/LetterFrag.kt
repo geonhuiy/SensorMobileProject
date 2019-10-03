@@ -1,5 +1,6 @@
 package com.example.funplus.control
 
+import android.Manifest
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -8,26 +9,16 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.funplus.R
-import com.example.funplus.utility.AudioPlayer
-import com.example.funplus.utility.AudioRecorder
+import com.example.funplus.utility.*
 import kotlinx.android.synthetic.main.fragment_letter.*
-import org.jetbrains.anko.image
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
 
-class LetterFrag : Fragment() {
-    val wordToImg = mutableMapOf<String, Int>(
-        Pair("apple", R.drawable.apple),
-        Pair("banana", R.drawable.banana),
-        Pair("cake", R.drawable.cake),
-        Pair("dog", R.drawable.dog),
-        Pair("egg", R.drawable.egg)
-    )
-    val wordList = mutableListOf<String>("Apple", "Banana", "Cake", "Dog", "Egg", "Fan")
-    val imgList = mutableListOf<Int>(
+class LetterFrag() : Fragment() {
+    private val wordList = mutableListOf<String>("Apple", "Banana", "Cake", "Dog", "Egg", "Fan")
+    private val imgList = mutableListOf<Int>(
         R.drawable.apple,
         R.drawable.banana,
         R.drawable.cake,
@@ -50,6 +41,12 @@ class LetterFrag : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        PermissionChecker.askForPermissionIfNotGranted(
+            this.context!!,
+            this.requireActivity(),
+            RECORD_AUDIO_REQUEST_CODE,
+            Manifest.permission.RECORD_AUDIO
+        )
         audioRecorder = AudioRecorder(this.context!!)
     }
 
@@ -74,25 +71,25 @@ class LetterFrag : Fragment() {
 
         var currentIndex = 0
         goNextBtn.setOnClickListener {
-            if (currentIndex < imgList.size-1) {
+            if (currentIndex < imgList.size - 1) {
                 currentIndex++
-                wordImgBtn.setImageResource(imgList[currentIndex])
+                wordIv.setImageResource(imgList[currentIndex])
                 wordTv.text = wordList[currentIndex]
-            } else  {
+            } else {
                 currentIndex = 0
-                wordImgBtn.setImageResource(imgList[currentIndex])
+                wordIv.setImageResource(imgList[currentIndex])
                 wordTv.text = wordList[currentIndex]
             }
         }
 
         goBackBtn.setOnClickListener {
             if (currentIndex > 0) {
-                wordImgBtn.setImageResource(imgList[currentIndex -1])
-                wordTv.text = wordList[currentIndex -1]
+                wordIv.setImageResource(imgList[currentIndex - 1])
+                wordTv.text = wordList[currentIndex - 1]
                 currentIndex--
-            }else {
-                currentIndex = imgList.size-1
-                wordImgBtn.setImageResource(imgList[currentIndex])
+            } else {
+                currentIndex = imgList.size - 1
+                wordIv.setImageResource(imgList[currentIndex])
                 wordTv.text = wordList[currentIndex]
             }
         }
@@ -114,6 +111,7 @@ class LetterFrag : Fragment() {
         Log.d(TAG, "play audio")
         audioRecorder.isRecording = false
         val fileName = "mRec.raw"
+
         val storageDir = this.context!!.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         lateinit var file: File
         try {

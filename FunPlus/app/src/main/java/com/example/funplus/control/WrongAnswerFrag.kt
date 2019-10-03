@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.funplus.R
+import com.example.funplus.utility.SoundEffectPlayer
 import kotlinx.android.synthetic.main.wrong_answer_frag.*
 
 class WrongAnswerFrag : Fragment(){
@@ -20,11 +21,7 @@ class WrongAnswerFrag : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            // columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-
+        SoundEffectPlayer.playSound(this.requireActivity(), R.raw.ohthatsokay)
     }
 
     override fun onCreateView(

@@ -8,7 +8,6 @@ import java.io.InputStream
 
 class AudioPlayer(val inputStream: InputStream) : Runnable {
     override fun run() {
-
         val minBufferSize = AudioTrack.getMinBufferSize(
             44100, AudioFormat.CHANNEL_OUT_STEREO,
             AudioFormat.ENCODING_PCM_16BIT
@@ -46,7 +45,6 @@ class AudioPlayer(val inputStream: InputStream) : Runnable {
             e.printStackTrace()
         }
 
-
         try {
             inputStream.close()
         } catch (e: IOException) {
@@ -55,7 +53,5 @@ class AudioPlayer(val inputStream: InputStream) : Runnable {
 
         audioTrack.stop()
         audioTrack.release()
-
     }
-
 }

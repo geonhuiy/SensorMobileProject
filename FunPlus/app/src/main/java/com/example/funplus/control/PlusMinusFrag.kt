@@ -152,7 +152,7 @@ class PlusMinusFrag() : Fragment() {
         Log.d(TAG, "isGameInDB():" + allGames.size + " games stored in DB")
         var foundGameInDB = false
         for (gameData: GameData in allGames) {
-            if (gameData.game.equals(game)) {
+            if (gameData.game == game) {
                 foundGameInDB = true
                 break
             }
@@ -179,7 +179,7 @@ class PlusMinusFrag() : Fragment() {
     }
 
     /*if user wants to repeat a game
-     * fetch the previous/last game from db
+     * fetch the previous/last game from db(game are stored with date)
      * and set it on UI
      */
     private fun repeatGame() {
@@ -233,6 +233,8 @@ class PlusMinusFrag() : Fragment() {
         )
     }
 
+    //set three answer options, one is the correct answer, the other 2 are random numbers
+    // and display them on radio buttons
     private fun setAnswerOptions() {
         val num1: Int
         val num2: Int
@@ -258,6 +260,7 @@ class PlusMinusFrag() : Fragment() {
     }
 
 
+    //get user answer from clicked button
     private fun getUserAnswer() {
         radioGroup.clearCheck()
         radioGroup.setOnCheckedChangeListener { group, checkedId ->

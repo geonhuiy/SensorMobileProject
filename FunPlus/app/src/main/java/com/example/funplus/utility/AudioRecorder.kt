@@ -8,6 +8,7 @@ import android.os.Environment
 import android.util.Log
 import com.example.funplus.control.TAG
 import java.io.*
+import java.util.*
 
 class AudioRecorder(val context: Context) : Runnable {
     var isRecording: Boolean = false
@@ -15,6 +16,7 @@ class AudioRecorder(val context: Context) : Runnable {
     lateinit var dataOutputStream: DataOutputStream
 
     override fun run() {
+        val prefix = Date().toString()
         val recFileName = "mRec.raw"
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         try {
