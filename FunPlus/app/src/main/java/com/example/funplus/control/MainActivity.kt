@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    //display plus-minus game by default when app starts
     private fun showPlusMinusFrag() {
         Log.d(TAG, "showPlusMinusFrag()")
         plusMinusFrag = PlusMinusFrag()
@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         fTransaction.commit()
     }
 
+    //switch between different fragments
     private fun goToGameFrag(frag: Fragment) {
         Log.d(TAG, "goToGameFrag")
         fTransaction = fManager.beginTransaction()

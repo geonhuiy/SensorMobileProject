@@ -10,7 +10,7 @@ import com.google.ar.core.Config
 import com.google.ar.core.Session
 import com.google.ar.sceneform.ux.ArFragment
 
-class ArFrag: ArFragment() {
+class ArFrag : ArFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState:
         Bundle?
@@ -31,35 +31,12 @@ class ArFrag: ArFragment() {
     private fun setupAugmentedImageDatabase(config: Config, session: Session?) {
         val augmentedImageDb = AugmentedImageDatabase(session)
         val assetManager = context!!.assets
-
-        val giftbox = assetManager.open("giftbox.jpg")
-        val augmentedImageBitmap1 = BitmapFactory.decodeStream(giftbox)
-        augmentedImageDb.addImage("giftbox", augmentedImageBitmap1)
-
-        val masha = assetManager.open("masha.jpg")
-        val augmentedImageBitmap2 = BitmapFactory.decodeStream(masha)
-        augmentedImageDb.addImage("masha", augmentedImageBitmap2)
-
-        val minions = assetManager.open("minions.jpg")
-        val augmentedImageBitmap3 = BitmapFactory.decodeStream(minions)
-        augmentedImageDb.addImage("minions", augmentedImageBitmap3)
-
-        val ice = assetManager.open("ice.png")
-        val augmentedImageBitmap4 = BitmapFactory.decodeStream(ice)
-        augmentedImageDb.addImage("ice", augmentedImageBitmap4)
-
-        val mylittlepony = assetManager.open("mylittlepony.png")
-        val augmentedImageBitmap5 = BitmapFactory.decodeStream(mylittlepony)
-        augmentedImageDb.addImage("mylittlepony", augmentedImageBitmap5)
-
-        val pororo = assetManager.open("pororo.jpg")
-        val augmentedImageBitmap6 = BitmapFactory.decodeStream(pororo)
-        augmentedImageDb.addImage("pororo", augmentedImageBitmap6)
-
-        val surprise = assetManager.open("surprise.png")
-        val augmentedImageBitmap7 = BitmapFactory.decodeStream(surprise)
-        augmentedImageDb.addImage("surprise", augmentedImageBitmap7)
-
+        val imgList = ArActivity.imgList
+        for (i in 0..imgList.lastIndex) {
+            val inputStream = assetManager.open(imgList[i])
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            augmentedImageDb.addImage(imgList[i], bitmap)
+        }
         config.augmentedImageDatabase = augmentedImageDb
     }
 

@@ -10,46 +10,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/wordImgBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/apple"
-            android:padding="0dp"
-            android:contentDescription="@string/what_do_you_see_in_the_picture"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/wordTv"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="@string/apple"
+            android:orientation="vertical"
             android:textAlignment="center"
-            android:textColor="@color/colorPink"
-            android:textSize="80sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wordImgBtn" />
-
-        <ImageButton
-            android:id="@+id/recordBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/press_button_to_record"
-            android:padding="0dp"
-            android:src="@drawable/record"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wordTv"
-            app:layout_constraintVertical_bias="0.237" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/wordIv"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:contentDescription="@string/what_do_you_see_in_the_picture"
+                android:src="@drawable/apple" />
+
+            <TextView
+                android:id="@+id/wordTv"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="@string/apple"
+                android:textAlignment="center"
+                android:textColor="@color/colorPink"
+                android:textSize="70sp" />
+
+            <ImageButton
+                android:id="@+id/recordBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/press_button_to_record"
+                android:padding="15dp"
+                android:src="@drawable/mic" />
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
@@ -63,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:contentDescription="@string/press_button_to_see_previous_word"
-                android:src="@drawable/previous"
+                android:src="@drawable/backs"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
                 android:contentDescription="@string/press_button_to_see_next_work"
-                android:src="@drawable/next"
+                android:src="@drawable/nexts"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,7 +80,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </FrameLayout>

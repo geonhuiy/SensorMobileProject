@@ -13,4 +13,9 @@
     <string name="apple">apple</string>
     <string name="_123">123</string>
     <string name="abc">abc</string>
+    <string name="click_to_check_if_your_answer_is_correct">click to check if your answer is correct</string>
+    <string name="your_answer_is_not_correct">your answer is not correct</string>
+    <string name="try_again">try again</string>
+    <string name="try_a_new_one">try a new one</string>
+    <string name="press_camera_button">press camera button to scan image and see what you won</string>
 </resources>

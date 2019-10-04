@@ -1,11 +1,14 @@
 package com.example.funplus.control
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
+import com.example.funplus.utility.CAMERA_REQUEST_CODE
+import com.example.funplus.utility.PermissionChecker
 import java.io.File
 
 
@@ -28,6 +31,9 @@ class Picture {
         imgFile = File.createTempFile(filename, ".jpg", imgPath)
         photoPath = imgFile!!.absolutePath
         val photoUri: Uri = FileProvider.getUriForFile(context, "com.domain.fileprovider", imgFile)
+
+        //ask for permission to use camera if not granted
+        PermissionChecker.askForPermissionIfNotGranted(context, activity, CAMERA_REQUEST_CODE, Manifest.permission.CAMERA)
 
         val captureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         //Starts camera activity

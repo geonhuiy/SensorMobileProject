@@ -116,6 +116,7 @@
         android:textStyle="bold"
         android:textSize="30sp"
         android:layout_width="150dp"
+        android:contentDescription="@string/click_to_check_if_your_answer_is_correct"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

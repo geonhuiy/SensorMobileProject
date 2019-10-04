@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.funplus.R
+import com.example.funplus.utility.SoundEffectPlayer
 import kotlinx.android.synthetic.main.wrong_answer_frag.*
 
 class WrongAnswerFrag : Fragment(){
@@ -21,10 +22,8 @@ class WrongAnswerFrag : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            // columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-
+        //play a sound when frag is shown
+        SoundEffectPlayer.playSound(this.requireActivity(), R.raw.ohthatsokay)
     }
 
     override fun onCreateView(
@@ -45,12 +44,14 @@ class WrongAnswerFrag : Fragment(){
 
         plusMinusFrag.gameStarted = true
 
+        //click to repeat the last game
         tryAgainBtn.setOnClickListener {
             plusMinusFrag.toRepeatGame = true
             showPlusMinusFrag(plusMinusFrag)
             Toast.makeText(this.context, "try again", Toast.LENGTH_LONG).show()
         }
 
+        //click to show a different number game
         newGameBtn.setOnClickListener {
             showPlusMinusFrag(plusMinusFrag)
             Toast.makeText(this.context, "new game", Toast.LENGTH_LONG).show()
@@ -59,6 +60,7 @@ class WrongAnswerFrag : Fragment(){
     }
 
 
+    //go back to plus-minus fragment
     private fun showPlusMinusFrag(frag : Fragment) {
         Log.d(TAG, "showPlusMinusFrag from wrong answer frag")
         fTransaction = fManager.beginTransaction()

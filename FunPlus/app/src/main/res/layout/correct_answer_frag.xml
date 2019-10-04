@@ -4,45 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/numTv"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:background="@color/colorLightYellow"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="268"
+        android:orientation="vertical"
         android:textAlignment="center"
-        android:textColor="@color/colorPink"
-        android:textSize="90sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/playNumAudioBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/colorWhite"
-        android:src="@drawable/audio"
-        app:layout_constraintBottom_toTopOf="@+id/goToScanBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.839"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numTv"
-        app:layout_constraintVertical_bias="0.022" />
-
-    <ImageButton
-        android:id="@+id/goToScanBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorWhite"
-        android:src="@drawable/camera"
-        android:padding="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/numTv"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:background="@color/colorLightYellow"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/colorPink"
+            android:textSize="90sp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/goToScanBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorLightGray"
+            android:backgroundTint="@color/colorWhite"
+            android:backgroundTintMode="@color/colorLightYellow"
+            android:padding="10dp"
+            android:src="@drawable/camera"
+            android:contentDescription="@string/press_camera_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintCircleRadius="180dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/numTv" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
