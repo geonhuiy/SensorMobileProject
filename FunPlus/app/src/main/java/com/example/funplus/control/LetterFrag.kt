@@ -17,7 +17,10 @@ import java.io.FileInputStream
 import java.io.IOException
 
 class LetterFrag() : Fragment() {
+    //a list of words to show on the UI
     private val wordList = mutableListOf<String>("Apple", "Banana", "Cake", "Dog", "Egg", "Fan")
+
+    //a list of images matching with the words to show on the UI
     private val imgList = mutableListOf<Int>(
         R.drawable.apple,
         R.drawable.banana,
@@ -41,6 +44,7 @@ class LetterFrag() : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //check for audio permission, ask for it during runtime if not granted
         PermissionChecker.askForPermissionIfNotGranted(
             this.context!!,
             this.requireActivity(),
@@ -53,22 +57,20 @@ class LetterFrag() : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        recordBtn.setOnTouchListener(object : View.OnTouchListener {
-
+        recordBtn.setOnTouchListener { v, event ->
             //record when button down, play when button up
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                when (event?.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        recordAudio()
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        playAudio()
-                    }
+            when (event?.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    recordAudio()
                 }
-                return v?.onTouchEvent(event) ?: true
+                MotionEvent.ACTION_UP -> {
+                    playAudio()
+                }
             }
-        })
+            v?.onTouchEvent(event) ?: true
+        }
 
+        //show next image+word, loop through the list, start from first when reach the last
         var currentIndex = 0
         goNextBtn.setOnClickListener {
             if (currentIndex < imgList.size - 1) {
@@ -82,6 +84,7 @@ class LetterFrag() : Fragment() {
             }
         }
 
+        //show previous image+word, start from the last when reach the first
         goBackBtn.setOnClickListener {
             if (currentIndex > 0) {
                 wordIv.setImageResource(imgList[currentIndex - 1])

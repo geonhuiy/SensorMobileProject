@@ -16,7 +16,8 @@ class AudioRecorder(val context: Context) : Runnable {
     lateinit var dataOutputStream: DataOutputStream
 
     override fun run() {
-        val prefix = Date().toString()
+
+        //get/make a file with given filename and directory
         val recFileName = "mRec.raw"
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         try {

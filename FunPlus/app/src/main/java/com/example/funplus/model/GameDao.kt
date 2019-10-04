@@ -4,6 +4,11 @@ import androidx.room.*
 
     @Dao
     interface GameDao {
+
+        @Query("SELECT * FROM gamedata ORDER BY  round(100*loseCount/(winCount+loseCount), 2) DESC  LIMIT 10")
+        fun getLastTenBySuccessRate(): List<GameData>
+
+
         @Query("SELECT * FROM gamedata")
         fun getAll(): List<GameData>
 

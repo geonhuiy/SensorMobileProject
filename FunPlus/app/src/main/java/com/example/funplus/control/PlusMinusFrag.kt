@@ -60,6 +60,8 @@ class PlusMinusFrag() : Fragment() {
 
         /*set game on the UI */
         setGame()
+
+        //when button clicked, check if user answer is correct or wrong, and display a frag accordingly
         okBtn.setOnClickListener {
             Log.d(TAG + "userAnswer:", userAnswer.toString())
             Log.d(TAG + "correctAnswer:", correctAnswer.toString())

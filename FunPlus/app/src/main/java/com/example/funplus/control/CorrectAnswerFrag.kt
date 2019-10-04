@@ -26,6 +26,7 @@ class CorrectAnswerFrag : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+        //user answer is correct, play a cheering sound
         playCheeringSound()
     }
 
@@ -46,15 +47,17 @@ class CorrectAnswerFrag : Fragment() {
         //show a random number from a predefined list
         val num = showNumber()
 
+        //click camera button to start AR activity(open camera and start scanning)
         goToScanBtn.setOnClickListener {
             val intent = Intent(this.context, ArActivity::class.java)
             intent.putExtra("randomNum", num)
             startActivity(intent)
             Toast.makeText(this.context, "go to ArActivity to scan image", Toast.LENGTH_LONG).show()
-            activity!!.supportFragmentManager.popBackStack()
+            this.requireActivity().supportFragmentManager.popBackStack()
         }
     }
 
+    //show a random number from a predefined list
     private fun showNumber(): Int {
         val randomNum = numList.random()
         numTv.text = randomNum.toString()
@@ -62,6 +65,7 @@ class CorrectAnswerFrag : Fragment() {
         return randomNum
     }
 
+    //play a random cheering sound
     private fun playCheeringSound() {
         val soundList = listOf<Int>(R.raw.unbelievable, R.raw.woohoo, R.raw.yay)
         SoundEffectPlayer.playSound(this.requireActivity(), soundList.random())

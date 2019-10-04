@@ -21,6 +21,8 @@ class WrongAnswerFrag : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //play a sound when frag is shown
         SoundEffectPlayer.playSound(this.requireActivity(), R.raw.ohthatsokay)
     }
 
@@ -42,12 +44,14 @@ class WrongAnswerFrag : Fragment(){
 
         plusMinusFrag.gameStarted = true
 
+        //click to repeat the last game
         tryAgainBtn.setOnClickListener {
             plusMinusFrag.toRepeatGame = true
             showPlusMinusFrag(plusMinusFrag)
             Toast.makeText(this.context, "try again", Toast.LENGTH_LONG).show()
         }
 
+        //click to show a different number game
         newGameBtn.setOnClickListener {
             showPlusMinusFrag(plusMinusFrag)
             Toast.makeText(this.context, "new game", Toast.LENGTH_LONG).show()
@@ -56,6 +60,7 @@ class WrongAnswerFrag : Fragment(){
     }
 
 
+    //go back to plus-minus fragment
     private fun showPlusMinusFrag(frag : Fragment) {
         Log.d(TAG, "showPlusMinusFrag from wrong answer frag")
         fTransaction = fManager.beginTransaction()
