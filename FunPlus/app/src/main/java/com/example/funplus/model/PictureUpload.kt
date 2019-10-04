@@ -2,6 +2,7 @@ package com.example.funplus.model
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.util.Log
 import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
 import java.io.InputStream
@@ -41,6 +42,7 @@ class PictureUpload(context: Context) {
             //Builds a JSON from the object created above
             val gson = Gson()
             val json = gson.toJson(newLoc)
+            Log.d("Json",json)
             //Overwrites content in the defined .php file
             outputStream.bufferedWriter().use {
                 it.write(json.toString())
@@ -54,7 +56,7 @@ class PictureUpload(context: Context) {
             val result = StringBuilder()
             result.append(allText)
             val str = result.toString()
-            //Log.d("Upload", str)
+            Log.d("Upload", str)
         }
     }
 

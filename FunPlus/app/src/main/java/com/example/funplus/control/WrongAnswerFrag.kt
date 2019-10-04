@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.wrong_answer_frag.*
 class WrongAnswerFrag : Fragment(){
     lateinit var fTransaction: FragmentTransaction
     lateinit var fManager: FragmentManager
-    lateinit var plusMinusFrag: PlusMinusFrag
+    lateinit var plusMinusFrag: NumberFrag
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ class WrongAnswerFrag : Fragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         fManager = this!!.fragmentManager!!
-        plusMinusFrag = PlusMinusFrag()
+        plusMinusFrag = NumberFrag()
 
         plusMinusFrag.gameStarted = true
 

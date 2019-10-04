@@ -16,12 +16,12 @@ import com.example.funplus.model.Game
 import com.example.funplus.model.GameDB
 import com.example.funplus.model.GameData
 import com.example.funplus.model.GameModel
-import kotlinx.android.synthetic.main.plus_minus_frag.*
+import kotlinx.android.synthetic.main.number_frag.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.util.*
 
-class PlusMinusFrag() : Fragment() {
+class NumberFrag() : Fragment() {
     lateinit var correctAnswerFrag: CorrectAnswerFrag
     lateinit var wrongAnswerFrag: WrongAnswerFrag
     lateinit var fTransaction: FragmentTransaction
@@ -45,7 +45,7 @@ class PlusMinusFrag() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.plus_minus_frag, container, false)
+        val view = inflater.inflate(R.layout.number_frag, container, false)
         return view
     }
 
@@ -218,7 +218,6 @@ class PlusMinusFrag() : Fragment() {
         Log.d(TAG, "goToAnswerFrag")
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, frag)
-        //fTransaction.addToBackStack(null)
         fTransaction.commit()
     }
 

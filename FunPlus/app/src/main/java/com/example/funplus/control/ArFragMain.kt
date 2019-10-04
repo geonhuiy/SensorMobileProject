@@ -1,13 +1,15 @@
 package com.example.funplus.control
 
-import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.funplus.R
 import com.example.funplus.model.Prize
 import com.example.funplus.model.PrizeDB
@@ -19,11 +21,11 @@ import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
-import kotlinx.android.synthetic.main.activity_ar.*
+import kotlinx.android.synthetic.main.ar_frag.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
-class ArActivity : AppCompatActivity() {
+class ArFragMain : Fragment() {
     companion object{
         val imgList = listOf<String>(
             "giftbox.jpg",
@@ -35,19 +37,30 @@ class ArActivity : AppCompatActivity() {
         )
     }
 
+    lateinit var fTransaction: FragmentTransaction
+    lateinit var fManager: FragmentManager
+    lateinit var prizeListFrag : PrizeListFrag
     lateinit var prizeDB: PrizeDB
     var dbUpdated = false
     private var modelImgMap = mutableMapOf<Int, Pair<ModelRenderable, Int>>()
     private lateinit var fragment: ArFragment
-    private var fitToScanImageView: ImageView? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ar)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.ar_frag, container, false)
+        return view
+    }
 
-        prizeDB = PrizeDB.get(this)
-        fragment = supportFragmentManager.findFragmentById(R.id.arimage_fragment) as ArFragment
-        fitToScanImageView = findViewById<ImageView>(R.id.fit_to_scan_img)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        fManager = this.fragmentManager!!
+        prizeListFrag = PrizeListFrag()
+        prizeDB = PrizeDB.get(this.context!!)
+        fragment = childFragmentManager.findFragmentById(R.id.arimage_fragment) as ArFragment
 
         createRenderables()
 
@@ -56,11 +69,7 @@ class ArActivity : AppCompatActivity() {
         }
 
         seePrizeListBtn.setOnClickListener {
-            goToPrizeList()
-        }
-
-        moreGameBtn.setOnClickListener {
-            goToPlusMinus()
+            goToPrizeListFrag()
         }
     }
 
@@ -80,9 +89,10 @@ class ArActivity : AppCompatActivity() {
                     if (anchors.isEmpty()) {
                         val imgNode = setupNode(it)
 
-                        Log.d(TAG + "ramdom: ", CorrectAnswerFrag.numList[0].toString())
+                        Log.d(TAG + "random: ", CorrectAnswerFrag.numList[0].toString())
 
-                        val randomNum = getIntent().getIntExtra("randomNum", 0)
+                        //val randomNum = activity!!.intent.getIntExtra("randomNum", 0)
+                        val randomNum = CorrectAnswerFrag.randomNum
                         Log.d(TAG + "ramdom: ", randomNum.toString())
 
                         var modelSet = false
@@ -101,7 +111,7 @@ class ArActivity : AppCompatActivity() {
                             }
                         }
                         if (!modelSet) {
-                            Toast.makeText(this, "no matching image", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this.context, "no matching image", Toast.LENGTH_LONG).show()
                         }
                     }
                 }
@@ -129,7 +139,7 @@ class ArActivity : AppCompatActivity() {
             R.drawable.sugar
         )
         for (i in 0..uriList.lastIndex) {
-            val model = ModelRenderable.builder().setSource(this, Uri.parse(uriList[i])).build()
+            val model = ModelRenderable.builder().setSource(this.context, Uri.parse(uriList[i])).build()
             model.thenAccept {
                 modelImgMap[i] = Pair(it!!, prizeImgList[i])
             }
@@ -137,7 +147,7 @@ class ArActivity : AppCompatActivity() {
     }
 
     private fun setupNode(it: AugmentedImage): TransformableNode {
-        fitToScanImageView?.visibility = View.GONE
+        fit_to_scan_img?.visibility = View.GONE
         val pose = it.centerPose
         val anchor = it.createAnchor(pose)
         val anchorNode = AnchorNode(anchor)
@@ -154,6 +164,7 @@ class ArActivity : AppCompatActivity() {
             if (!dbUpdated) {
                 insertOrUpdatePrizeInDB(imgList[index], modelImgMap[index]!!.second)
             }
+            seePrizeListBtn.visibility = View.VISIBLE
         }
     }
 
@@ -201,18 +212,10 @@ class ArActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun goToPlusMinus() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        Toast.makeText(this, "go back to main activity", Toast.LENGTH_SHORT).show()
-        finish()
-    }
-
-    private fun goToPrizeList() {
-        val intent = Intent(this, PrizeListActivity::class.java)
-        startActivity(intent)
-        Toast.makeText(this, "go to see prize list", Toast.LENGTH_SHORT).show()
-        finish()
+    private fun goToPrizeListFrag() {
+        Log.d(TAG, "goToPrizeListFrag")
+        fTransaction = fManager.beginTransaction()
+        fTransaction.replace(R.id.fcontainer, prizeListFrag)
+        fTransaction.commit()
     }
 }
