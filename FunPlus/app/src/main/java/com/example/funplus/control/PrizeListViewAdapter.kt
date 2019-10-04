@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.funplus.R
 import com.example.funplus.model.Prize
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.activity_ar.view.*
+import kotlinx.android.synthetic.main.ar_frag.view.*
 import kotlinx.android.synthetic.main.prize_row.view.*
 import org.jetbrains.anko.image
 

@@ -15,17 +15,14 @@ import com.example.funplus.R
 import com.example.funplus.model.Picture
 import com.example.funplus.model.PictureUpload
 import com.example.funplus.model.UserLocation
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 
 const val TAG = "DBG"
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var plusMinusFrag: PlusMinusFrag
+    private lateinit var plusMinusFrag: NumberFrag
     private lateinit var letterFrag: LetterFrag
-    private lateinit var sosFrag: SosFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
 
@@ -41,9 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         fManager = supportFragmentManager
         showPlusMinusFrag()
-        plusMinusFrag = PlusMinusFrag()
+        plusMinusFrag = NumberFrag()
         letterFrag = LetterFrag()
-        sosFrag = SosFrag()
 
         goToNumberGameBtn.setOnClickListener {
             goToGameFrag(plusMinusFrag)
@@ -63,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     //display plus-minus game by default when app starts
     private fun showPlusMinusFrag() {
         Log.d(TAG, "showPlusMinusFrag()")
-        plusMinusFrag = PlusMinusFrag()
+        plusMinusFrag = NumberFrag()
         fTransaction = fManager.beginTransaction()
         fTransaction.add(R.id.fcontainer, plusMinusFrag)
         fTransaction.commit()

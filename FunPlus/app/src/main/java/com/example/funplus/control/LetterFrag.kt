@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.funplus.R
 import com.example.funplus.utility.*
-import kotlinx.android.synthetic.main.fragment_letter.*
+import kotlinx.android.synthetic.main.word_frag.*
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
@@ -38,7 +38,7 @@ class LetterFrag() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater?.inflate(R.layout.fragment_letter, container, false)
+        val view = inflater?.inflate(R.layout.word_frag, container, false)
         return view
     }
 

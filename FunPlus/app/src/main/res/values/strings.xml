@@ -18,4 +18,7 @@
     <string name="try_again">try again</string>
     <string name="try_a_new_one">try a new one</string>
     <string name="press_camera_button">press camera button to scan image and see what you won</string>
+    <string name="see_your_prize_list">click to see your prize list</string>
+    <string name="_play_number_games">click button to play number games</string>
+    <string name="play_word_games">click button to play word games</string>
 </resources>
