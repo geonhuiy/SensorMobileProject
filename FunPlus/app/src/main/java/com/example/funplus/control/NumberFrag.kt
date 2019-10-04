@@ -218,7 +218,6 @@ class NumberFrag() : Fragment() {
         Log.d(TAG, "goToAnswerFrag")
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, frag)
-        //fTransaction.addToBackStack(null)
         fTransaction.commit()
     }
 

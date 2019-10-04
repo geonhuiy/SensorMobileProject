@@ -71,10 +71,6 @@ class ArFragMain : Fragment() {
         seePrizeListBtn.setOnClickListener {
             goToPrizeListFrag()
         }
-
-       /* moreGameBtn.setOnClickListener {
-            goToPlusMinus()
-        }*/
     }
 
     private fun onUpdate(frameTime: FrameTime) {

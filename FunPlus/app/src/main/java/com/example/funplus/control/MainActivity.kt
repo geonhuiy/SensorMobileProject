@@ -47,9 +47,7 @@ class MainActivity : AppCompatActivity() {
         goToLetterGameBtn.setOnClickListener {
             goToGameFrag(letterFrag)
         }
-        /*sosBtn.setOnClickListener {
-            goToGameFrag(sosFrag)
-        }*/
+
         fab_sos.setOnClickListener {
             userPicture.takePicture(this, this)
             userLoc.getLocation(this)
