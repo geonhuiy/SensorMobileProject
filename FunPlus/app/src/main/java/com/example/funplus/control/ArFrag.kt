@@ -24,20 +24,20 @@ class ArFrag : ArFragment() {
 
     override fun getSessionConfiguration(session: Session?): Config {
         val config = super.getSessionConfiguration(session)
-        setupAugmentedImageDatabase(config, session)
+        setupImgDb(config, session)
         return config
     }
 
-    private fun setupAugmentedImageDatabase(config: Config, session: Session?) {
-        val augmentedImageDb = AugmentedImageDatabase(session)
+    private fun setupImgDb(config: Config, session: Session?) {
+        val imageDb = AugmentedImageDatabase(session)
         val assetManager = context!!.assets
-        val imgList = ArActivity.imgList
+        val imgList = ArFragMain.imgList
         for (i in 0..imgList.lastIndex) {
             val inputStream = assetManager.open(imgList[i])
             val bitmap = BitmapFactory.decodeStream(inputStream)
-            augmentedImageDb.addImage(imgList[i], bitmap)
+            imageDb.addImage(imgList[i], bitmap)
         }
-        config.augmentedImageDatabase = augmentedImageDb
+        config.augmentedImageDatabase = imageDb
     }
 
 }

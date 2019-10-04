@@ -9,6 +9,8 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,9 +32,9 @@
             style="@android:style/DeviceDefault.ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorRed"
-            android:background="@color/colorLightGray"
             android:layout_marginEnd="5dp"
+            android:background="@color/colorLightGray"
+            android:textColor="@color/colorRed"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -40,10 +42,10 @@
             android:id="@+id/num2Btn"
             style="@android:style/DeviceDefault.ButtonBar"
             android:layout_width="wrap_content"
-            android:background="@color/colorLightGray"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
             android:layout_marginEnd="5dp"
+            android:background="@color/colorLightGray"
+            android:textColor="@color/colorPrimary"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -111,13 +113,14 @@
 
     <Button
         android:id="@+id/okBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/click_to_check_if_your_answer_is_correct"
         android:text="@string/ok"
         android:textColor="@color/colorLightGreen"
-        android:textStyle="bold"
         android:textSize="30sp"
-        android:layout_width="150dp"
-        android:contentDescription="@string/click_to_check_if_your_answer_is_correct"
-        android:layout_height="wrap_content"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
