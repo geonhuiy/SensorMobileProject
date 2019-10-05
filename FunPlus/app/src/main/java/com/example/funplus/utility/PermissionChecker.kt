@@ -16,6 +16,12 @@ const val ACCESS_COARSE_LOCATION_REQUEST_CODE = 14
 const val ACCESS_NETWORK_STATE_REQUEST_CODE = 15
 const val CAMERA_REQUEST_CODE = 16
 const val CAMERA_AR_REQUEST_CODE = 17
+const val ACCESS_COARSE_LOCATION = android.Manifest.permission.ACCESS_COARSE_LOCATION
+const val ACCESS_FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION
+const val CAMERA = android.Manifest.permission.CAMERA
+const val RECORD_AUDIO = android.Manifest.permission.RECORD_AUDIO
+const val INTERNET = android.Manifest.permission.INTERNET
+const val ACCESS_NETWORK_STATE = android.Manifest.permission.ACCESS_NETWORK_STATE
 
 object PermissionChecker{
     fun askForPermissionIfNotGranted(context: Context, activity: Activity, requestCode: Int, request: String) {
