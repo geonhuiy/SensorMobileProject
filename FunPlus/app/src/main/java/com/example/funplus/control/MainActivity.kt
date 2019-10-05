@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -95,13 +96,42 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doUpload(bitmapString: String) {
-        Log.d(TAG, "doUpload")
-        val location = userLoc.getLocation(this, this)
+        Log.d(TAG, "doUpload MAINactity")
+
+        val callbackDoThisWhenCoordinatesAreReady = fun( coordinates: Pair<Double,Double>) {
+
+        }
+
+        val callbackDoThisWhenFailedToGetCoordinates = fun( errorMessage : String) {
+
+        }
+
+       // userLoc.getLocationv1(callbackDoThisWhenCoordinatesAreReady,callbackDoThisWhenFailedToGetCoordinates, this, this )
+
+
+        userLoc.getLocationv2(this, this).addOnCompleteListener{
+            if (it.isSuccessful && it.result != null) {
+                    val currentLat = it.result!!.latitude
+                    val currentLong = it.result!!.longitude
+                Log.d(TAG, "successfuly got coordinates. now uploading. lat=" + currentLat.toString() +  "longt=" + currentLong.toString())
+                Uploader.doUpload(currentLat.toString(), currentLong.toString(), bitmapString)
+
+            } else {
+
+                Toast.makeText(this, "failed to get location coordinates", Toast.LENGTH_LONG).show()
+                Log.d(TAG, it.result.toString())
+
+            }
+        }
+
+
+        /**val location = userLoc.getLocation(this, this)
         Log.d(TAG + " CurrentLoc: ", location.toString())
         Log.d(TAG + "Photopath", userPicture.photoPath)
         PermissionChecker.askForPermissionIfNotGranted(this, this, INTERNET_REQUEST_CODE, INTERNET)
         PermissionChecker.askForPermissionIfNotGranted(this, this, ACCESS_NETWORK_STATE_REQUEST_CODE, ACCESS_NETWORK_STATE)
         Uploader.doUpload(location.first.toString(), location.second.toString(), bitmapString)
+        */
     }
 
 }
