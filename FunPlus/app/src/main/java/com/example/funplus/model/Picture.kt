@@ -8,9 +8,9 @@ import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
 import com.example.funplus.control.MainActivity
+import com.example.funplus.utility.CAMERA
 import com.example.funplus.utility.CAMERA_REQUEST_CODE
 import com.example.funplus.utility.PermissionChecker
-import com.example.funplus.utility.RECORD_AUDIO_REQUEST_CODE
 import java.io.File
 
 
@@ -26,6 +26,10 @@ class Picture {
      * @param activity Refers to MainActivity
      */
     fun takePicture(context: Context, activity: MainActivity) {
+
+        //ask for permission to use camera if not granted
+        PermissionChecker.askForPermissionIfNotGranted(context, activity, CAMERA_REQUEST_CODE, CAMERA)
+
         //File name and path
         val filename = "sosImg"
         val imgPath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -33,9 +37,6 @@ class Picture {
         imgFile = File.createTempFile(filename, ".jpg", imgPath)
         photoPath = imgFile!!.absolutePath
         val photoUri: Uri = FileProvider.getUriForFile(context, "com.domain.fileprovider", imgFile)
-
-        //ask for permission to use camera if not granted
-        PermissionChecker.askForPermissionIfNotGranted(context, activity, CAMERA_REQUEST_CODE, Manifest.permission.CAMERA)
 
         val captureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         //Starts camera activity

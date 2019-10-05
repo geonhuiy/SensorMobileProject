@@ -13,8 +13,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.funplus.R
 import com.example.funplus.model.Picture
-import com.example.funplus.model.PictureUpload
 import com.example.funplus.model.UserLocation
+import com.example.funplus.utility.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 
@@ -25,12 +25,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var letterFrag: LetterFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
-
-    private val userPicture = Picture()
-
-    var currentLat: Double = 0.0
-    var currentLong: Double = 0.0
-    var userLoc = UserLocation()
+    private lateinit var userPicture: Picture
+    private lateinit var userLoc: UserLocation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +45,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         fab_sos.setOnClickListener {
+            userPicture = Picture()
             userPicture.takePicture(this, this)
-            userLoc.getLocation(this)
+            userLoc = UserLocation()
         }
     }
 
@@ -68,7 +65,6 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "goToGameFrag")
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, frag)
-        //fTransaction.addToBackStack(null)
         fTransaction.commit()
     }
 
@@ -82,6 +78,7 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        PermissionChecker.askForPermissionIfNotGranted(this, this, CAMERA_REQUEST_CODE, CAMERA)
         if (requestCode == userPicture.captureReq && resultCode == Activity.RESULT_OK) {
             //Gets a bitmap from picture taken with camera
             val imgBitmap = BitmapFactory.decodeFile(userPicture.photoPath)
@@ -89,14 +86,22 @@ class MainActivity : AppCompatActivity() {
             imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
             val bitmapString = Base64.encodeToString(byteArray, Base64.DEFAULT)
+
             Log.d("Bitmap", bitmapString)
-            currentLat = userLoc.currentLat
-            currentLong = userLoc.currentLong
-            val uploadPicture = PictureUpload(this)
-            uploadPicture.upload(currentLat, currentLong, bitmapString)
-            Log.d("CurrentLat", currentLat.toString())
-            Log.d("Photopath", userPicture.photoPath)
+
+            doUpload(bitmapString)
+
         }
+    }
+
+    private fun doUpload(bitmapString: String) {
+        Log.d(TAG, "doUpload")
+        val location = userLoc.getLocation(this, this)
+        Log.d(TAG + " CurrentLoc: ", location.toString())
+        Log.d(TAG + "Photopath", userPicture.photoPath)
+        PermissionChecker.askForPermissionIfNotGranted(this, this, INTERNET_REQUEST_CODE, INTERNET)
+        PermissionChecker.askForPermissionIfNotGranted(this, this, ACCESS_NETWORK_STATE_REQUEST_CODE, ACCESS_NETWORK_STATE)
+        Uploader.doUpload(location.first.toString(), location.second.toString(), bitmapString)
     }
 
 }

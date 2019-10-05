@@ -49,7 +49,7 @@ class LetterFrag() : Fragment() {
             this.context!!,
             this.requireActivity(),
             RECORD_AUDIO_REQUEST_CODE,
-            Manifest.permission.RECORD_AUDIO
+            RECORD_AUDIO
         )
         audioRecorder = AudioRecorder(this.context!!)
     }

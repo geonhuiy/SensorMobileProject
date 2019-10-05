@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.funplus.R
+import com.example.funplus.utility.CAMERA
+import com.example.funplus.utility.CAMERA_AR_REQUEST_CODE
+import com.example.funplus.utility.PermissionChecker
 import com.example.funplus.utility.SoundEffectPlayer
 import kotlinx.android.synthetic.main.correct_answer_frag.*
 
@@ -17,10 +20,8 @@ class CorrectAnswerFrag : Fragment() {
     lateinit var fTransaction: FragmentTransaction
     lateinit var fManager: FragmentManager
     lateinit var arFrag: ArFragMain
-    companion object {
-        val numList = listOf<Int>(123, 234, 345, 456, 567, 678)
-        val randomNum = numList.random()
-    }
+    val numList = listOf<Int>(123, 234, 345, 456, 567, 678)
+    val randomNum = numList.random()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +29,6 @@ class CorrectAnswerFrag : Fragment() {
         }
         //user answer is correct, play a cheering sound
         fManager = this.fragmentManager!!
-        arFrag = ArFragMain()
         playCheeringSound()
     }
 
@@ -71,6 +71,8 @@ class CorrectAnswerFrag : Fragment() {
 
     private fun goToArFrag() {
         Log.d(TAG, "goToArFrag")
+        PermissionChecker.askForPermissionIfNotGranted(this.context!!, this.requireActivity(), CAMERA_AR_REQUEST_CODE, CAMERA)
+        arFrag = ArFragMain()
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, arFrag)
         fTransaction.commit()
