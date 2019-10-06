@@ -26,8 +26,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var letterFrag: LetterFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
-    private lateinit var userPicture: Picture
-    private lateinit var userLoc: UserLocation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +44,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         fab_sos.setOnClickListener {
-            userPicture = Picture()
-            userPicture.takePicture(this, this)
-            userLoc = UserLocation()
+            Picture.takePicture(this, this)
+            UserLocation.getLocation(this, this)
         }
     }
 
@@ -80,9 +77,9 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         PermissionChecker.askForPermissionIfNotGranted(this, this, CAMERA_REQUEST_CODE, CAMERA)
-        if (requestCode == userPicture.captureReq && resultCode == Activity.RESULT_OK) {
+        if (requestCode == Picture.captureReq && resultCode == Activity.RESULT_OK) {
             //Gets a bitmap from picture taken with camera
-            val imgBitmap = BitmapFactory.decodeFile(userPicture.photoPath)
+            val imgBitmap = BitmapFactory.decodeFile(Picture.photoPath)
             val byteArrayOutputStream = ByteArrayOutputStream()
             imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
@@ -97,41 +94,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun doUpload(bitmapString: String) {
         Log.d(TAG, "doUpload MAINactity")
-
-        val callbackDoThisWhenCoordinatesAreReady = fun( coordinates: Pair<Double,Double>) {
-
-        }
-
-        val callbackDoThisWhenFailedToGetCoordinates = fun( errorMessage : String) {
-
-        }
-
-       // userLoc.getLocationv1(callbackDoThisWhenCoordinatesAreReady,callbackDoThisWhenFailedToGetCoordinates, this, this )
-
-
-        userLoc.getLocationv2(this, this).addOnCompleteListener{
+        UserLocation.getLocation(this, this).addOnCompleteListener {
             if (it.isSuccessful && it.result != null) {
-                    val currentLat = it.result!!.latitude
-                    val currentLong = it.result!!.longitude
-                Log.d(TAG, "successfuly got coordinates. now uploading. lat=" + currentLat.toString() +  "longt=" + currentLong.toString())
+                val currentLat = it.result!!.latitude
+                val currentLong = it.result!!.longitude
+                Log.d(TAG,"success: lat=" + currentLat.toString() + "longt=" + currentLong.toString())
                 Uploader.doUpload(currentLat.toString(), currentLong.toString(), bitmapString)
-
             } else {
-
                 Toast.makeText(this, "failed to get location coordinates", Toast.LENGTH_LONG).show()
                 Log.d(TAG, it.result.toString())
 
             }
         }
-
-
-        /**val location = userLoc.getLocation(this, this)
-        Log.d(TAG + " CurrentLoc: ", location.toString())
-        Log.d(TAG + "Photopath", userPicture.photoPath)
-        PermissionChecker.askForPermissionIfNotGranted(this, this, INTERNET_REQUEST_CODE, INTERNET)
-        PermissionChecker.askForPermissionIfNotGranted(this, this, ACCESS_NETWORK_STATE_REQUEST_CODE, ACCESS_NETWORK_STATE)
-        Uploader.doUpload(location.first.toString(), location.second.toString(), bitmapString)
-        */
     }
 
 }
