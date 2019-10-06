@@ -13,12 +13,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.funplus.R
 import com.example.funplus.model.Picture
+import com.example.funplus.model.StepCounterService
 import com.example.funplus.model.UserLocation
 import com.example.funplus.utility.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,7 +28,7 @@ import java.io.ByteArrayOutputStream
 
 const val TAG = "DBG"
 
-class MainActivity : AppCompatActivity(), SensorEventListener {
+class MainActivity : AppCompatActivity(){
     private lateinit var plusMinusFrag: NumberFrag
 
     private lateinit var letterFrag: LetterFrag
@@ -36,20 +38,23 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var userPicture: Picture
     private lateinit var userLoc: UserLocation
 
-    private lateinit var sensorManager: SensorManager
-    private var stepCountSensor: Sensor? = null
+    //private lateinit var sensorManager: SensorManager
+    //private var stepCountSensor: Sensor? = null
+
+    private var stepCountService = StepCounterService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        stepCountSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        //sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        //stepCountSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
         fManager = supportFragmentManager
         showPlusMinusFrag()
         plusMinusFrag = NumberFrag()
         letterFrag = LetterFrag()
-
+        //Starts step counter service
+        startService(Intent(applicationContext, StepCounterService::class.java))
         goToNumberGameBtn.setOnClickListener {
             goToGameFrag(plusMinusFrag)
         }
@@ -64,25 +69,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        sensorManager.registerListener(this, stepCountSensor, SensorManager.SENSOR_DELAY_FASTEST)
+    private fun startService(v: View) {
+        val serviceIntent= Intent(this, StepCounterService::class.java)
+        startService(serviceIntent)
     }
 
-    override fun onPause() {
-        super.onPause()
-        sensorManager.unregisterListener(this)
-    }
-
-    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-        //Do something
-    }
-
-    override fun onSensorChanged(p0: SensorEvent) {
-        if (p0.sensor == stepCountSensor) {
-            //goToLetterGameBtn.text = p0.values[0].toString()
-            Log.d("Steps",p0.values[0].toString() )
-        }
+    private fun stopService(v: View) {
+        val serviceIntent= Intent(this, StepCounterService::class.java)
+        stopService(serviceIntent)
     }
     
     //display plus-minus game by default when app starts
