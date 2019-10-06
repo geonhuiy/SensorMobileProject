@@ -51,7 +51,7 @@ class StepCounterService : Service(), SensorEventListener {
         val pendingStopIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val notificationChannel = StepCounterChannel()
-        
+
         //Sets the text/icon for the notification
         val notification =
             NotificationCompat.Builder(this, notificationChannel.CHANNEL_ID)
