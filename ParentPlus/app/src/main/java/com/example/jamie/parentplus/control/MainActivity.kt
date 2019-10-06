@@ -4,15 +4,12 @@ import android.content.Context
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.jamie.parentplus.R
 import kotlinx.android.synthetic.main.activity_main.*
-import org.osmdroid.config.Configuration
-import java.net.URL
 
 const val TAG = "PARENTPLUS"
 
@@ -30,10 +27,7 @@ class MainActivity : AppCompatActivity() {
         photoFrag = PhotoFrag()
 
         if (isNetworkAvailable()) {
-            val imgFileUrl = URL("https://users.metropolia.fi/~youqins/uploads/sosFile.txt")
-            val locFileUrl = URL("https://users.metropolia.fi/~youqins/uploads/location.txt")
-            DownloadTask(this, imgFileUrl).execute()
-            //DownloadTask(this, locFileUrl).execute()
+            DownloadTask(this).execute()
         }
 
         mapBtn.setOnClickListener {
@@ -64,24 +58,16 @@ class MainActivity : AppCompatActivity() {
 
 
     fun getDownloadResult(result: String) {
+        Log.d(TAG+"getResult: ", result)
         val lines = result.lines()
         Log.d(TAG+"line1: ", lines[0])
         Log.d(TAG+"line2: ", lines[1])
-
         getLocDataPassToMap(lines)
-
-        getImageString(lines)
-
+        getImageString(result)
     }
 
-    private fun getImageString(lines: List<String>) {
-        var imgString = ""
-        for (i in 2..lines.lastIndex) {
-            imgString += lines[i]
-        }
-        imgString = imgString.replace("\\s+"," ")
-        Log.d(TAG, imgString)
-
+    private fun getImageString(input: String) {
+        val imgString = input.substringAfter("bitmap=").replace(" ", "+").replace("\n", "")
         val bundle = Bundle()
         bundle.putString("imgString", imgString)
         photoFrag.arguments = bundle

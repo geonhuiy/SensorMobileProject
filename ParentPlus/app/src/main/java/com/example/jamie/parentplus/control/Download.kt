@@ -9,10 +9,11 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-class DownloadTask(private val mainActivity: MainActivity, private val url: URL) :
+class DownloadTask(private val mainActivity: MainActivity) :
     AsyncTask<Unit, Unit, String>() {
 
     override fun doInBackground(vararg params: Unit): String {
+        val url = URL("")
         val conn = url.openConnection() as HttpURLConnection
         conn.connect()
         val inputStream: InputStream = conn.getInputStream()
@@ -21,9 +22,9 @@ class DownloadTask(private val mainActivity: MainActivity, private val url: URL)
         }
         val result = StringBuilder()
         result.append(allText)
-        val str = result.toString()
+        val resultString = result.toString()
         inputStream.close()
-        return str
+        return resultString
 
     }
 
