@@ -16,6 +16,7 @@
 
 
     <application
+        android:name=".model.StepCounterChannel"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -41,7 +42,7 @@
         <meta-data
             android:name="com.google.ar.core"
             android:value="required" />
-
+        <service android:name=".model.StepCounterService"></service>
     </application>
 
 </manifest>
