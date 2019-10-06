@@ -38,22 +38,31 @@ class StepCounterService : Service(), SensorEventListener {
      *Sets values for the foreground service notification
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if(intent?.action.equals("STOP")) {
+            stopSelf()
+        }
         //Defines the activity to be started when the notification is clicked
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
+        //Intent for stopping the service when the stop service button is clicked
+        val stopIntent = Intent(this, StepCounterService::class.java)
+        stopIntent.setAction("STOP")
+        val pendingStopIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+
         val notificationChannel = StepCounterChannel()
+        
         //Sets the text/icon for the notification
         val notification =
             NotificationCompat.Builder(this, notificationChannel.CHANNEL_ID)
                 .setContentTitle("Counting steps")
                 .setSmallIcon(R.drawable.ic_directions)
                 .setContentIntent(pendingIntent)
+                .addAction(R.drawable.ic_error,"Stop counting",pendingStopIntent)
                 .build()
-
-        startForeground(1, notification)
-        //Restarts the service if closed and passes the previous intent
-        return START_REDELIVER_INTENT
+            startForeground(1, notification)
+            //Restarts the service if closed and passes the previous intent
+            return START_REDELIVER_INTENT
     }
 
     override fun onCreate() {
