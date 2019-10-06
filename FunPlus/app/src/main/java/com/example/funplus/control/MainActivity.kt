@@ -95,9 +95,6 @@ class MainActivity : AppCompatActivity(){
             imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
             val bitmapString = Base64.encodeToString(byteArray, Base64.DEFAULT)
-
-            Log.d("Bitmap", bitmapString)
-
             doUpload(bitmapString)
 
         }

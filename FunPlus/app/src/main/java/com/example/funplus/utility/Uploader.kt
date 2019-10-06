@@ -20,7 +20,7 @@ class Uploader() {
             val message = "filename=$fileName&file-data=$fileData&submit=Upload+Image"
             doAsync {
                 Log.d(TAG, " doUpload doAsync")
-                val url = URL("https://users.metropolia.fi/~youqins/upload_textform.php")
+                val url = URL("")
                 val urlConnection = url.openConnection() as HttpURLConnection
                 urlConnection.requestMethod = "POST"
                 urlConnection.doOutput = true
@@ -34,7 +34,7 @@ class Uploader() {
                 result.append(allText)
 
                 uiThread {
-                    Log.d(TAG + " doUpload doAsync result: ", result.toString())
+                    Log.d(TAG , " doUpload doAsync finished, result: "+result.toString())
                 }
             }
         }

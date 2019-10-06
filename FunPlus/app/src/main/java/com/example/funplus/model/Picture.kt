@@ -32,11 +32,10 @@ class Picture {
             PermissionChecker.askForPermissionIfNotGranted(context, activity, CAMERA_REQUEST_CODE, CAMERA)
 
             //File name and path
-            val filename = "sosImg"
             val imgPath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            var imgFile: File? = null
-            imgFile = File.createTempFile(filename, ".jpg", imgPath)
-            photoPath = imgFile!!.absolutePath
+            val filename = "sosImg"
+            val imgFile = File.createTempFile(filename, ".jpg", imgPath)
+            photoPath = imgFile.absolutePath
             Log.d(TAG+"photoPath", photoPath)
             val photoUri: Uri = FileProvider.getUriForFile(context, "com.domain.fileprovider", imgFile)
             val captureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
