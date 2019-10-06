@@ -30,7 +30,6 @@ const val TAG = "DBG"
 
 class MainActivity : AppCompatActivity(){
     private lateinit var plusMinusFrag: NumberFrag
-
     private lateinit var letterFrag: LetterFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
@@ -38,23 +37,18 @@ class MainActivity : AppCompatActivity(){
     private lateinit var userPicture: Picture
     private lateinit var userLoc: UserLocation
 
-    //private lateinit var sensorManager: SensorManager
-    //private var stepCountSensor: Sensor? = null
-
-    private var stepCountService = StepCounterService()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        //stepCountSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
         fManager = supportFragmentManager
         showPlusMinusFrag()
         plusMinusFrag = NumberFrag()
         letterFrag = LetterFrag()
+
         //Starts step counter service
         startService(Intent(applicationContext, StepCounterService::class.java))
+
         goToNumberGameBtn.setOnClickListener {
             goToGameFrag(plusMinusFrag)
         }
@@ -67,16 +61,6 @@ class MainActivity : AppCompatActivity(){
             userPicture.takePicture(this, this)
             userLoc = UserLocation()
         }
-    }
-
-    private fun startService(v: View) {
-        val serviceIntent= Intent(this, StepCounterService::class.java)
-        startService(serviceIntent)
-    }
-
-    private fun stopService(v: View) {
-        val serviceIntent= Intent(this, StepCounterService::class.java)
-        stopService(serviceIntent)
     }
     
     //display plus-minus game by default when app starts
