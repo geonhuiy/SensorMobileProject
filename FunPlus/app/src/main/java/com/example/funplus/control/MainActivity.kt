@@ -26,13 +26,13 @@ import java.io.ByteArrayOutputStream
 
 const val TAG = "DBG"
 
-
-
 class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var plusMinusFrag: NumberFrag
+
     private lateinit var letterFrag: LetterFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
+
     private lateinit var userPicture: Picture
     private lateinit var userLoc: UserLocation
 
