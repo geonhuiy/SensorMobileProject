@@ -31,23 +31,22 @@ const val TAG = "DBG"
 class MainActivity : AppCompatActivity(){
 
     private lateinit var plusMinusFrag: NumberFrag
-
     private lateinit var letterFrag: LetterFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        //stepCountSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
         fManager = supportFragmentManager
         showPlusMinusFrag()
         plusMinusFrag = NumberFrag()
         letterFrag = LetterFrag()
+
         //Starts step counter service
         startService(Intent(applicationContext, StepCounterService::class.java))
+
         goToNumberGameBtn.setOnClickListener {
             goToGameFrag(plusMinusFrag)
         }
@@ -60,7 +59,6 @@ class MainActivity : AppCompatActivity(){
             UserLocation.getLocation(this, this)
         }
     }
-
     //display plus-minus game by default when app starts
 
     private fun showPlusMinusFrag() {
