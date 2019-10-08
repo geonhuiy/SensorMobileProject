@@ -34,7 +34,7 @@ class Uploader() {
                 result.append(allText)
 
                 uiThread {
-                    Log.d(TAG , " doUpload doAsync finished, result: "+result.toString())
+                    Log.d(TAG , " doUpload doAsync finished, result: "+result.length)
                 }
             }
         }

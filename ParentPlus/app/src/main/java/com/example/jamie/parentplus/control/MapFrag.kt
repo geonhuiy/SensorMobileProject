@@ -13,6 +13,7 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 
 
 
@@ -50,6 +51,11 @@ class MapFrag : Fragment() {
         mapView.setMultiTouchControls(true)
         mapView.controller.setZoom(18.0)
         mapView.controller.setCenter(GeoPoint(lat, log))
+
+        val startMarker = Marker(mapView)
+        startMarker.position = GeoPoint(lat, log)
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        mapView.overlays.add(startMarker)
     }
 
 

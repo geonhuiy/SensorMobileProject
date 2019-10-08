@@ -1,4 +1,3 @@
-import android.content.ContentValues
 import android.content.Intent
 import android.os.AsyncTask
 import android.util.Log
@@ -15,10 +14,12 @@ class DownloadTask(val broadcastManager:LocalBroadcastManager) :
 
     //down load file which stores the location and picture uploaded by FunPlus user
     override fun doInBackground(vararg params: Unit): String {
+        Log.d(TAG, "DownLoadTask.doInBackground ENTER" )
+
         val url = URL("")
-        val conn = url.openConnection() as HttpURLConnection
-        conn.connect()
-        val inputStream: InputStream = conn.getInputStream()
+        val urlConnection = url.openConnection() as HttpURLConnection
+        urlConnection.connect()
+        val inputStream: InputStream = urlConnection.getInputStream()
         val allText = inputStream.bufferedReader().use {
             it.readText()
         }

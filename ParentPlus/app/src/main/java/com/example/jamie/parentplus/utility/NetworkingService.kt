@@ -22,7 +22,12 @@ class NetworkingService() : Service() {
     lateinit var newDataChecker: NewDataChecker
     val DEFAULT_SYNC_INTERVAL = (10 * 1000).toLong()
     var currentTime = "" // time of the last change on server side
-
+    companion object{
+        /* fun setContext(con: Context) {
+             context=con
+         }
+         val geoPicDB = GeoPicDB.get(context!!)*/
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -43,6 +48,7 @@ class NetworkingService() : Service() {
     //make http request every 10 seconds to check if there is new change in the file
     private val runnableService = object : Runnable {
         override fun run() {
+            Log.d(TAG, "NetworkService.runnableService run() :")
             newDataChecker = NewDataChecker()
             if (isNetworkAvailable()) {
                 newDataChecker.checkLastModifiedTime(this@NetworkingService)
@@ -56,38 +62,28 @@ class NetworkingService() : Service() {
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG, "NetworkService.onStartCommand() :")
-
         handler.post(runnableService)
         val notification: Notification
-        //if (newDataChecker.hasNewData()) {
         //Defines the activity to be started when the notification is clicked
         val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
         val notificationChannel = NetworkingChannel()
-
         //Sets the text/icon for the notification
         notification =
             NotificationCompat.Builder(this, notificationChannel.CHANNEL_ID)
-                .setContentTitle("New data")
+                .setContentTitle("New data checking")
                 .setContentInfo("New location and photo from FunPlus user")
-                .setSmallIcon(R.drawable.notification)
-                .setContentIntent(pendingIntent)
+                .setSmallIcon(R.drawable.ic_error)
                 .build()
         startForeground(1, notification)
-        // }
         //Restarts the service if closed and passes the previous intent
         return START_REDELIVER_INTENT
     }
-
 
     //compare the previous time and current time when the file was modified,
     // if not same, meaning file has been changed
     fun isFileChanged(newTime: String): Boolean {
         if (newTime != currentTime) {
-            Log.d(
-                TAG,
-                "Changes detected in server, start downloading currentTime: " + currentTime + " ,newTime:" + newTime
-            )
+            Log.d(TAG,"Changes detected in server, currentTime: " + currentTime + " ,newTime:" + newTime)
             currentTime = newTime
             DownloadTask(LocalBroadcastManager.getInstance(this)).execute()
             return true

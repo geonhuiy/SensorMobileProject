@@ -25,6 +25,11 @@ import com.example.funplus.model.UserLocation
 import com.example.funplus.utility.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 const val TAG = "DBG"
 
@@ -45,7 +50,7 @@ class MainActivity : AppCompatActivity(){
         letterFrag = LetterFrag()
 
         //Starts step counter service
-        startService(Intent(applicationContext, StepCounterService::class.java))
+      //  startService(Intent(applicationContext, StepCounterService::class.java))
 
         goToNumberGameBtn.setOnClickListener {
             goToGameFrag(plusMinusFrag)
@@ -89,14 +94,20 @@ class MainActivity : AppCompatActivity(){
         super.onActivityResult(requestCode, resultCode, data)
         PermissionChecker.askForPermissionIfNotGranted(this, this, CAMERA_REQUEST_CODE, CAMERA)
         if (requestCode == Picture.captureReq && resultCode == Activity.RESULT_OK) {
-            //Gets a bitmap from picture taken with camera
+            //get original bitmap, and resize it to half(for easier upload and download)
             val imgBitmap = BitmapFactory.decodeFile(Picture.photoPath)
+            val oriWidth = imgBitmap.width
+            val oriHeight = imgBitmap.height
+            val finalWidth = (oriWidth*0.3).toInt()
+            val finalHeight = (oriHeight*0.3).toInt()
+            Log.d(TAG, "oriWidth="+oriWidth +" oriHeight=" + oriHeight)
+            Log.d(TAG, "finalWidth="+finalWidth +" finalHeight=" + finalHeight)
+            val finalBitmap = Bitmap.createScaledBitmap(imgBitmap, finalWidth, finalHeight, false)
             val byteArrayOutputStream = ByteArrayOutputStream()
-            imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
             val bitmapString = Base64.encodeToString(byteArray, Base64.DEFAULT)
             doUpload(bitmapString)
-
         }
     }
 
@@ -111,7 +122,6 @@ class MainActivity : AppCompatActivity(){
             } else {
                 Toast.makeText(this, "failed to get location coordinates", Toast.LENGTH_LONG).show()
                 Log.d(TAG, it.result.toString())
-
             }
         }
     }
