@@ -11,11 +11,14 @@ import android.hardware.SensorManager
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.funplus.R
 import com.example.funplus.control.MainActivity
+import com.example.funplus.control.TAG
 
+const val STEP_COUNT_INTENT = "step count intent"
+const val STEP_COUNT_DATA = "step count data"
 class StepCounterService : Service(), SensorEventListener {
-
     private lateinit var sensorManager: SensorManager
     private var stepCountSensor: Sensor? = null
 
@@ -24,9 +27,13 @@ class StepCounterService : Service(), SensorEventListener {
     }
 
     override fun onSensorChanged(p0: SensorEvent) {
+        Log.d("onSensorChanged",stepCountSensor.toString() )
+
         if (p0.sensor == stepCountSensor) {
             //goToLetterGameBtn.text = p0.values[0].toString()
-            Log.d("Steps",p0.values[0].toString() )
+            Log.d(TAG, "Steps="+p0.values[0].toString() )
+            val steps = p0.values[0].toInt()
+            broadcastStepCount(steps)
         }
     }
 
@@ -72,4 +79,10 @@ class StepCounterService : Service(), SensorEventListener {
         sensorManager.registerListener(this, stepCountSensor, SensorManager.SENSOR_DELAY_FASTEST)
     }
 
+
+    fun broadcastStepCount(stepCount: Int) {
+        val intent = Intent(STEP_COUNT_INTENT)
+        intent.putExtra(STEP_COUNT_DATA, stepCount)
+        LocalBroadcastManager.getInstance(this@StepCounterService).sendBroadcast(intent)
+    }
 }

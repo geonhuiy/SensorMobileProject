@@ -43,6 +43,15 @@
             android:layout_weight="1"
             android:contentDescription="@string/play_word_games"
             android:text="@string/abc" />
+
+
+        <Button
+            android:id="@+id/goToGraphBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:contentDescription="@string/play_word_games"
+            android:text="graph" />
     </LinearLayout>
 
     <LinearLayout
