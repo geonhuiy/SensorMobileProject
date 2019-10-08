@@ -8,7 +8,6 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     tools:context=".control.MainActivity">
-
     <LinearLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -16,17 +15,6 @@
         android:gravity="center"
         app:layout_constraintVertical_weight="1"
         app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_sos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/holo_red_light"
-            android:src="@android:drawable/stat_notify_error"
-            app:borderWidth="0dp"
-            app:fabSize="auto"
-            app:maxImageSize="20dp">
-        </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
         <Button
             android:id="@+id/goToNumberGameBtn"
@@ -45,13 +33,32 @@
             android:text="@string/abc" />
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fcontainer"
+        android:layout_width="match_parent"
+        android:layout_height="621dp">
+
+    </androidx.viewpager.widget.ViewPager>
+    <!--<LinearLayout
         android:id="@+id/fcontainer"
         android:layout_width="match_parent"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"/>
+        android:orientation="vertical">
+    </LinearLayout>-->
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_sos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:src="@android:drawable/stat_notify_error"
+        app:borderWidth="0dp"
+        android:layout_gravity="right"
+        app:fabSize="auto"
+        app:maxImageSize="20dp"></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </LinearLayout>

@@ -28,7 +28,8 @@ import java.io.ByteArrayOutputStream
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
+import android.view.ViewParent
+import androidx.viewpager.widget.ViewPager
 
 
 const val TAG = "DBG"
@@ -39,6 +40,9 @@ class MainActivity : AppCompatActivity(){
     private lateinit var letterFrag: LetterFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
+
+    private lateinit var fragPageAdapter: FragViewPagerAdapter
+    private lateinit var viewPager: ViewPager
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +55,9 @@ class MainActivity : AppCompatActivity(){
 
         //Starts step counter service
       //  startService(Intent(applicationContext, StepCounterService::class.java))
-
+        fragPageAdapter = FragViewPagerAdapter(fManager)
+        viewPager = this.findViewById(R.id.fcontainer)
+        viewPager.adapter = fragPageAdapter
         goToNumberGameBtn.setOnClickListener {
             goToGameFrag(plusMinusFrag)
         }
