@@ -18,6 +18,14 @@ import com.example.funplus.model.UserLocation
 import com.example.funplus.utility.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
+<<<<<<< HEAD
+=======
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.ViewParent
+import androidx.viewpager.widget.ViewPager
+>>>>>>> ADD: Swiping between NumberFrag and LetterFrag
 
 
 const val TAG = "DBG"
@@ -29,6 +37,9 @@ class MainActivity : AppCompatActivity(){
     private lateinit var dataFrag: NumberGraphFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
+
+    private lateinit var fragPageAdapter: FragViewPagerAdapter
+    private lateinit var viewPager: ViewPager
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +51,11 @@ class MainActivity : AppCompatActivity(){
         dataFrag = NumberGraphFrag()
 
         showPlusMinusFrag()
-        
+        //Starts step counter service
+      //  startService(Intent(applicationContext, StepCounterService::class.java))
+        fragPageAdapter = FragViewPagerAdapter(fManager)
+        viewPager = this.findViewById(R.id.fcontainer)
+        viewPager.adapter = fragPageAdapter
         goToNumberGameBtn.setOnClickListener {
             goToFrag(plusMinusFrag)
         }
