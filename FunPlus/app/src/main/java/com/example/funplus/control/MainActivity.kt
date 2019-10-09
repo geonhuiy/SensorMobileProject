@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var plusMinusFrag: NumberFrag
     private lateinit var letterFrag: LetterFrag
-    private lateinit var dataFrag: DataFrag
+    private lateinit var dataFrag: NumberGraphFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
     
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(){
         fManager = supportFragmentManager
         plusMinusFrag = NumberFrag()
         letterFrag = LetterFrag()
-        dataFrag = DataFrag()
+        dataFrag = NumberGraphFrag()
 
         showPlusMinusFrag()
 
@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity(){
         goToLetterGameBtn.setOnClickListener {
             goToFrag(letterFrag)
         }
-        goToGraphBtn.setOnClickListener {
-            goToFrag(dataFrag)
+        goToDataActivityBtn.setOnClickListener {
+            goToDataActivity()
         }
 
         fab_sos.setOnClickListener {
@@ -77,6 +77,12 @@ class MainActivity : AppCompatActivity(){
         fTransaction.commit()
     }
 
+    private fun goToDataActivity(){
+        Log.d(TAG, "goToDataActivity")
+        val intent = Intent(this, DataActivity::class.java)
+        startActivity(intent)
+    }
+
     /**
      * Function runs when the user successfully takes a picture and confirms. Bitmap of the picture
      * is converted into a Base64 string to be used for upload, along with the location data.
@@ -91,19 +97,24 @@ class MainActivity : AppCompatActivity(){
         if (requestCode == Picture.captureReq && resultCode == Activity.RESULT_OK) {
             //get original bitmap, and resize it to half(for easier upload and download)
             val imgBitmap = BitmapFactory.decodeFile(Picture.photoPath)
-            val oriWidth = imgBitmap.width
-            val oriHeight = imgBitmap.height
-            val finalWidth = (oriWidth*0.3).toInt()
-            val finalHeight = (oriHeight*0.3).toInt()
-            Log.d(TAG, "oriWidth="+oriWidth +" oriHeight=" + oriHeight)
-            Log.d(TAG, "finalWidth="+finalWidth +" finalHeight=" + finalHeight)
-            val finalBitmap = Bitmap.createScaledBitmap(imgBitmap, finalWidth, finalHeight, false)
+            val finalBitmap = resizeBitmap(imgBitmap)
             val byteArrayOutputStream = ByteArrayOutputStream()
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+            finalBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
             val bitmapString = Base64.encodeToString(byteArray, Base64.DEFAULT)
             doUpload(bitmapString)
         }
+    }
+
+    private fun resizeBitmap(imgBitmap: Bitmap): Bitmap? {
+        val oriWidth = imgBitmap.width
+        val oriHeight = imgBitmap.height
+        val finalWidth = (oriWidth * 0.3).toInt()
+        val finalHeight = (oriHeight * 0.3).toInt()
+        Log.d(TAG, "oriWidth=" + oriWidth + " oriHeight=" + oriHeight)
+        Log.d(TAG, "finalWidth=" + finalWidth + " finalHeight=" + finalHeight)
+        val finalBitmap = Bitmap.createScaledBitmap(imgBitmap, finalWidth, finalHeight, false)
+        return finalBitmap
     }
 
     private fun doUpload(bitmapString: String) {

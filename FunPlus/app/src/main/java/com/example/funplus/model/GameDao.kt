@@ -19,10 +19,6 @@ import java.util.*
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         fun insert(game: GameData): Long
 
-        @Update
-        fun update(game: GameData)
-
-        //"")
         @Query("SELECT * FROM gamedata WHERE gamedata.id= :gameId")
         fun getGameById(gameId: Int): GameData
 

@@ -2,12 +2,14 @@ package com.example.funplus.model
 
 import android.app.PendingIntent
 import android.app.Service
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -15,6 +17,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.funplus.R
 import com.example.funplus.control.MainActivity
 import com.example.funplus.control.TAG
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 const val STEP_COUNT_INTENT = "step count intent"
 const val STEP_COUNT_DATA = "step count data"
@@ -32,7 +36,10 @@ class StepCounterService : Service(), SensorEventListener {
         if (p0.sensor == stepCountSensor) {
             //goToLetterGameBtn.text = p0.values[0].toString()
             Log.d(TAG, "step counter service: Steps="+p0.values[0].toString() )
-            val steps = p0.values[0].toInt()
+            var steps = p0.values[0].toInt()
+            /*if (StepCounterChannel.stopStepcountService){
+                steps = p0.values[0].toInt() - steps
+            }*/
             broadcastStepCount(steps)
         }
     }
@@ -52,7 +59,7 @@ class StepCounterService : Service(), SensorEventListener {
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
-        //Intent for stopping the service when the stop service button is clicked
+        //Intent for stopping the service when the stopStepcountService service button is clicked
         val stopIntent = Intent(this, StepCounterService::class.java)
         stopIntent.setAction("STOP")
         val pendingStopIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_CANCEL_CURRENT)

@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class StepCounterChannel : Application() {
-    public val CHANNEL_ID = "serviceChannelID"
+     val CHANNEL_ID = "serviceChannelID"
 
     override fun onCreate() {
         super.onCreate()
@@ -22,12 +22,12 @@ class StepCounterChannel : Application() {
     }
 
     /*
-     *start and stop service based on predefined time and sdk version
+     *start and stopStepcountService service based on predefined time and sdk version
      */
     private fun startStopService() {
         val start = checkStartStopTime().first
         val stop = checkStartStopTime().second
-        Log.d(TAG, "step counter service channel startStopService() start = "+start + "stop = "+stop)
+        Log.d(TAG, "step counter service channel startStopService() start = "+start + "stopStepcountService = "+stop)
         if (start) {
             Log.d(TAG, "current time is between 8:00 - 17:00")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -45,7 +45,7 @@ class StepCounterChannel : Application() {
 
     /**
      * compare current time and predefined time(run step counter service from 8:00 - 17:00)
-     * to start and stop service
+     * to start and stopStepcountService service
      */
     private fun checkStartStopTime(): Pair<Boolean, Boolean> {
         Log.d(TAG, "checkStartStopTime ENTER")
@@ -53,11 +53,10 @@ class StepCounterChannel : Application() {
         var start = false
         var stop = false
         var serviceStarted = false
-        if (timeNow >= "08:00" && timeNow < "17:00") {
+        if (timeNow >= "08:00" && timeNow < "22:00") {
             Log.d(TAG, "current time is between 8:00 - 17:00, start step counter service")
             start = true
-            serviceStarted = true
-        } else if (timeNow >= "17:00" && serviceStarted) {
+        } else if (timeNow >= "22:00") {
             Log.d(TAG, "time has passed 17:00, stop step counter service ")
             stop = true
         }
