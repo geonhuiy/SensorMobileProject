@@ -30,6 +30,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.ViewParent
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 
 
 const val TAG = "DBG"
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var fragPageAdapter: FragViewPagerAdapter
     private lateinit var viewPager: ViewPager
+    private lateinit var tabLayout: TabLayout
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,17 +54,23 @@ class MainActivity : AppCompatActivity(){
         showPlusMinusFrag()
         plusMinusFrag = NumberFrag()
         letterFrag = LetterFrag()
-
+        goToNumberGameBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
         //Starts step counter service
-      //  startService(Intent(applicationContext, StepCounterService::class.java))
-        fragPageAdapter = FragViewPagerAdapter(fManager)
-        viewPager = this.findViewById(R.id.fcontainer)
-        viewPager.adapter = fragPageAdapter
+        //startService(Intent(applicationContext, StepCounterService::class.java))
+        //fragPageAdapter = FragViewPagerAdapter(fManager)
+        //viewPager = this.findViewById(R.id.fcontainer)
+        //tabLayout = this.findViewById(R.id.tabLayout)
+        //viewPager.adapter = fragPageAdapter
+        //tabLayout.setupWithViewPager(viewPager)
         goToNumberGameBtn.setOnClickListener {
             goToGameFrag(plusMinusFrag)
+            goToNumberGameBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
+            goToLetterGameBtn.setBackgroundColor(resources.getColor(R.color.color5))
         }
         goToLetterGameBtn.setOnClickListener {
             goToGameFrag(letterFrag)
+            goToNumberGameBtn.setBackgroundColor(resources.getColor(R.color.color5))
+            goToLetterGameBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
         }
 
         fab_sos.setOnClickListener {

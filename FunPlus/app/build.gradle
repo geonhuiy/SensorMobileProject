@@ -62,7 +62,6 @@ dependencies {
     def retrofit_version = '2.6.1'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-
 }
 
 sceneform.asset('sampledata/Birthday Cupcake.obj',

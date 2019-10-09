@@ -1,10 +1,13 @@
 package com.example.funplus.control
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -16,9 +19,11 @@ import com.example.funplus.model.Game
 import com.example.funplus.model.GameDB
 import com.example.funplus.model.GameData
 import com.example.funplus.model.GameModel
+import com.google.ar.core.Frame
 import kotlinx.android.synthetic.main.number_frag.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.lang.Exception
 import java.util.*
 
 class NumberFrag() : Fragment() {
@@ -32,23 +37,37 @@ class NumberFrag() : Fragment() {
     var toRepeatGame = false
     var gameStarted = false
     lateinit var newGame: Game
-
+    var frameLayout: FrameLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let { }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.number_frag, container, false)
+        frameLayout = FrameLayout(activity!!.applicationContext)
+        val orientation = activity?.resources?.configuration?.orientation
+        var view = inflater.inflate(R.layout.number_frag, container, false)
         return view
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT || newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            try {
+                fManager = this.fragmentManager!!
+                fTransaction = fManager.beginTransaction()
+                fTransaction.detach(this).attach(this).commit()
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -65,12 +84,15 @@ class NumberFrag() : Fragment() {
         okBtn.setOnClickListener {
             Log.d(TAG + "userAnswer:", userAnswer.toString())
             Log.d(TAG + "correctAnswer:", correctAnswer.toString())
+            val pagerAdapter = FragViewPagerAdapter(fManager)
             if (userAnswer == correctAnswer) {
                 insertOrUpdateGameDB(newGame, true)
                 goToAnswerFrag(correctAnswerFrag)
+                pagerAdapter.notifyDataSetChanged()
             } else {
                 insertOrUpdateGameDB(newGame, false)
                 goToAnswerFrag(wrongAnswerFrag)
+                pagerAdapter.notifyDataSetChanged()
             }
         }
     }
