@@ -18,14 +18,13 @@ import com.example.funplus.model.UserLocation
 import com.example.funplus.utility.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
-<<<<<<< HEAD
-=======
+
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.ViewParent
 import androidx.viewpager.widget.ViewPager
->>>>>>> ADD: Swiping between NumberFrag and LetterFrag
+import com.google.android.material.tabs.TabLayout
 
 
 const val TAG = "DBG"
@@ -40,6 +39,7 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var fragPageAdapter: FragViewPagerAdapter
     private lateinit var viewPager: ViewPager
+    private lateinit var tabLayout: TabLayout
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,19 +51,27 @@ class MainActivity : AppCompatActivity(){
         dataFrag = NumberGraphFrag()
 
         showPlusMinusFrag()
+        goToNumberGameBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
         //Starts step counter service
-      //  startService(Intent(applicationContext, StepCounterService::class.java))
-        fragPageAdapter = FragViewPagerAdapter(fManager)
-        viewPager = this.findViewById(R.id.fcontainer)
-        viewPager.adapter = fragPageAdapter
+        //startService(Intent(applicationContext, StepCounterService::class.java))
+        //fragPageAdapter = FragViewPagerAdapter(fManager)
+        //viewPager = this.findViewById(R.id.fcontainer)
+        //tabLayout = this.findViewById(R.id.tabLayout)
+        //viewPager.adapter = fragPageAdapter
+        //tabLayout.setupWithViewPager(viewPager)
         goToNumberGameBtn.setOnClickListener {
-            goToFrag(plusMinusFrag)
-        }
-        goToLetterGameBtn.setOnClickListener {
-            goToFrag(letterFrag)
+            goToGameFrag(plusMinusFrag)
+            goToNumberGameBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
+            goToLetterGameBtn.setBackgroundColor(resources.getColor(R.color.color5))
         }
         goToDataActivityBtn.setOnClickListener {
             goToDataActivity()
+
+        }
+        goToLetterGameBtn.setOnClickListener {
+            goToGameFrag(letterFrag)
+            goToNumberGameBtn.setBackgroundColor(resources.getColor(R.color.color5))
+            goToLetterGameBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
         }
 
         fab_sos.setOnClickListener {
@@ -82,7 +90,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     //switch between different fragments
-    private fun goToFrag(frag: Fragment) {
+    private fun goToGameFrag(frag: Fragment) {
         Log.d(TAG, "goToFrag: "+frag)
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, frag)

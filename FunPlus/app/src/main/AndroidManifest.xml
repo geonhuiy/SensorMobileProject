@@ -47,8 +47,13 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+<<<<<<< HEAD
 
         <activity android:name=".control.MainActivity">
+=======
+        <activity android:name=".control.MainActivity"
+            android:configChanges="orientation|screenSize">
+>>>>>>> UPDATE: Removed tab bars and updated NumberFragment UI
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

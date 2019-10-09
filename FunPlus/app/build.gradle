@@ -62,8 +62,11 @@ dependencies {
     def retrofit_version = '2.6.1'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+<<<<<<< HEAD
     implementation 'com.jjoe64:graphview:4.2.2'
 
+=======
+>>>>>>> UPDATE: Removed tab bars and updated NumberFragment UI
 }
 
 sceneform.asset('sampledata/Birthday Cupcake.obj',
