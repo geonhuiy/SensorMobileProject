@@ -1,6 +1,7 @@
 package com.example.funplus.control
 
 import android.Manifest
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -9,16 +10,21 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.funplus.R
 import com.example.funplus.utility.*
 import kotlinx.android.synthetic.main.word_frag.*
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
+import java.lang.Exception
 
 class LetterFrag() : Fragment() {
     //a list of words to show on the UI
     private val wordList = mutableListOf<String>("Apple", "Banana", "Cake", "Dog", "Egg", "Fan")
+    private lateinit var fTransaction: FragmentTransaction
+    private lateinit var fManager: FragmentManager
 
     //a list of images matching with the words to show on the UI
     private val imgList = mutableListOf<Int>(
@@ -52,6 +58,20 @@ class LetterFrag() : Fragment() {
             RECORD_AUDIO
         )
         audioRecorder = AudioRecorder(this.context!!)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT || newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            try {
+                fManager = this.fragmentManager!!
+                fTransaction = fManager.beginTransaction()
+                fTransaction.detach(this).attach(this).commit()
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
