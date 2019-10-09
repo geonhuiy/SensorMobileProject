@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.ViewParent
 import androidx.viewpager.widget.ViewPager
+import com.example.funplus.model.StepCounterService
 import com.google.android.material.tabs.TabLayout
 
 
@@ -48,12 +49,13 @@ class MainActivity : AppCompatActivity(){
         fManager = supportFragmentManager
         plusMinusFrag = NumberFrag()
         letterFrag = LetterFrag()
+
         dataFrag = NumberGraphFrag()
 
         showPlusMinusFrag()
         goToNumberGameBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
         //Starts step counter service
-        //startService(Intent(applicationContext, StepCounterService::class.java))
+        startService(Intent(applicationContext, StepCounterService::class.java))
         //fragPageAdapter = FragViewPagerAdapter(fManager)
         //viewPager = this.findViewById(R.id.fcontainer)
         //tabLayout = this.findViewById(R.id.tabLayout)

@@ -31,8 +31,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/play_word_games"
-<<<<<<< HEAD
-            android:text="@string/abc" />
+            android:text="@string/abc"
+            android:background="@null"/>
 
 
         <Button
@@ -42,10 +42,6 @@
             android:layout_weight="0.1"
             android:contentDescription="@string/play_word_games"
             android:text="data" />
-=======
-            android:text="@string/abc"
-            android:background="@null"/>
->>>>>>> UPDATE: Removed tab bars and updated NumberFragment UI
     </LinearLayout>
 
     <!--<androidx.viewpager.widget.ViewPager
