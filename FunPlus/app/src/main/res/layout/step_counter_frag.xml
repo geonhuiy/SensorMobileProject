@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".control.StepCounterFrag">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <TextView
+                android:text="total steps"
+                android:textColor="@color/colorLightBlue"
+                android:textSize="35sp"
+                android:paddingBottom="20dp"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="180dp"
+                android:backgroundTint="@color/colorLightYellow"
+                android:layout_gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="200dp">
+                <TextView
+                    android:id="@+id/stepCountTv"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="80sp"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"/>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:textColor="@color/colorLightBlue"
+                android:textSize="35sp"
+                android:layout_marginBottom="35dp"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:text="@string/energy_status"
+                android:layout_height="wrap_content"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progressBackgroundTint="@color/colorLightBlue"
+                    android:outlineProvider="background"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:indeterminate="false"
+                    android:max="1000"
+                    android:minWidth="200dp"
+                    android:minHeight="50dp"
+                    android:progress="10"
+                    android:scaleY="20"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/active"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorLightGreen"
+                    android:textSize="25sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/progressBar" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/tired"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorRed"
+                    android:textSize="25sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

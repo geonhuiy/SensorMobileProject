@@ -45,6 +45,7 @@ class ArFragMain : Fragment() {
     private var modelImgMap = mutableMapOf<Int, Pair<ModelRenderable, Int>>()
     private lateinit var fragment: ArFragment
     private lateinit var correctAnswerFrag: CorrectAnswerFrag
+    private var randomNum = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +63,7 @@ class ArFragMain : Fragment() {
         prizeListFrag = PrizeListFrag()
         prizeDB = PrizeDB.get(this.context!!)
         fragment = childFragmentManager.findFragmentById(R.id.arimage_fragment) as ArFragment
+        randomNum = arguments!!.getInt("randomNum")
         correctAnswerFrag = CorrectAnswerFrag()
 
         createRenderables()
@@ -91,11 +93,7 @@ class ArFragMain : Fragment() {
                     if (anchors.isEmpty()) {
                         val imgNode = setupNode(it)
 
-                        Log.d(TAG + "random: ", correctAnswerFrag.numList[0].toString())
-
-                        //val randomNum = activity!!.intent.getIntExtra("randomNum", 0)
-                        val randomNum = correctAnswerFrag.randomNum
-                        Log.d(TAG + "ramdom: ", randomNum.toString())
+                        Log.d(TAG + "randomNum: ", randomNum.toString())
 
                         var modelSet = false
                         /*loop through the lists of images and numbers
@@ -105,7 +103,7 @@ class ArFragMain : Fragment() {
                         for (index in 0..5) {
                             if (it.name == imgList[index] && randomNum == correctAnswerFrag.numList[index]) {
                                 imgNode.renderable = modelImgMap[index]?.first
-                                imgNode.scaleController.maxScale = 0.2F
+                                imgNode.scaleController.maxScale = 0.1f
                                 imgNode.scaleController.minScale = 0.09f
                                 modelSet = true
                                 nodeTapListener(imgNode, index)

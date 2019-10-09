@@ -2,31 +2,42 @@ package com.example.funplus.model
 
 import android.app.PendingIntent
 import android.app.Service
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.funplus.R
 import com.example.funplus.control.MainActivity
+import com.example.funplus.control.TAG
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
+const val STEP_COUNT_INTENT = "step count intent"
+const val STEP_COUNT_DATA = "step count data"
 class StepCounterService : Service(), SensorEventListener {
-
     private lateinit var sensorManager: SensorManager
     private var stepCountSensor: Sensor? = null
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-        //Do something
+        Log.d(TAG, "onAccuracyChanged")
     }
 
     override fun onSensorChanged(p0: SensorEvent) {
+        Log.d("onSensorChanged",stepCountSensor.toString() )
+
         if (p0.sensor == stepCountSensor) {
-            //goToLetterGameBtn.text = p0.values[0].toString()
-            Log.d("Steps",p0.values[0].toString() )
+            Log.d(TAG, "step counter service: Steps="+p0.values[0].toString() )
+            val steps = p0.values[0].toInt()
+
+            broadcastStepCount(steps)
         }
     }
 
@@ -45,7 +56,7 @@ class StepCounterService : Service(), SensorEventListener {
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
-        //Intent for stopping the service when the stop service button is clicked
+        //Intent for stopping the service when the stopStepcountService service button is clicked
         val stopIntent = Intent(this, StepCounterService::class.java)
         stopIntent.setAction("STOP")
         val pendingStopIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_CANCEL_CURRENT)
@@ -67,9 +78,17 @@ class StepCounterService : Service(), SensorEventListener {
 
     override fun onCreate() {
         super.onCreate()
+        Log.d(TAG, "step counter service onCreate() ENTER")
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepCountSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         sensorManager.registerListener(this, stepCountSensor, SensorManager.SENSOR_DELAY_FASTEST)
     }
 
+
+    fun broadcastStepCount(stepCount: Int) {
+        Log.d(TAG, "step counter service, broadcastStepCount: "+stepCount)
+        val intent = Intent(STEP_COUNT_INTENT)
+        intent.putExtra(STEP_COUNT_DATA, stepCount)
+        LocalBroadcastManager.getInstance(this@StepCounterService).sendBroadcast(intent)
+    }
 }

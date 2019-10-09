@@ -21,7 +21,6 @@ class CorrectAnswerFrag : Fragment() {
     lateinit var fManager: FragmentManager
     lateinit var arFrag: ArFragMain
     val numList = listOf<Int>(123, 234, 345, 456, 567, 678)
-    val randomNum = numList.random()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +28,7 @@ class CorrectAnswerFrag : Fragment() {
         }
         //user answer is correct, play a cheering sound
         fManager = this.fragmentManager!!
+        arFrag = ArFragMain()
         playCheeringSound()
     }
 
@@ -57,10 +57,13 @@ class CorrectAnswerFrag : Fragment() {
     }
 
     //show a random number from a predefined list
-    private fun showNumber(): Int {
+    private fun showNumber() {
+        val randomNum = numList.random()
         numTv.text = randomNum.toString()
         Log.d(TAG + "showNumber - num: ", numTv.text.toString())
-        return randomNum
+        val bundle = Bundle()
+        bundle.putInt("randomNum", randomNum)
+        arFrag.arguments = bundle
     }
 
     //play a random cheering sound
@@ -72,7 +75,6 @@ class CorrectAnswerFrag : Fragment() {
     private fun goToArFrag() {
         Log.d(TAG, "goToArFrag")
         PermissionChecker.askForPermissionIfNotGranted(this.context!!, this.requireActivity(), CAMERA_AR_REQUEST_CODE, CAMERA)
-        arFrag = ArFragMain()
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, arFrag)
         fTransaction.commit()

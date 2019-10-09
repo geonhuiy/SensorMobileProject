@@ -1,34 +1,23 @@
 package com.example.funplus.control
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.funplus.R
 import com.example.funplus.model.Picture
-import com.example.funplus.model.StepCounterService
 import com.example.funplus.model.UserLocation
 import com.example.funplus.utility.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
 
 
 const val TAG = "DBG"
@@ -37,6 +26,7 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var plusMinusFrag: NumberFrag
     private lateinit var letterFrag: LetterFrag
+    private lateinit var dataFrag: NumberGraphFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
     
@@ -45,18 +35,20 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
 
         fManager = supportFragmentManager
-        showPlusMinusFrag()
         plusMinusFrag = NumberFrag()
         letterFrag = LetterFrag()
+        dataFrag = NumberGraphFrag()
 
-        //Starts step counter service
-      //  startService(Intent(applicationContext, StepCounterService::class.java))
-
+        showPlusMinusFrag()
+        
         goToNumberGameBtn.setOnClickListener {
-            goToGameFrag(plusMinusFrag)
+            goToFrag(plusMinusFrag)
         }
         goToLetterGameBtn.setOnClickListener {
-            goToGameFrag(letterFrag)
+            goToFrag(letterFrag)
+        }
+        goToDataActivityBtn.setOnClickListener {
+            goToDataActivity()
         }
 
         fab_sos.setOnClickListener {
@@ -75,11 +67,17 @@ class MainActivity : AppCompatActivity(){
     }
 
     //switch between different fragments
-    private fun goToGameFrag(frag: Fragment) {
-        Log.d(TAG, "goToGameFrag")
+    private fun goToFrag(frag: Fragment) {
+        Log.d(TAG, "goToFrag: "+frag)
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, frag)
         fTransaction.commit()
+    }
+
+    private fun goToDataActivity(){
+        Log.d(TAG, "goToDataActivity")
+        val intent = Intent(this, DataActivity::class.java)
+        startActivity(intent)
     }
 
     /**
@@ -96,21 +94,33 @@ class MainActivity : AppCompatActivity(){
         if (requestCode == Picture.captureReq && resultCode == Activity.RESULT_OK) {
             //get original bitmap, and resize it to half(for easier upload and download)
             val imgBitmap = BitmapFactory.decodeFile(Picture.photoPath)
-            val oriWidth = imgBitmap.width
-            val oriHeight = imgBitmap.height
-            val finalWidth = (oriWidth*0.3).toInt()
-            val finalHeight = (oriHeight*0.3).toInt()
-            Log.d(TAG, "oriWidth="+oriWidth +" oriHeight=" + oriHeight)
-            Log.d(TAG, "finalWidth="+finalWidth +" finalHeight=" + finalHeight)
-            val finalBitmap = Bitmap.createScaledBitmap(imgBitmap, finalWidth, finalHeight, false)
+            val finalBitmap = resizeBitmap(imgBitmap)
             val byteArrayOutputStream = ByteArrayOutputStream()
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+            finalBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
             val byteArray = byteArrayOutputStream.toByteArray()
             val bitmapString = Base64.encodeToString(byteArray, Base64.DEFAULT)
             doUpload(bitmapString)
         }
     }
 
+    /**
+     * resize original photo to a smaller size, so it is easier to covert and upload/download
+     */
+    private fun resizeBitmap(imgBitmap: Bitmap): Bitmap? {
+        val oriWidth = imgBitmap.width
+        val oriHeight = imgBitmap.height
+        val finalWidth = (oriWidth * 0.3).toInt()
+        val finalHeight = (oriHeight * 0.3).toInt()
+        Log.d(TAG, "oriWidth=" + oriWidth + " oriHeight=" + oriHeight)
+        Log.d(TAG, "finalWidth=" + finalWidth + " finalHeight=" + finalHeight)
+        val finalBitmap = Bitmap.createScaledBitmap(imgBitmap, finalWidth, finalHeight, false)
+        return finalBitmap
+    }
+
+    /**
+     * wait location task complete and get latitude and longitude
+     * upload bitmap string and location info to server
+     */
     private fun doUpload(bitmapString: String) {
         Log.d(TAG, "doUpload MAINactity")
         UserLocation.getLocation(this, this).addOnCompleteListener {

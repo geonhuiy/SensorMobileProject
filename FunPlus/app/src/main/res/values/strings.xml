@@ -21,4 +21,11 @@
     <string name="see_your_prize_list">click to see your prize list</string>
     <string name="_play_number_games">click button to play number games</string>
     <string name="play_word_games">click button to play word games</string>
+    <string name="tired">tired</string>
+    <string name="active">active</string>
+    <string name="game">game</string>
+    <string name="graph">graph</string>
+    <string name="step">step</string>
+    <string name="success_rate">success rate</string>
+    <string name="energy_status">enery status</string>
 </resources>
