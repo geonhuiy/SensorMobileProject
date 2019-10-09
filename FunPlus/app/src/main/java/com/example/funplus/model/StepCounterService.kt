@@ -23,7 +23,7 @@ class StepCounterService : Service(), SensorEventListener {
     private var stepCountSensor: Sensor? = null
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-        //Do something
+        Log.d(TAG, "")
     }
 
     override fun onSensorChanged(p0: SensorEvent) {
@@ -31,7 +31,7 @@ class StepCounterService : Service(), SensorEventListener {
 
         if (p0.sensor == stepCountSensor) {
             //goToLetterGameBtn.text = p0.values[0].toString()
-            Log.d(TAG, "Steps="+p0.values[0].toString() )
+            Log.d(TAG, "step counter service: Steps="+p0.values[0].toString() )
             val steps = p0.values[0].toInt()
             broadcastStepCount(steps)
         }
@@ -74,6 +74,7 @@ class StepCounterService : Service(), SensorEventListener {
 
     override fun onCreate() {
         super.onCreate()
+        Log.d(TAG, "step counter service onCreate() ENTER")
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepCountSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         sensorManager.registerListener(this, stepCountSensor, SensorManager.SENSOR_DELAY_FASTEST)
@@ -81,6 +82,7 @@ class StepCounterService : Service(), SensorEventListener {
 
 
     fun broadcastStepCount(stepCount: Int) {
+        Log.d(TAG, "step counter service, broadcastStepCount: "+stepCount)
         val intent = Intent(STEP_COUNT_INTENT)
         intent.putExtra(STEP_COUNT_DATA, stepCount)
         LocalBroadcastManager.getInstance(this@StepCounterService).sendBroadcast(intent)

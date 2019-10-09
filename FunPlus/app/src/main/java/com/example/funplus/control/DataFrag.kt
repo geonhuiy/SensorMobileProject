@@ -57,7 +57,7 @@ class DataFrag : Fragment() {
         override fun onReceive(contxt: Context?, intent: Intent?) {
             when (intent?.action) {
                 STEP_COUNT_INTENT -> {
-                    Log.d(TAG, "new step count data")
+                    Log.d(TAG, "data frag, broadCastReceiver(), new step count data")
                     val stepCount = intent.getIntExtra(STEP_COUNT_DATA, 0)
                     Log.d(TAG, "new step count is " + stepCount)
                     updateStepCountUI(stepCount)
@@ -68,7 +68,7 @@ class DataFrag : Fragment() {
 
     private fun updateStepCountUI(currentSteps: Int) {
         Log.d(TAG, "updateStepCountUI")
-        Log.d(TAG, "updateStepCountUI =" +currentSteps)
+        Log.d(TAG, "updateStepCountUI currentSteps=" +currentSteps)
         stepCountTxtView.text = currentSteps.toString()
 
         if (currentSteps <= progressBar.max) {

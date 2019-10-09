@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity(){
 
     //switch between different fragments
     private fun goToFrag(frag: Fragment) {
-        Log.d(TAG, "goToFrag")
+        Log.d(TAG, "goToFrag: "+frag)
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, frag)
         fTransaction.commit()
