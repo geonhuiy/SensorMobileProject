@@ -128,7 +128,7 @@ class ArFragMain : Fragment() {
             "Chocolate Cake.sfb",
             "hamburgeres.sfb",
             "pizza.sfb",
-            "diamond.sfb"
+            "cartoon_flower.sfb"
         )
         val prizeImgList = listOf<Int>(
             R.drawable.bdcake,

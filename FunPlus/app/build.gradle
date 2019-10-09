@@ -95,3 +95,9 @@ sceneform.asset('sampledata/diamond.obj',
         'default',
         'sampledata/diamond.sfa',
         'src/main/assets/diamond')
+
+
+sceneform.asset('sampledata/cartoon_flower.obj',
+        'default',
+        'sampledata/cartoon_flower.sfa',
+        'src/main/assets/cartoon_flower')
