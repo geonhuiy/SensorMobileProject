@@ -31,11 +31,11 @@ import java.util.*
         @Query("SELECT gamedata.loseCount FROM GameData WHERE gamedata.id= :gameId")
         fun getLoseCount(gameId: Int): Int
 
-        @Query("UPDATE gamedata SET winCount = winCount+1 WHERE gamedata.id= :gameId")
-        fun updateWinCount(gameId: Int)
+        @Query("UPDATE gamedata SET winCount = winCount+1 AND time= :newTime WHERE gamedata.id= :gameId")
+        fun updateWinCount(gameId: Int, newTime: Date)
 
-        @Query("UPDATE gamedata SET loseCount = loseCount+1 WHERE gamedata.id= :gameId")
-        fun updateLoseCount(gameId: Int)
+        @Query("UPDATE gamedata SET loseCount = loseCount+1 AND time= :newTime WHERE gamedata.id= :gameId")
+        fun updateLoseCount(gameId: Int, newTime: Date)
 
         @Query("SELECT * FROM GameData ORDER BY gamedata.time DESC LIMIT 1")
         fun getLastGame(): GameData

@@ -54,7 +54,7 @@ class DataActivity : AppCompatActivity() {
     }
 
     private fun showNumberGraphFrag() {
-        Log.d(TAG, "showPlusMinusFrag()")
+        Log.d(TAG, "showNumberGraphFrag()")
         fTransaction = fManager.beginTransaction()
         fTransaction.add(R.id.dataFcontainer, numberGameGraphFrag)
         fTransaction.commit()

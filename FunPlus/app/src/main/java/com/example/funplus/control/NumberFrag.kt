@@ -108,14 +108,14 @@ class NumberFrag() : Fragment() {
                         TAG + "getWinCount(before update)",
                         gameDB.gameDao().getWinCount(gameId).toString()
                     )
-                    gameDB.gameDao().updateWinCount(gameId)
+                    gameDB.gameDao().updateWinCount(gameId, Date())
                     Log.d(TAG + "getWinCount", gameDB.gameDao().getWinCount(gameId).toString())
                 } else {
                     Log.d(
                         TAG + "getLoseCount(before update)",
                         gameDB.gameDao().getLoseCount(gameId).toString()
                     )
-                    gameDB.gameDao().updateLoseCount(gameId)
+                    gameDB.gameDao().updateLoseCount(gameId, Date())
                     Log.d(TAG + "getLoseCount", gameDB.gameDao().getLoseCount(gameId).toString())
                 }
 

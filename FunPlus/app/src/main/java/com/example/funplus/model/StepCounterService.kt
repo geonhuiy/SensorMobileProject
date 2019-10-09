@@ -27,19 +27,16 @@ class StepCounterService : Service(), SensorEventListener {
     private var stepCountSensor: Sensor? = null
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-        Log.d(TAG, "")
+        Log.d(TAG, "onAccuracyChanged")
     }
 
     override fun onSensorChanged(p0: SensorEvent) {
         Log.d("onSensorChanged",stepCountSensor.toString() )
 
         if (p0.sensor == stepCountSensor) {
-            //goToLetterGameBtn.text = p0.values[0].toString()
             Log.d(TAG, "step counter service: Steps="+p0.values[0].toString() )
-            var steps = p0.values[0].toInt()
-            /*if (StepCounterChannel.stopStepcountService){
-                steps = p0.values[0].toInt() - steps
-            }*/
+            val steps = p0.values[0].toInt()
+
             broadcastStepCount(steps)
         }
     }

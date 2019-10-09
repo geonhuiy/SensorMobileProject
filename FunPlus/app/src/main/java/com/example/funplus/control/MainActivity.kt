@@ -40,10 +40,7 @@ class MainActivity : AppCompatActivity(){
         dataFrag = NumberGraphFrag()
 
         showPlusMinusFrag()
-
-        //Starts step counter service
-      //  startService(Intent(applicationContext, StepCounterService::class.java))
-
+        
         goToNumberGameBtn.setOnClickListener {
             goToFrag(plusMinusFrag)
         }
@@ -106,6 +103,9 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
+    /**
+     * resize original photo to a smaller size, so it is easier to covert and upload/download
+     */
     private fun resizeBitmap(imgBitmap: Bitmap): Bitmap? {
         val oriWidth = imgBitmap.width
         val oriHeight = imgBitmap.height
@@ -117,6 +117,10 @@ class MainActivity : AppCompatActivity(){
         return finalBitmap
     }
 
+    /**
+     * wait location task complete and get latitude and longitude
+     * upload bitmap string and location info to server
+     */
     private fun doUpload(bitmapString: String) {
         Log.d(TAG, "doUpload MAINactity")
         UserLocation.getLocation(this, this).addOnCompleteListener {

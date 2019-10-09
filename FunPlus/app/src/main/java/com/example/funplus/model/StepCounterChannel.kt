@@ -29,7 +29,6 @@ class StepCounterChannel : Application() {
         val stop = checkStartStopTime().second
         Log.d(TAG, "step counter service channel startStopService() start = "+start + "stopStepcountService = "+stop)
         if (start) {
-            Log.d(TAG, "current time is between 8:00 - 17:00")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Log.d(TAG, "NetworkingChannel onCreate startForegroundService")
                 this.startForegroundService(Intent(this, StepCounterService::class.java))
@@ -38,13 +37,13 @@ class StepCounterChannel : Application() {
                 this.startService(Intent(this, StepCounterService::class.java))
             }
         } else if (stop) {
-            Log.d(TAG, "time has passed 17:00, step counter service stopped")
+            Log.d(TAG, "time has passed 22:00, step counter service stopped")
             this.stopService(Intent(this, StepCounterService::class.java))
         }
     }
 
     /**
-     * compare current time and predefined time(run step counter service from 8:00 - 17:00)
+     * compare current time and predefined time(run step counter service from 8:00 - 22:00)
      * to start and stopStepcountService service
      */
     private fun checkStartStopTime(): Pair<Boolean, Boolean> {
@@ -52,12 +51,11 @@ class StepCounterChannel : Application() {
         val timeNow = getTimeNow()
         var start = false
         var stop = false
-        var serviceStarted = false
         if (timeNow >= "08:00" && timeNow < "22:00") {
-            Log.d(TAG, "current time is between 8:00 - 17:00, start step counter service")
+            Log.d(TAG, "current time is between 8:00 - 22:00, start step counter service")
             start = true
         } else if (timeNow >= "22:00") {
-            Log.d(TAG, "time has passed 17:00, stop step counter service ")
+            Log.d(TAG, "time has passed 22:00, stop step counter service ")
             stop = true
         }
         return Pair(start, stop)
