@@ -8,7 +8,7 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -19,8 +19,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/wordIv"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:contentDescription="@string/what_do_you_see_in_the_picture"
                 android:src="@drawable/apple"
                 app:civ_border_width="3dp"
@@ -39,13 +39,13 @@
                 <TextView
                     android:id="@+id/wordTv"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="80dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/apple"
                     android:textAlignment="center"
                     android:textColor="@color/colorPink"
-                    android:textSize="60sp" />
+                    android:textSize="45sp" />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,8 +56,8 @@
 
             <ImageButton
                 android:id="@+id/recordBtn"
-                android:layout_width="187dp"
-                android:layout_height="94dp"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/record_button"
                 android:contentDescription="@string/press_button_to_record"
