@@ -10,9 +10,9 @@ Metropolia UAS third-year student project for Sensor Based Mobile Course
 1. Clone the repository and run with Android Studio
 1. Run Funplus on one device, and ParentPlus on another
 1. Allow permission with camera, location, Microphone and storage
-1. Images for ARcore scanning are in assets folder
-NOTE: url to upload and download data is not provided
-
+1. Images for ARcore scanning are in assets folder  
+NOTE: url to upload and download data is not provided  
+(The url can be specified under `app/java/com.example.funplus/utility/Uploader.kt`)
 
 ## Hardware and/or software requirements
 1. SDK >= 26
