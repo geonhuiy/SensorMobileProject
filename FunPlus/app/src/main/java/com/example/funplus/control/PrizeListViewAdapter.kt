@@ -1,7 +1,6 @@
 package com.example.funplus.control
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,12 +30,6 @@ class PrizeListViewAdapter(var prizeList : List<Prize>) :  RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.prizeCountTv.text = prizeList[position].count.toString()
         holder.prizeImgIv.setImageResource(prizeList[position].prizeImg)
-
-        holder.itemView.setOnClickListener {
-            // fire recyclerView click event
-           // showContactInfo(userList[position].uid)
-            Log.d("OnClickListener", "item clicked")
-        }
     }
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),

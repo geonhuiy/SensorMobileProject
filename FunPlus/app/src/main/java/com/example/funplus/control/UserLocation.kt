@@ -1,7 +1,6 @@
 package com.example.funplus.control
 
 import android.app.Activity
-import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
@@ -23,7 +22,6 @@ class UserLocation{
             if(task.isSuccessful && task.result != null) {
                 currentLat = task.result!!.latitude
                 currentLong = task.result!!.longitude
-                Log.d("GeoLoc", "${currentLat}")
             }
         }
     }

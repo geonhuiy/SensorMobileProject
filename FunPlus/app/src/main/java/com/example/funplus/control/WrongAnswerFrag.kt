@@ -2,7 +2,6 @@ package com.example.funplus.control
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,7 +77,6 @@ class WrongAnswerFrag : Fragment(){
 
     //go back to plus-minus fragment
     private fun showPlusMinusFrag(frag : Fragment) {
-        Log.d(TAG, "showPlusMinusFrag from wrong answer frag")
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, frag)
         //fTransaction.addToBackStack(null)

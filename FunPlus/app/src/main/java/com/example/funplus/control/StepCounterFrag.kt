@@ -8,7 +8,6 @@ import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,9 +72,7 @@ class StepCounterFrag : Fragment() {
         override fun onReceive(contxt: Context?, intent: Intent?) {
             when (intent?.action) {
                 STEP_COUNT_INTENT -> {
-                    Log.d(TAG, "data frag, broadCastReceiver(), new step count data")
                     val stepCount = intent.getIntExtra(STEP_COUNT_DATA, 0)
-                    Log.d(TAG, "new step count is " + stepCount)
                     updateStepCountUI(stepCount)
                     lastStepCount = stepCount
                 }
@@ -90,7 +87,6 @@ class StepCounterFrag : Fragment() {
      * from green to red(0 - 10,000 steps), indicating from "active" to "tired"
      */
     private fun updateStepCountUI(currentSteps: Int) {
-        Log.d(TAG, "updateStepCountUI currentSteps=" + currentSteps)
         stepCountTxtView.text = currentSteps.toString()
 
         progressBar.progress = currentSteps

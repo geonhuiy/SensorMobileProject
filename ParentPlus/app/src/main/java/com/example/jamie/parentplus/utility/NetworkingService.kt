@@ -20,18 +20,11 @@ import com.example.jamie.parentplus.control.TAG
 class NetworkingService() : Service() {
     private lateinit var handler: Handler
     lateinit var newDataChecker: NewDataChecker
-    val DEFAULT_SYNC_INTERVAL = (10 * 1000).toLong()
+    val DEFAULT_SYNC_INTERVAL = (30 * 1000).toLong() //checking server for new data every 30 seconds
     var currentTime = "" // time of the last change on server side
-    companion object{
-        /* fun setContext(con: Context) {
-             context=con
-         }
-         val geoPicDB = GeoPicDB.get(context!!)*/
-    }
 
     override fun onCreate() {
         super.onCreate()
-        Log.d(TAG, "NetworkingService onCreate")
         handler = Handler()
     }
 
@@ -48,7 +41,6 @@ class NetworkingService() : Service() {
     //make http request every 10 seconds to check if there is new change in the file
     private val runnableService = object : Runnable {
         override fun run() {
-            Log.d(TAG, "NetworkService.runnableService run() :")
             newDataChecker = NewDataChecker()
             if (isNetworkAvailable()) {
                 newDataChecker.checkLastModifiedTime(this@NetworkingService)
@@ -61,18 +53,26 @@ class NetworkingService() : Service() {
      *Sets values for the foreground service notification
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(TAG, "NetworkService.onStartCommand() :")
         handler.post(runnableService)
         val notification: Notification
+
+        //Intent for stopping the service when the stopStepcountService service button is clicked
+        val stopIntent = Intent(this, NetworkingService::class.java)
+        stopIntent.setAction("STOP")
+        val pendingStopIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+
         //Defines the activity to be started when the notification is clicked
         val notificationIntent = Intent(this, MainActivity::class.java)
         val notificationChannel = NetworkingChannel()
+        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
         //Sets the text/icon for the notification
         notification =
             NotificationCompat.Builder(this, notificationChannel.CHANNEL_ID)
-                .setContentTitle("New data checking")
+                .setContentTitle("Checking for new data")
                 .setContentInfo("New location and photo from FunPlus user")
                 .setSmallIcon(R.drawable.ic_error)
+                .setContentIntent(pendingIntent)
+                .addAction(R.drawable.ic_error, "Stop checking for new data", pendingStopIntent)
                 .build()
         startForeground(1, notification)
         //Restarts the service if closed and passes the previous intent
@@ -83,12 +83,9 @@ class NetworkingService() : Service() {
     // if not same, meaning file has been changed
     fun isFileChanged(newTime: String): Boolean {
         if (newTime != currentTime) {
-            Log.d(TAG,"Changes detected in server, currentTime: " + currentTime + " ,newTime:" + newTime)
             currentTime = newTime
             DownloadTask(LocalBroadcastManager.getInstance(this)).execute()
             return true
-        } else {
-            Log.d(TAG, "file was not updated")
         }
         return false
     }

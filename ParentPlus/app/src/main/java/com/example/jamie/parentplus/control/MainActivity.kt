@@ -17,7 +17,15 @@ import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.view.animation.DecelerateInterpolator
 import android.animation.ObjectAnimator
-
+import android.os.PersistableBundle
+import androidx.lifecycle.ViewModelProviders
+import com.example.jamie.parentplus.utility.GeoPicDB
+import com.example.jamie.parentplus.utility.GeoPicData
+import com.example.jamie.parentplus.utility.GeoPicModel
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import java.util.*
+import androidx.lifecycle.Observer
 
 
 const val TAG = "PARENTPLUS"
@@ -25,12 +33,12 @@ const val INTENT_BROADCAST_GEOTAGGEDPICTURE_CHANGED = "geo tagged picture change
 const val INTENT_EXTRA_GEOTAGGEDPICTURE_DATA = "geo tagged picture data"
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var geoPicDB: GeoPicDB
     private lateinit var mapFrag: MapFrag
     private lateinit var photoFrag: PhotoFrag
     private lateinit var fTransaction: FragmentTransaction
     private lateinit var fManager: FragmentManager
     private lateinit var animation: ObjectAnimator
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         fManager = supportFragmentManager
         mapFrag = MapFrag()
         photoFrag = PhotoFrag()
+        geoPicDB = GeoPicDB.get(this)
 
         setupProgressCircle()
 
@@ -45,6 +54,8 @@ class MainActivity : AppCompatActivity() {
             broadCastReceiver,
             IntentFilter(INTENT_BROADCAST_GEOTAGGEDPICTURE_CHANGED)
         )
+
+        showLatestDataFromDB()
 
         mapBtn.setOnClickListener {
             goToFrag(mapFrag)
@@ -62,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             "data downloading in progress",
             0,
             5000
-        ) // see this max value coming back here, we animate towards that value
+        )
         animation.duration = 50000 // in milliseconds
         animation.interpolator = DecelerateInterpolator()
         animation.start()
@@ -77,13 +88,25 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "MainActivity has received new data")
                     val data = intent.getStringExtra(INTENT_EXTRA_GEOTAGGEDPICTURE_DATA)
                     if (data == null || data.isEmpty()) {
-                        Toast.makeText(contxt, "new data is null or empty", Toast.LENGTH_LONG).show()
-                        Log.d(TAG, "new data null or empty")
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Failed to receive data",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else {
                         Log.d(TAG, "new data size is " + data.length)
-                        passDownloadResult(data)
+                        storeDataInDB(data)
                     }
                 }
+            }
+        }
+    }
+
+    private fun storeDataInDB(data: String) {
+        doAsync {
+            geoPicDB.geoPicDao().insert(GeoPicData(0, data, Date()))
+            uiThread {
+                passDownloadResult(data)
             }
         }
     }
@@ -95,7 +118,6 @@ class MainActivity : AppCompatActivity() {
 
     //switch between different fragments based on button click
     private fun goToFrag(frag: Fragment) {
-        Log.d(TAG, "goToFrag " + frag)
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, frag)
         fTransaction.commit()
@@ -103,7 +125,6 @@ class MainActivity : AppCompatActivity() {
 
     //data is ready, pass to map and photo fragments, and hide progress circle
     fun passDownloadResult(result: String) {
-        Log.d(TAG, "getResult: size = " + result.length)
         getLocDataPassToMap(result)
         getImageString(result)
         progressCircle.clearAnimation()
@@ -123,26 +144,26 @@ class MainActivity : AppCompatActivity() {
     //read the downloaded file and extract the location info and pass to map fragment
     private fun getLocDataPassToMap(result: String) {
         val lines = result.lines()
-        Log.d(TAG + "line1: ", lines[0])
-        Log.d(TAG + "line2: ", lines[1])
         val latitude = lines[0].split("=")[1].toDouble()
         val longitude = lines[1].split("=")[1].toDouble()
         val bundle = Bundle()
         bundle.putDouble("latitude", latitude)
         bundle.putDouble("longitude", longitude)
-        Log.d(TAG + " latitude1: ", latitude.toString())
-        Log.d(TAG + " longitude1: ", longitude.toString())
         mapFrag.arguments = bundle
         mapBtn.visibility = View.VISIBLE
-       // showMapFrag()
     }
 
 
-    //show map fragment(by default) when data is ready
-    private fun showMapFrag() {
-        Log.d(TAG, "showMapFrag()")
-        fTransaction = fManager.beginTransaction()
-        fTransaction.add(R.id.fcontainer, mapFrag)
-        fTransaction.commit()
+    private fun showLatestDataFromDB() {
+        val model = ViewModelProviders.of(this).get(GeoPicModel::class.java)
+        model.getAllGeoPic().observe(this, Observer {
+            if (!it.isNullOrEmpty()) {
+                passDownloadResult(it.last().data)
+            } else {
+                Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
+
+
 }

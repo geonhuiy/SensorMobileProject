@@ -1,6 +1,5 @@
 package com.example.jamie.parentplus.control.utility
 
-import android.util.Log
 import com.example.jamie.parentplus.control.TAG
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -14,7 +13,7 @@ class NewDataChecker () {
         // (if it was modified later than the previous time, it means
         // the file was updated -> new content was uploaded)
         doAsync {
-            val url = URL("")
+            val url = URL("https://users.metropolia.fi/~youqins/uploads/lastModifideTime.php")
             val conn = url.openConnection() as HttpURLConnection
             conn.connect()
             val inputStream: InputStream = conn.getInputStream()
@@ -28,9 +27,7 @@ class NewDataChecker () {
 
             //get result, and inform service about the time
             uiThread {
-                Log.d(TAG, " checkLastModifiedTime finished, result: " + resultString)
                 val currentTime = resultString.substringAfterLast("last changed: ")
-                Log.d(TAG, "lastModifiedTime: " + currentTime)
                 service.isFileChanged(currentTime)
             }
         }
