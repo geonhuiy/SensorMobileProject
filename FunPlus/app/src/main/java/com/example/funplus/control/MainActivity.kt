@@ -103,6 +103,7 @@ class MainActivity : AppCompatActivity(){
         Log.d(TAG, "goToDataActivity")
         val intent = Intent(this, DataActivity::class.java)
         startActivity(intent)
+        this.finish()
     }
 
     /**

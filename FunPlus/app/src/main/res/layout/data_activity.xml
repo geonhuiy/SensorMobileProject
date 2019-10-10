@@ -6,24 +6,22 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".control.DataActivity">
+    tools:context=".control.DataActivity"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1">
+        android:background="@color/color5">
 
         <Button
             android:id="@+id/backToGameBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/game"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:contentDescription="@string/_play_number_games"
-            />
+            android:background="@drawable/ic_arrow_back"/>
 
         <Button
             android:id="@+id/seeGraphBtn"
@@ -31,7 +29,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/play_word_games"
-            android:text="@string/graph" />
+            android:text="@string/graph"
+            android:background="@null"/>
 
 
         <Button
@@ -40,7 +39,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/play_word_games"
-            android:text="@string/step" />
+            android:text="@string/step"
+            android:background="@null"/>
     </LinearLayout>
 
     <LinearLayout

@@ -26,6 +26,6 @@
     <string name="game">game</string>
     <string name="graph">graph</string>
     <string name="step">step</string>
-    <string name="success_rate">success rate</string>
-    <string name="energy_status">enery status</string>
+    <string name="success_rate">Rate of questions answered correctly</string>
+    <string name="energy_status">Energy status</string>
 </resources>
