@@ -24,7 +24,7 @@
 
         <ImageButton
             android:id="@+id/tryAgainBtn"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:layout_width="160dp"
             android:background="@drawable/again_button"
             android:src="@drawable/ic_refresh"
@@ -37,7 +37,7 @@
         <Button
             android:id="@+id/newGameBtn"
             android:layout_width="160dp"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:contentDescription="@string/try_a_new_one"
             android:background="@drawable/again_button"
             android:text="NEW"
