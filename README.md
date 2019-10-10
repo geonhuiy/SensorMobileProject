@@ -23,7 +23,7 @@ NOTE: url to upload and download data is not provided
 1. Network connected
 
 ## Dependencies
-    ``` 
+``` 
  implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
