@@ -1,5 +1,6 @@
 package com.example.funplus.control
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.funplus.R
 import com.example.funplus.utility.SoundEffectPlayer
 import kotlinx.android.synthetic.main.wrong_answer_frag.*
+import java.lang.Exception
 
 class WrongAnswerFrag : Fragment(){
     lateinit var fTransaction: FragmentTransaction
@@ -34,6 +36,20 @@ class WrongAnswerFrag : Fragment(){
         // Inflate the layout for this fragment
         val view = inflater?.inflate(R.layout.wrong_answer_frag, container, false)
         return view
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT || newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            try {
+                fManager = this.fragmentManager!!
+                fTransaction = fManager.beginTransaction()
+                fTransaction.detach(this).attach(this).commit()
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
 
