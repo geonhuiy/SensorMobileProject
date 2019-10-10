@@ -7,7 +7,7 @@ Metropolia UAS third-year student project for Sensor Based Mobile Course
 
 
 ## How to setup and use
-1. Clone the repository and run with Android Studio
+1. Clone the repository from and run with Android Studio
 1. Run Funplus on one device, and ParentPlus on another
 1. Allow permission with camera, location, Microphone and storage
 1. Images for ARcore scanning are in assets folder  
@@ -24,7 +24,7 @@ NOTE: url to upload and download data is not provided
 
 ## Dependencies
     ``` 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+ implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
@@ -57,7 +57,10 @@ NOTE: url to upload and download data is not provided
     def retrofit_version = '2.6.1'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation 'com.jjoe64:graphview:4.2.2' 
+    implementation 'com.jjoe64:graphview:4.2.2'
+
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
     ```
 
 
