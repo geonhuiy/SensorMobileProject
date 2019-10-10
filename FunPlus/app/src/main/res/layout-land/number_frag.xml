@@ -12,10 +12,9 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:elevation="8dp">
+        android:layout_marginTop="10dp">
 
         <Button
             android:id="@+id/num1Btn"
@@ -23,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_left_round"
-            android:elevation="8dp"
             android:textColor="@color/colorPrimaryText"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -34,7 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/color3Light"
-            android:elevation="8dp"
             android:textColor="@color/colorPrimaryText"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -44,9 +41,7 @@
             style="@android:style/DeviceDefault.ButtonBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:background="@color/color3Light"
-            android:elevation="8dp"
             android:textColor="@color/colorPrimaryText"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -57,75 +52,75 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_right_round"
-            android:elevation="8dp"
             android:text="@string/equal_sign"
             android:textColor="@color/colorPrimaryText"
             android:textSize="30sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
 
         <RadioButton
             android:id="@+id/radioButton1"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
             android:background="@drawable/rb_style"
             android:buttonTint="@color/colorPrimary"
-            android:elevation="8dp"
             android:padding="12dp"
             android:textAlignment="center"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:elevation="8dp"/>
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
             android:background="@drawable/rb_style"
             android:buttonTint="@color/colorPrimary"
-            android:elevation="8dp"
             android:padding="12dp"
             android:textAlignment="center"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:elevation="8dp"/>
 
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
             android:background="@drawable/rb_style"
             android:buttonTint="@color/colorPrimary"
-            android:elevation="8dp"
             android:padding="12dp"
             android:textAlignment="center"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:elevation="8dp"/>
     </RadioGroup>
 
     <Button
         android:id="@+id/okBtn"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/okbutton_borderstyle"
         android:contentDescription="@string/click_to_check_if_your_answer_is_correct"
-        android:elevation="8dp"
         android:text="@string/ok"
         android:textColor="@color/colorPrimary"
+        android:background="@drawable/okbutton_borderstyle"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:elevation="8dp"/>
 
 </LinearLayout>

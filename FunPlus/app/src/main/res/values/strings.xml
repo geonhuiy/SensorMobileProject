@@ -10,7 +10,7 @@
     <string name="press_button_to_see_previous_word">press button to see previous word</string>
     <string name="press_button_to_see_next_work">press button to see next word</string>
     <string name="what_do_you_see_in_the_picture">what do you see in the picture?</string>
-    <string name="apple">apple</string>
+    <string name="apple">Apple</string>
     <string name="_123">123</string>
     <string name="abc">abc</string>
     <string name="click_to_check_if_your_answer_is_correct">click to check if your answer is correct</string>
@@ -26,6 +26,11 @@
     <string name="game">game</string>
     <string name="graph">graph</string>
     <string name="step">step</string>
-    <string name="success_rate">success rate</string>
-    <string name="energy_status">enery status</string>
+    <string name="success_rate">Rate of questions answered correctly</string>
+    <string name="energy_status">Energy status</string>
+    <string name="prevImage">Click to view previous image</string>
+    <string name="nextImage">Click to view next image</string>
+    <string name="displayData">Click to display data</string>
+    <string name="sos">Click to send a picture in case of emergency</string>
+    <string name="backToMain">Click to go back to main activity</string>
 </resources>

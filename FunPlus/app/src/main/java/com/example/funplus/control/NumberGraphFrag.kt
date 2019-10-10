@@ -1,6 +1,7 @@
 package com.example.funplus.control
 
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -67,7 +68,12 @@ class NumberGraphFrag : Fragment() {
     }
 
     private fun setGraph() {
+        graph.gridLabelRenderer.gridColor = Color.WHITE
+        graph.gridLabelRenderer.isHighlightZeroLines = false
+        graph.gridLabelRenderer.verticalLabelsColor = Color.WHITE
+        graph.gridLabelRenderer.horizontalLabelsColor = Color.WHITE
         graph.addSeries(points)
+        points.color = Color.CYAN
         graph.viewport.isXAxisBoundsManual = true
         graph.viewport.isScalable = true
         graph.viewport.isScrollable = true

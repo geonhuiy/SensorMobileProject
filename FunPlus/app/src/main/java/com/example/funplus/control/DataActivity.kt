@@ -25,7 +25,7 @@ class DataActivity : AppCompatActivity() {
         fManager = supportFragmentManager
         numberGameGraphFrag = NumberGraphFrag()
         stepCounterFrag = StepCounterFrag()
-
+        seeGraphBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
         showNumberGraphFrag()
 
         backToGameBtn.setOnClickListener{
@@ -34,10 +34,14 @@ class DataActivity : AppCompatActivity() {
 
         seeGraphBtn.setOnClickListener {
             goToFrag(numberGameGraphFrag)
+            seeGraphBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
+            seeStepCountBtn.setBackgroundColor(resources.getColor(R.color.color5))
         }
 
         seeStepCountBtn.setOnClickListener {
             goToFrag(stepCounterFrag)
+            seeGraphBtn.setBackgroundColor(resources.getColor(R.color.color5))
+            seeStepCountBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
         }
 
 
@@ -65,6 +69,7 @@ class DataActivity : AppCompatActivity() {
         Log.d(TAG, "goToDataActivity")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        this.finish()
     }
 
 }

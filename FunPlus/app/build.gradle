@@ -64,6 +64,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation 'com.jjoe64:graphview:4.2.2'
 
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
 }
 
 sceneform.asset('sampledata/Birthday Cupcake.obj',
