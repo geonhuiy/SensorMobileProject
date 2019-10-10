@@ -12,7 +12,7 @@ Metropolia UAS third-year student project for Sensor Based Mobile Course
 1. Allow permission with camera, location, Microphone and storage
 1. Images for ARcore scanning are in assets folder  
 NOTE: url to upload and download data is not provided  
-(The url can be specified under `app/java/com.example.funplus/utility/Uploader.kt`)
+(The url can be specified under `FunPlus/app/java/com.example.funplus/utility/Uploader.kt`)
 
 ## Hardware and/or software requirements
 1. SDK >= 26
