@@ -103,8 +103,9 @@ class ArFragMain : Fragment() {
                         for (index in 0..5) {
                             if (it.name == imgList[index] && randomNum == correctAnswerFrag.numList[index]) {
                                 imgNode.renderable = modelImgMap[index]?.first
-                                imgNode.scaleController.maxScale = 0.1f
-                                imgNode.scaleController.minScale = 0.09f
+                                //imgNode.scaleController.maxScale = 0.1f
+                                //imgNode.scaleController.minScale = 0.09f
+                                scaleModel(imgNode, index)
                                 modelSet = true
                                 nodeTapListener(imgNode, index)
                                 break
@@ -126,17 +127,17 @@ class ArFragMain : Fragment() {
             "Birthday Cupcake.sfb",
             "cupcake.sfb",
             "Chocolate Cake.sfb",
-            "hamburgeres.sfb",
+            "13451_Golden_Crown_v1_L2.sfb",
             "pizza.sfb",
             "cartoon_flower.sfb"
         )
         val prizeImgList = listOf<Int>(
-            R.drawable.bdcake,
-            R.drawable.cupcake,
-            R.drawable.chocolate_cake,
-            R.drawable.hamburger,
+            R.drawable.gray_cake,
+            R.drawable.pink_cake,
+            R.drawable.green_cake,
+            R.drawable.crown,
             R.drawable.pizza,
-            R.drawable.sugar
+            R.drawable.flower
         )
         for (i in 0..uriList.lastIndex) {
             val model = ModelRenderable.builder().setSource(this.context, Uri.parse(uriList[i])).build()
@@ -166,6 +167,36 @@ class ArFragMain : Fragment() {
             }
             seePrizeListBtn.visibility = View.VISIBLE
         }
+    }
+
+    private fun scaleModel(imgNode: TransformableNode, index: Int){
+        when (index) {
+            0 -> {
+                imgNode.scaleController.maxScale = 0.1f
+                imgNode.scaleController.minScale = 0.09f
+            }
+            1 -> {
+                imgNode.scaleController.maxScale = 0.1f
+                imgNode.scaleController.minScale = 0.09f
+            }
+            2 -> {
+                imgNode.scaleController.maxScale = 0.1f
+                imgNode.scaleController.minScale = 0.09f
+            }
+            3 -> {
+                imgNode.scaleController.maxScale = 0.1f
+                imgNode.scaleController.minScale = 0.09f
+            }
+            4 -> {
+                imgNode.scaleController.maxScale = 0.1f
+                imgNode.scaleController.minScale = 0.05f
+            }
+            5 -> {
+                imgNode.scaleController.maxScale = 0.8f
+                imgNode.scaleController.minScale = 0.5f
+            }
+        }
+
     }
 
 
