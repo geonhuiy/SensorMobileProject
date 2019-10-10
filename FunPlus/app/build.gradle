@@ -81,17 +81,17 @@ sceneform.asset('sampledata/cupcake.obj',
         'sampledata/cupcake.sfa',
         'src/main/assets/cupcake')
 
-sceneform.asset('sampledata/hamburgeres.obj',
-        'default',
-        'sampledata/hamburgeres.sfa',
-        'src/main/assets/hamburgeres')
-
 sceneform.asset('sampledata/pizza.obj',
         'default',
         'sampledata/pizza.sfa',
         'src/main/assets/pizza')
 
-sceneform.asset('sampledata/diamond.obj',
+sceneform.asset('sampledata/cartoon_flower.obj',
         'default',
-        'sampledata/diamond.sfa',
-        'src/main/assets/diamond')
+        'sampledata/cartoon_flower.sfa',
+        'src/main/assets/cartoon_flower')
+
+sceneform.asset('sampledata/13451_Golden_Crown_v1_L2.obj',
+        'default',
+        'sampledata/13451_Golden_Crown_v1_L2.sfa',
+        'src/main/assets/13451_Golden_Crown_v1_L2')
