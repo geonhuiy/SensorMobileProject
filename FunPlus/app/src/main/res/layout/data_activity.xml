@@ -18,9 +18,9 @@
 
         <Button
             android:id="@+id/backToGameBtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:contentDescription="@string/_play_number_games"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/backToMain"
             android:background="@drawable/ic_arrow_back"/>
 
         <Button
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="@string/play_word_games"
+            android:contentDescription="@string/graph"
             android:text="@string/graph"
             android:background="@null"/>
 
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="@string/play_word_games"
+            android:contentDescription="@string/step"
             android:text="@string/step"
             android:background="@null"/>
     </LinearLayout>

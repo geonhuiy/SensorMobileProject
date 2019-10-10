@@ -27,17 +27,17 @@ import java.lang.Exception
 import java.util.*
 
 class NumberFrag() : Fragment() {
-    lateinit var correctAnswerFrag: CorrectAnswerFrag
-    lateinit var wrongAnswerFrag: WrongAnswerFrag
-    lateinit var fTransaction: FragmentTransaction
-    lateinit var fManager: FragmentManager
-    lateinit var gameDB: GameDB
+    private lateinit var correctAnswerFrag: CorrectAnswerFrag
+    private lateinit var wrongAnswerFrag: WrongAnswerFrag
+    private lateinit var fTransaction: FragmentTransaction
+    private lateinit var fManager: FragmentManager
+    private lateinit var gameDB: GameDB
     private var correctAnswer = 0
     private var userAnswer = 0
     var toRepeatGame = false
     var gameStarted = false
-    lateinit var newGame: Game
-    var frameLayout: FrameLayout? = null
+    private lateinit var newGame: Game
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +49,6 @@ class NumberFrag() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        frameLayout = FrameLayout(activity!!.applicationContext)
-        val orientation = activity?.resources?.configuration?.orientation
         var view = inflater.inflate(R.layout.number_frag, container, false)
         return view
     }

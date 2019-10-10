@@ -1,82 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".control.StepCounterFrag">
+    tools:context=".control.StepCounterFrag"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_margin="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="160dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="Total steps"
+            android:textAlignment="center"
+            android:textColor="@color/color5Light"
+            android:textSize="25sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/colorLightYellow"
+            app:cardCornerRadius="180dp"
+            app:cardElevation="8dp">
+
             <TextView
-                android:text="Total steps"
-                android:textColor="@color/color5Light"
-                android:textSize="35sp"
-                android:paddingBottom="20dp"
-                android:textAlignment="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <androidx.cardview.widget.CardView
-                app:cardCornerRadius="180dp"
-                android:backgroundTint="@color/colorLightYellow"
+                android:id="@+id/stepCountTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                app:cardElevation="8dp">
-                <TextView
-                    android:id="@+id/stepCountTv"
-                    android:layout_width="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="60sp"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"/>
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="40sp" />
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:textColor="@color/color3Light"
-                android:textSize="35sp"
-                android:layout_marginBottom="35dp"
-                android:textAlignment="center"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/energy_status"
-                android:layout_height="wrap_content"/>
+                android:textAlignment="center"
+                android:textColor="@color/color3Light"
+                android:textSize="25sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:background="@drawable/progressbar_round"
-                    android:outlineProvider="background"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/progressbar_round"
                     android:indeterminate="false"
                     android:max="1000"
                     android:minWidth="200dp"
-                    android:minHeight="50dp"
+                    android:minHeight="40dp"
+                    android:outlineProvider="background"
                     android:progress="10"
                     android:scaleY="20"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -114,4 +110,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

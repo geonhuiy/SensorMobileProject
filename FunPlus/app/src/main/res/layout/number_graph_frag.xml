@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
         <TextView
             android:text="@string/success_rate"
-            android:textColor="@color/color5"
+            android:textColor="@color/color5Light"
             android:textSize="30sp"
             android:layout_margin="20dp"
             android:textAlignment="center"

@@ -37,9 +37,9 @@
 
         <Button
             android:id="@+id/goToDataActivityBtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:contentDescription="@string/play_word_games"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/displayData"
             android:background="@drawable/data_button_style" />
     </LinearLayout>
 
@@ -84,7 +84,7 @@
         app:fabSize="normal"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:contentDescription="Click to send a picture for SOS">
+        android:contentDescription="@string/sos">
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </RelativeLayout>
