@@ -16,7 +16,7 @@ class DownloadTask(val broadcastManager:LocalBroadcastManager) :
     override fun doInBackground(vararg params: Unit): String {
         Log.d(TAG, "DownLoadTask.doInBackground ENTER" )
 
-        val url = URL("")
+        val url = URL("https://users.metropolia.fi/~youqins/uploads/sosFile.txt")
         val urlConnection = url.openConnection() as HttpURLConnection
         urlConnection.connect()
         val inputStream: InputStream = urlConnection.getInputStream()

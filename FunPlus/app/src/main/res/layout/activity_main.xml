@@ -23,7 +23,9 @@
             android:layout_weight="1"
             android:contentDescription="@string/_play_number_games"
             android:text="@string/_123"
-            android:background="@null"/>
+            android:background="@null"
+            style="?android:attr/buttonBarButtonStyle"
+            android:textColor="@color/colorPrimaryLight"/>
 
         <Button
             android:id="@+id/goToLetterGameBtn"
@@ -32,7 +34,9 @@
             android:layout_weight="1"
             android:contentDescription="@string/play_word_games"
             android:text="@string/abc"
-            android:background="@null"/>
+            android:background="@null"
+            style="?android:attr/buttonBarButtonStyle"
+            android:textColor="@color/colorPrimaryLight"/>
 
 
         <Button
@@ -40,7 +44,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:contentDescription="@string/displayData"
-            android:background="@drawable/data_button_style" />
+            android:background="@drawable/data_button_style"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
     <!--<androidx.viewpager.widget.ViewPager

@@ -17,7 +17,8 @@ import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.view.animation.DecelerateInterpolator
 import android.animation.ObjectAnimator
-
+import android.content.pm.ActivityInfo
+import org.jetbrains.anko.backgroundColor
 
 
 const val TAG = "PARENTPLUS"
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main)
         fManager = supportFragmentManager
         mapFrag = MapFrag()
@@ -48,10 +50,14 @@ class MainActivity : AppCompatActivity() {
 
         mapBtn.setOnClickListener {
             goToFrag(mapFrag)
+            mapBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
+            photoBtn.setBackgroundColor(resources.getColor(R.color.color5))
         }
 
         photoBtn.setOnClickListener {
             goToFrag(photoFrag)
+            mapBtn.setBackgroundColor(resources.getColor(R.color.color5))
+            photoBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
         }
     }
 
@@ -118,6 +124,7 @@ class MainActivity : AppCompatActivity() {
         bundle.putString("imgString", imgString)
         photoFrag.arguments = bundle
         photoBtn.visibility = View.VISIBLE
+        photoBtn.setBackgroundColor(resources.getColor(R.color.color5))
     }
 
     //read the downloaded file and extract the location info and pass to map fragment
