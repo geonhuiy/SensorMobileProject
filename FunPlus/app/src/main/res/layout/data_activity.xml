@@ -21,6 +21,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:contentDescription="@string/backToMain"
+            style="?android:attr/buttonBarButtonStyle"
             android:background="@drawable/ic_arrow_back"/>
 
         <Button
@@ -30,6 +31,8 @@
             android:layout_weight="1"
             android:contentDescription="@string/graph"
             android:text="@string/graph"
+            style="?android:attr/buttonBarButtonStyle"
+            android:textColor="@color/colorPrimaryLight"
             android:background="@null"/>
 
 
@@ -40,6 +43,8 @@
             android:layout_weight="1"
             android:contentDescription="@string/step"
             android:text="@string/step"
+            style="?android:attr/buttonBarButtonStyle"
+            android:textColor="@color/colorPrimaryLight"
             android:background="@null"/>
     </LinearLayout>
 
