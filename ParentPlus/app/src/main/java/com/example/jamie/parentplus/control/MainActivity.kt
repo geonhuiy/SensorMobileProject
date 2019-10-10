@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
         animation.duration = 50000 // in milliseconds
         animation.interpolator = DecelerateInterpolator()
         animation.start()
-        Toast.makeText(this, "downloading new data, please wait", Toast.LENGTH_LONG).show()
     }
 
     //receive downloaded data from background thread through broadcast
@@ -133,6 +132,7 @@ class MainActivity : AppCompatActivity() {
         getImageString(result)
         progressCircle.clearAnimation()
         progressCircle.visibility = View.INVISIBLE
+        Toast.makeText(this, "Preparing data, click buttons to see content", Toast.LENGTH_LONG).show()
     }
 
 
@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
             if (!it.isNullOrEmpty()) {
                 passDownloadResult(it.last().data)
             } else {
-                Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Waiting for data...", Toast.LENGTH_SHORT).show()
             }
         })
     }

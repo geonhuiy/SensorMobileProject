@@ -14,7 +14,7 @@ class DownloadTask(val broadcastManager:LocalBroadcastManager) :
     //down load file which stores the location and picture uploaded by FunPlus user
     override fun doInBackground(vararg params: Unit): String {
 
-        val url = URL("https://users.metropolia.fi/~youqins/uploads/sosFile.txt")
+        val url = URL("")
         val urlConnection = url.openConnection() as HttpURLConnection
         urlConnection.connect()
         val inputStream: InputStream = urlConnection.getInputStream()

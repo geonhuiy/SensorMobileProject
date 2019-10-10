@@ -3,7 +3,6 @@ package com.example.funplus.control
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,8 +79,6 @@ class NumberFrag() : Fragment() {
 
         //when button clicked, check if user answer is correct or wrong, and display a frag accordingly
         okBtn.setOnClickListener {
-            Log.d(TAG + "userAnswer:", userAnswer.toString())
-            Log.d(TAG + "correctAnswer:", correctAnswer.toString())
             val pagerAdapter = FragViewPagerAdapter(fManager)
             if (userAnswer == correctAnswer) {
                 insertOrUpdateGameDB(newGame, true)

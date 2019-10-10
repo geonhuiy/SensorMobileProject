@@ -19,7 +19,7 @@ class Uploader() {
             val fileName = "sosFile.txt"
             val message = "filename=$fileName&file-data=$fileData&submit=Upload+Image"
             doAsync {
-                val url = URL("https://users.metropolia.fi/~youqins/upload_textform.php")
+                val url = URL("")
                 val urlConnection = url.openConnection() as HttpURLConnection
                 urlConnection.requestMethod = "POST"
                 urlConnection.doOutput = true

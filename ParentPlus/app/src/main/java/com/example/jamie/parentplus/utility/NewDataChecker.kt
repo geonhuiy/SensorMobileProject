@@ -13,7 +13,7 @@ class NewDataChecker () {
         // (if it was modified later than the previous time, it means
         // the file was updated -> new content was uploaded)
         doAsync {
-            val url = URL("https://users.metropolia.fi/~youqins/uploads/lastModifideTime.php")
+            val url = URL("")
             val conn = url.openConnection() as HttpURLConnection
             conn.connect()
             val inputStream: InputStream = conn.getInputStream()
