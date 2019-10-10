@@ -5,27 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".control.MainActivity">
+    tools:context=".control.MainActivity"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/color5">
 
         <Button
             android:id="@+id/photoBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@null"
             android:visibility="invisible"
-            android:text="@string/photo" />
+            android:text="@string/photo"
+            android:textColor="@color/colorPrimaryLight"/>
 
         <Button
             android:id="@+id/mapBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:visibility="invisible"
-            android:text="@string/map" />
+            android:background="@null"
+            android:text="@string/map"
+            android:textColor="@color/colorPrimaryLight"/>
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +62,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:elevation="8dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

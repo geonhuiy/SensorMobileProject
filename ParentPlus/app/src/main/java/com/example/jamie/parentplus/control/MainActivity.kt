@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -26,6 +25,8 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.util.*
 import androidx.lifecycle.Observer
+import android.content.pm.ActivityInfo
+import org.jetbrains.anko.backgroundColor
 
 
 const val TAG = "PARENTPLUS"
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main)
         fManager = supportFragmentManager
         mapFrag = MapFrag()
@@ -59,10 +61,14 @@ class MainActivity : AppCompatActivity() {
 
         mapBtn.setOnClickListener {
             goToFrag(mapFrag)
+            mapBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
+            photoBtn.setBackgroundColor(resources.getColor(R.color.color5))
         }
 
         photoBtn.setOnClickListener {
             goToFrag(photoFrag)
+            mapBtn.setBackgroundColor(resources.getColor(R.color.color5))
+            photoBtn.setBackgroundColor(resources.getColor(R.color.color5Light))
         }
     }
 
@@ -85,7 +91,6 @@ class MainActivity : AppCompatActivity() {
         override fun onReceive(contxt: Context?, intent: Intent?) {
             when (intent?.action) {
                 INTENT_BROADCAST_GEOTAGGEDPICTURE_CHANGED -> {
-                    Log.d(TAG, "MainActivity has received new data")
                     val data = intent.getStringExtra(INTENT_EXTRA_GEOTAGGEDPICTURE_DATA)
                     if (data == null || data.isEmpty()) {
                         Toast.makeText(
@@ -94,7 +99,6 @@ class MainActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        Log.d(TAG, "new data size is " + data.length)
                         storeDataInDB(data)
                     }
                 }
@@ -139,6 +143,7 @@ class MainActivity : AppCompatActivity() {
         bundle.putString("imgString", imgString)
         photoFrag.arguments = bundle
         photoBtn.visibility = View.VISIBLE
+        photoBtn.setBackgroundColor(resources.getColor(R.color.color5))
     }
 
     //read the downloaded file and extract the location info and pass to map fragment
