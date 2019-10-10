@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.funplus.R
 import com.example.funplus.model.Prize
 import com.example.funplus.model.PrizeDB
+import com.example.funplus.utility.SoundEffectPlayer
 import com.google.ar.core.AugmentedImage
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.AnchorNode
@@ -103,8 +104,6 @@ class ArFragMain : Fragment() {
                         for (index in 0..5) {
                             if (it.name == imgList[index] && randomNum == correctAnswerFrag.numList[index]) {
                                 imgNode.renderable = modelImgMap[index]?.first
-                                //imgNode.scaleController.maxScale = 0.1f
-                                //imgNode.scaleController.minScale = 0.09f
                                 scaleModel(imgNode, index)
                                 modelSet = true
                                 nodeTapListener(imgNode, index)
@@ -112,7 +111,9 @@ class ArFragMain : Fragment() {
                             }
                         }
                         if (!modelSet) {
-                            Toast.makeText(this.context, "no matching image", Toast.LENGTH_LONG).show()
+                            SoundEffectPlayer.playSound(this.requireActivity(), R.raw.wrong_sound)
+                            Toast.makeText(this.context, "wrong image", Toast.LENGTH_LONG).show()
+                            //SoundEffectPlayer.playSound(this.requireActivity(), R.raw.maybe_next_time)
                         }
                     }
                 }
@@ -165,6 +166,7 @@ class ArFragMain : Fragment() {
             if (!dbUpdated) {
                 insertOrUpdatePrizeInDB(imgList[index], modelImgMap[index]!!.second)
             }
+            SoundEffectPlayer.playSound(this.requireActivity(),R.raw.nice_work)
             seePrizeListBtn.visibility = View.VISIBLE
         }
     }

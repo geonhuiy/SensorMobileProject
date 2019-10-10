@@ -68,7 +68,7 @@ class CorrectAnswerFrag : Fragment() {
 
     //play a random cheering sound
     private fun playCheeringSound() {
-        val soundList = listOf<Int>(R.raw.unbelievable, R.raw.woohoo, R.raw.yay)
+        val soundList = listOf<Int>(R.raw.unbelievable, R.raw.woohoo, R.raw.wow)
         SoundEffectPlayer.playSound(this.requireActivity(), soundList.random())
     }
 
