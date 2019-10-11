@@ -164,6 +164,7 @@ class ArFragMain : Fragment() {
                 insertOrUpdatePrizeInDB(imgList[index], modelImgMap[index]!!.second)
             }
             SoundEffectPlayer.playSound(this.requireActivity(), R.raw.woohoo)
+
             seePrizeListBtn.visibility = View.VISIBLE
         }
     }
