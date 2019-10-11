@@ -115,7 +115,7 @@ if ($uploadOk == 0) {
 
 ## How the app looks like
 
-![](arReward.gif)
+![](https://github.com/geonhuiy/SensorMobileProject/blob/updateReadme/arReward.gif)
 ![](dataActivity.gif)
 ![](numberfrag.gif)
 ![](parentplus.gif)
