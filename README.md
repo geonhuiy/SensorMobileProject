@@ -53,6 +53,7 @@ if ($uploadOk == 0) {
 
 ## AR image-number pairs
 #  123
+<img src="https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/giftbox.jpg" height=300>
 ![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/giftbox.jpg)
 
 #  234
@@ -69,6 +70,19 @@ if ($uploadOk == 0) {
 
 #  678
 ![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/surprise.png)
+
+
+## How the app looks like
+
+![](https://github.com/geonhuiy/SensorMobileProject/blob/updateReadme/arReward.gif)
+
+![](dataActivity.gif)
+
+![](numberfrag.gif)
+
+![](parentplus.gif)
+
+![](parentplus_capture.gif)
 
 
 ## Dependencies
@@ -111,16 +125,6 @@ if ($uploadOk == 0) {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     ```
-
-
-## How the app looks like
-
-![](https://github.com/geonhuiy/SensorMobileProject/blob/updateReadme/arReward.gif)
-![](dataActivity.gif)
-![](numberfrag.gif)
-![](parentplus.gif)
-![](parentplus_capture.gif)
-
 
 
 
