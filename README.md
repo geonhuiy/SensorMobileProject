@@ -52,13 +52,13 @@ if ($uploadOk == 0) {
 ```
 
 ## AR image-number pairs
-####  123
+#  123
 <img src="https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/giftbox.jpg" height=300>
 
-####  234
+#  234
 <img src="https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/masha.jpg" height=300>
 
-####  345
+#  345
 <img src="https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/minions.jpg" height=300>
 
 #  456
@@ -73,15 +73,9 @@ if ($uploadOk == 0) {
 
 ## How the app looks like
 
-<img src="arReward.gif" height=300>
+<img src="arReward.gif" height=300>    <img src="dataActivity.gif" height=300>    <img src="numberfrag.gif" height=300>
 
-<img src="dataActivity.gif" height=300>
-
-<img src="numberfrag.gif" height=300>
-
-<img src="parentplus.gif" height=300>
-
-<img src="parentplus_capture.gif" height=300>
+<img src="parentplus.gif" height=300>      <img src="parentplus_capture.gif" height=300>
 
 
 ## Dependencies
