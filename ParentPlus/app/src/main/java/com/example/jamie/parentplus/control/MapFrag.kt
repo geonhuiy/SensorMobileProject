@@ -41,8 +41,6 @@ class MapFrag : Fragment() {
 
         val latitude= arguments!!.getDouble("latitude")
         val longitude= arguments!!.getDouble("longitude")
-        Log.d(TAG+" latitude2: ", latitude.toString())
-        Log.d(TAG+" longitude2: ", longitude.toString())
         setMap(latitude, longitude)
     }
 

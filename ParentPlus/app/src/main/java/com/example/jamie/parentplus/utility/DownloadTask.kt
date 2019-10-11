@@ -1,6 +1,5 @@
 import android.content.Intent
 import android.os.AsyncTask
-import android.util.Log
 import com.example.jamie.parentplus.control.INTENT_BROADCAST_GEOTAGGEDPICTURE_CHANGED
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -14,9 +13,8 @@ class DownloadTask(val broadcastManager:LocalBroadcastManager) :
 
     //down load file which stores the location and picture uploaded by FunPlus user
     override fun doInBackground(vararg params: Unit): String {
-        Log.d(TAG, "DownLoadTask.doInBackground ENTER" )
 
-        val url = URL("https://users.metropolia.fi/~youqins/uploads/sosFile.txt")
+        val url = URL("")
         val urlConnection = url.openConnection() as HttpURLConnection
         urlConnection.connect()
         val inputStream: InputStream = urlConnection.getInputStream()
@@ -27,15 +25,13 @@ class DownloadTask(val broadcastManager:LocalBroadcastManager) :
         result.append(allText)
         val resultString = result.toString()
         inputStream.close()
-        Log.d(TAG, "DownLoadTask.doInBackground result size is " + resultString.length)
 
         return resultString
     }
 
     //when task is done, broadcast result
     override fun onPostExecute(result: String?) {
-        Log.d(TAG, "DownLoadTask.onPostExecute result size is " + result!!.length)
-        broadcastGeotaggedPicture(result)
+        broadcastGeotaggedPicture(result!!)
     }
 
 

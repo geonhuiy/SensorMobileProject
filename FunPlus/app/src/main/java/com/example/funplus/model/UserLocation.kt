@@ -3,10 +3,7 @@ package com.example.funplus.model
 import android.app.Activity
 import android.content.Context
 import android.location.Location
-import android.util.Log
-import com.example.funplus.control.TAG
 import com.example.funplus.utility.*
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 

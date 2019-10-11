@@ -2,7 +2,6 @@ package com.example.funplus.control
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -94,8 +93,6 @@ class ArFragMain : Fragment() {
                     if (anchors.isEmpty()) {
                         val imgNode = setupNode(it)
 
-                        Log.d(TAG + "randomNum: ", randomNum.toString())
-
                         var modelSet = false
                         /*loop through the lists of images and numbers
                         *make sure the image matches with the image on the displayed number card
@@ -106,14 +103,14 @@ class ArFragMain : Fragment() {
                                 imgNode.renderable = modelImgMap[index]?.first
                                 scaleModel(imgNode, index)
                                 modelSet = true
+                                SoundEffectPlayer.playSound(this.requireActivity(), R.raw.unbelievable)
                                 nodeTapListener(imgNode, index)
                                 break
                             }
                         }
                         if (!modelSet) {
-                            SoundEffectPlayer.playSound(this.requireActivity(), R.raw.wrong_sound)
-                            Toast.makeText(this.context, "wrong image", Toast.LENGTH_LONG).show()
-                            //SoundEffectPlayer.playSound(this.requireActivity(), R.raw.maybe_next_time)
+                            SoundEffectPlayer.playSound(this.requireActivity(), R.raw.try_again)
+                            Toast.makeText(this.context, "Wrong image", Toast.LENGTH_LONG).show()
                         }
                     }
                 }
@@ -166,7 +163,8 @@ class ArFragMain : Fragment() {
             if (!dbUpdated) {
                 insertOrUpdatePrizeInDB(imgList[index], modelImgMap[index]!!.second)
             }
-            SoundEffectPlayer.playSound(this.requireActivity(),R.raw.nice_work)
+            SoundEffectPlayer.playSound(this.requireActivity(), R.raw.woohoo)
+
             seePrizeListBtn.visibility = View.VISIBLE
         }
     }
@@ -205,9 +203,7 @@ class ArFragMain : Fragment() {
     /*check if a prize is stored in DB
      */
     private fun isPrizeInDB(imgToScan: String): Boolean {
-        Log.d(TAG, "isPrizeInDB 1:")
         val allPrizes = prizeDB.prizeDao().getAllPrizes()
-        Log.d(TAG, "isPrizeInDB():" + allPrizes.size + " prizes stored in DB")
         var isPrizeInDB = false
         if (allPrizes.count() != 0) {
             for (prize: Prize in allPrizes) {
@@ -217,7 +213,6 @@ class ArFragMain : Fragment() {
                 }
             }
         }
-        Log.d(TAG, "isPrizeInDB 2:" + isPrizeInDB)
         return isPrizeInDB
     }
 
@@ -225,20 +220,16 @@ class ArFragMain : Fragment() {
        it not, insert into db
     */
     private fun insertOrUpdatePrizeInDB(imgToScan: String, prizeImg: Int) {
-        Log.d(TAG, "insertOrUpdatePrizeInDB")
         var prizeCount = 1
         doAsync {
             if (isPrizeInDB(imgToScan)) {
-                Log.d(TAG, "isPrizeInDB: true")
                 prizeDB.prizeDao().updatePrizeCount(imgToScan)
                 prizeCount = prizeDB.prizeDao().getPrizeCount(imgToScan)
             } else {
-                Log.d(TAG, "isPrizeInDB: false")
                 prizeDB.prizeDao().insert(Prize(0, imgToScan, prizeImg, 1))
             }
             uiThread {
                 prizeCountTv.text = prizeCount.toString()
-                Log.d(TAG + " prize count: ", prizeCount.toString())
                 prizeCountTv.visibility = View.VISIBLE
             }
             dbUpdated = true
@@ -246,7 +237,6 @@ class ArFragMain : Fragment() {
     }
 
     private fun goToPrizeListFrag() {
-        Log.d(TAG, "goToPrizeListFrag")
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, prizeListFrag)
         fTransaction.commit()

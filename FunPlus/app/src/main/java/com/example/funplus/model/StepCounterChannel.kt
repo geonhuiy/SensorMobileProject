@@ -7,7 +7,6 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -16,7 +15,6 @@ class StepCounterChannel : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Log.d(TAG, "step counter service channel onCreate() ENTER")
         startStopService()
         createNotificationChannel()
     }
@@ -27,17 +25,13 @@ class StepCounterChannel : Application() {
     private fun startStopService() {
         val start = checkStartStopTime().first
         val stop = checkStartStopTime().second
-        Log.d(TAG, "step counter service channel startStopService() start = "+start + "stopStepcountService = "+stop)
         if (start) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Log.d(TAG, "NetworkingChannel onCreate startForegroundService")
                 this.startForegroundService(Intent(this, StepCounterService::class.java))
             }else{
-                Log.d(TAG, "NetworkingChannel onCreate startService")
                 this.startService(Intent(this, StepCounterService::class.java))
             }
         } else if (stop) {
-            Log.d(TAG, "time has passed 22:00, step counter service stopped")
             this.stopService(Intent(this, StepCounterService::class.java))
         }
     }
@@ -47,15 +41,12 @@ class StepCounterChannel : Application() {
      * to start and stopStepcountService service
      */
     private fun checkStartStopTime(): Pair<Boolean, Boolean> {
-        Log.d(TAG, "checkStartStopTime ENTER")
         val timeNow = getTimeNow()
         var start = false
         var stop = false
         if (timeNow >= "08:00" && timeNow < "22:00") {
-            Log.d(TAG, "current time is between 8:00 - 22:00, start step counter service")
             start = true
         } else if (timeNow >= "22:00") {
-            Log.d(TAG, "time has passed 22:00, stop step counter service ")
             stop = true
         }
         return Pair(start, stop)
@@ -68,7 +59,6 @@ class StepCounterChannel : Application() {
             val dateTimeNow = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("HH:mm")
             timeNow = dateTimeNow.format(formatter)
-            Log.d(TAG, "step counter service current time: " + timeNow)
         }
         return timeNow
     }
@@ -81,7 +71,6 @@ class StepCounterChannel : Application() {
      * SDK is above Android Oreo.
      */
     private fun createNotificationChannel() {
-        Log.d(TAG, "createNotificationChannel")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
                 CHANNEL_ID,

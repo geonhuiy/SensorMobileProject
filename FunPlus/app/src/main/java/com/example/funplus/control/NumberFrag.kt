@@ -3,7 +3,6 @@ package com.example.funplus.control
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +48,7 @@ class NumberFrag() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.number_frag, container, false)
+        val view = inflater.inflate(R.layout.number_frag, container, false)
         return view
     }
 
@@ -80,8 +79,6 @@ class NumberFrag() : Fragment() {
 
         //when button clicked, check if user answer is correct or wrong, and display a frag accordingly
         okBtn.setOnClickListener {
-            Log.d(TAG + "userAnswer:", userAnswer.toString())
-            Log.d(TAG + "correctAnswer:", correctAnswer.toString())
             val pagerAdapter = FragViewPagerAdapter(fManager)
             if (userAnswer == correctAnswer) {
                 insertOrUpdateGameDB(newGame, true)
@@ -116,32 +113,19 @@ class NumberFrag() : Fragment() {
      * if not, insert a new game into db
      */
     private fun insertOrUpdateGameDB(game: Game, isAnswerCorrect: Boolean) {
-        Log.d(TAG, "insertOrUpdateGameDB, game: " + game.toString())
         doAsync {
             if (isGameInDB(game)) {
                 val gameId = gameDB.gameDao().getGameId(game)
-                Log.d(TAG, "gameID: " + gameId.toString())
 
                 //update existing game info
                 if (isAnswerCorrect) {
-                    Log.d(
-                        TAG + "getWinCount(before update)",
-                        gameDB.gameDao().getWinCount(gameId).toString()
-                    )
                     gameDB.gameDao().updateWinCount(gameId, Date())
-                    Log.d(TAG + "getWinCount", gameDB.gameDao().getWinCount(gameId).toString())
                 } else {
-                    Log.d(
-                        TAG + "getLoseCount(before update)",
-                        gameDB.gameDao().getLoseCount(gameId).toString()
-                    )
                     gameDB.gameDao().updateLoseCount(gameId, Date())
-                    Log.d(TAG + "getLoseCount", gameDB.gameDao().getLoseCount(gameId).toString())
                 }
 
             } else {
                 //create a new game
-                Log.d(TAG, "game not in DB")
                 if (isAnswerCorrect) {
                     gameDB.gameDao().insert(
                         GameData(
@@ -171,7 +155,6 @@ class NumberFrag() : Fragment() {
      */
     private fun isGameInDB(game: Game): Boolean {
         val allGames = gameDB.gameDao().getAll()
-        Log.d(TAG, "isGameInDB():" + allGames.size + " games stored in DB")
         var foundGameInDB = false
         for (gameData: GameData in allGames) {
             if (gameData.game == game) {
@@ -179,7 +162,6 @@ class NumberFrag() : Fragment() {
                 break
             }
         }
-        Log.d(TAG, "isGameInDB:" + foundGameInDB)
         return foundGameInDB
     }
 
@@ -187,7 +169,6 @@ class NumberFrag() : Fragment() {
      * and random sign of "+" or "-"
      */
     private fun createNewGame() {
-        Log.d(TAG, "set new numbers")
         var num1 = (1..10).random()
         var num2 = (1..10).random()
         val sign = mutableListOf<String>("+", "-").random()
@@ -205,13 +186,9 @@ class NumberFrag() : Fragment() {
      * and set it on UI
      */
     private fun repeatGame() {
-        Log.d(TAG, "repeatGame")
         val gameModel = ViewModelProviders.of(this).get(GameModel::class.java)
         doAsync {
-            Log.d(TAG, gameModel.getLastGame().toString())
             val previousGame = gameModel.getLastGame().game
-            Log.d(TAG, previousGame.toString())
-
             uiThread {
                 newGame = previousGame
                 setGameOnUI(newGame)
@@ -221,7 +198,6 @@ class NumberFrag() : Fragment() {
 
     //set the given game on UI
     private fun setGameOnUI(game: Game) {
-        Log.d(TAG, "setGameOnUI: " + game.num1 + game.sign + game.num2)
         num1Btn.text = game.num1.toString()
         num2Btn.text = game.num2.toString()
         signBtn.text = game.sign
@@ -235,7 +211,6 @@ class NumberFrag() : Fragment() {
      * else, go to the wrongAnswer frag
      */
     private fun goToAnswerFrag(frag: Fragment) {
-        Log.d(TAG, "goToAnswerFrag")
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, frag)
         fTransaction.commit()
@@ -248,10 +223,6 @@ class NumberFrag() : Fragment() {
         } else {
             correctAnswer = newGame.num1 - newGame.num2
         }
-        Log.d(
-            TAG,
-            "getCorrectAnswer: " + newGame.num1 + newGame.sign + newGame.num2 + " = " + correctAnswer
-        )
     }
 
     //set three answer options, one is the correct answer, the other 2 are random numbers
@@ -291,6 +262,5 @@ class NumberFrag() : Fragment() {
                 userAnswer = rb.text.toString().toInt()
             }
         }
-        Log.d(TAG + "getUserAnswer: ", userAnswer.toString())
     }
 }

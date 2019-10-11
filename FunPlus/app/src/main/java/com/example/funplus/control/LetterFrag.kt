@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -121,7 +120,6 @@ class LetterFrag() : Fragment() {
 
     //create thread and start recording
     private fun recordAudio() {
-        Log.d(TAG, "record audio")
         val recordThread = Thread(audioRecorder)
         audioRecorder.isRecording = true
         recordThread.start()
@@ -131,7 +129,6 @@ class LetterFrag() : Fragment() {
     //get recorded file(via same path as stored when recording) to create inputstream
     // create thread, and play audio
     private fun playAudio() {
-        Log.d(TAG, "play audio")
         audioRecorder.isRecording = false
         val fileName = "mRec.raw"
 
@@ -140,7 +137,6 @@ class LetterFrag() : Fragment() {
         try {
             file = File(storageDir.toString() + "/" + fileName)
         } catch (ex: IOException) {
-            Log.d(TAG, ex.message!!)
         }
         val inputStream = FileInputStream(file)
         val playAudio = AudioPlayer(inputStream)

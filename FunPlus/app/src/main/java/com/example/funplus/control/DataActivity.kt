@@ -3,7 +3,6 @@ package com.example.funplus.control
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -51,14 +50,12 @@ class DataActivity : AppCompatActivity() {
 
     //switch between different fragments
     private fun goToFrag(frag: Fragment) {
-        Log.d(TAG, "goToFrag: "+frag)
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.dataFcontainer, frag)
         fTransaction.commit()
     }
 
     private fun showNumberGraphFrag() {
-        Log.d(TAG, "showNumberGraphFrag()")
         fTransaction = fManager.beginTransaction()
         fTransaction.add(R.id.dataFcontainer, numberGameGraphFrag)
         fTransaction.commit()
@@ -66,7 +63,6 @@ class DataActivity : AppCompatActivity() {
 
 
     private fun goMainActivity(){
-        Log.d(TAG, "goToDataActivity")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         this.finish()

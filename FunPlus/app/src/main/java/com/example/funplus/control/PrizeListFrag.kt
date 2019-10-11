@@ -42,13 +42,5 @@ class PrizeListFrag : Fragment(){
                 recyclerView.adapter = PrizeListViewAdapter(prizeList)
             }
         }
-
-       /* backToGameBtn.setOnClickListener{
-            val intent = Intent(this.context, MainActivity::class.java)
-            startActivity(intent)
-            Toast.makeText(this.context, "from prize list activity: back to main activity", Toast.LENGTH_SHORT).show()
-            //TODO: remove from backstack
-            this.requireActivity().supportFragmentManager.popBackStack()
-        }*/
     }
 }

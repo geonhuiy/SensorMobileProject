@@ -1,7 +1,6 @@
 package com.example.funplus.control
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +50,6 @@ class CorrectAnswerFrag : Fragment() {
         //click camera button to start AR activity(open camera and start scanning)
         goToScanBtn.setOnClickListener {
             goToArFrag()
-            Toast.makeText(this.context, "go to ArFragMain to scan image", Toast.LENGTH_LONG).show()
             this.requireActivity().supportFragmentManager.popBackStack()
         }
     }
@@ -60,7 +58,6 @@ class CorrectAnswerFrag : Fragment() {
     private fun showNumber() {
         val randomNum = numList.random()
         numTv.text = randomNum.toString()
-        Log.d(TAG + "showNumber - num: ", numTv.text.toString())
         val bundle = Bundle()
         bundle.putInt("randomNum", randomNum)
         arFrag.arguments = bundle
@@ -68,12 +65,10 @@ class CorrectAnswerFrag : Fragment() {
 
     //play a random cheering sound
     private fun playCheeringSound() {
-        val soundList = listOf<Int>(R.raw.unbelievable, R.raw.woohoo, R.raw.wow)
-        SoundEffectPlayer.playSound(this.requireActivity(), soundList.random())
+        SoundEffectPlayer.playSound(this.requireActivity(), R.raw.nice_work)
     }
 
     private fun goToArFrag() {
-        Log.d(TAG, "goToArFrag")
         PermissionChecker.askForPermissionIfNotGranted(this.context!!, this.requireActivity(), CAMERA_AR_REQUEST_CODE, CAMERA)
         fTransaction = fManager.beginTransaction()
         fTransaction.replace(R.id.fcontainer, arFrag)

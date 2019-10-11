@@ -28,6 +28,9 @@ class ArFrag : ArFragment() {
         return config
     }
 
+    /**
+     * get image resourses for scanning and add them to AugmentedImageDatabase
+     */
     private fun setupImgDb(config: Config, session: Session?) {
         val imageDb = AugmentedImageDatabase(session)
         val assetManager = context!!.assets

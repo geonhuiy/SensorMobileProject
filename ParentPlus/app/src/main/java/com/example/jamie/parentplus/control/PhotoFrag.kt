@@ -29,12 +29,10 @@ class PhotoFrag : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val imgString = arguments!!.getString("imgString")
-        Log.d(TAG + " FragimgStr ", imgString!!)
 
         try {
             val imageBytes = Base64.decode(imgString, 0)
             val imageBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-            Log.d(TAG + "imageBitmap", imageBitmap.toString())
             photoView.setImageBitmap(imageBitmap)
         } catch (e: Exception) {
             Log.d(TAG, e.message!!)

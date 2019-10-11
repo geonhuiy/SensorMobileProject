@@ -3,7 +3,6 @@ package com.example.funplus.control
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +50,6 @@ class NumberGraphFrag : Fragment() {
     fun getAllGamesAndCreatePoints() {
         doAsync {
             val allGames = gameDB.gameDao().getAll().sortedBy { it.id }
-            Log.d(TAG, " GraphGenerator getAllGamesAndCreatePoints allGames:" + allGames.size)
             uiThread {
                 for (gameData: GameData in allGames) {
                     val gameId = gameData.id
@@ -61,7 +59,6 @@ class NumberGraphFrag : Fragment() {
                     val dataPoint = DataPoint(gameId.toDouble(), successRate)
                     points.appendData(dataPoint, false, 100, true)
                 }
-                Log.d(TAG, " GraphGenerator().points: " + points)
                 setGraph()
             }
         }
