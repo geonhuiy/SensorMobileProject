@@ -23,6 +23,54 @@ The download url should be specified under `ParentPlus/app/java/com.example.pare
 1. Sensor (step counter)
 1. Network connected
 
+## Server side scripts
+
+### lastModifideTime.php
+```
+<?php
+echo filemtime("sosFile.txt");
+echo "<br>";
+echo "Content last changed: ".date("F d Y H:i:s.", filemtime("sosFile.txt"));
+?>
+```
+### upload_textform.php
+
+```
+<?php
+$target_dir = "uploads/";
+$target_file = $target_dir . basename($_REQUEST["filename"]);
+echo $_POST["filename"];
+echo $_REQUEST["filename"];
+
+$uploadOk = 1;
+if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+} else {
+   echo file_put_contents($target_file, $_REQUEST["file-data"]);
+}
+?>
+```
+
+## AR image-number pairs
+#  123
+![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/giftbox.jpg)
+
+#  234
+![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/masha.jpg)
+
+#  345
+![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/minions.jpg)
+
+#  456
+![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/mylittlepony.png)
+
+#  567
+![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/pororo.jpg)
+
+#  678
+![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/surprise.png)
+
+
 ## Dependencies
 ``` 
  implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -63,6 +111,7 @@ The download url should be specified under `ParentPlus/app/java/com.example.pare
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     ```
+
 
 
 
