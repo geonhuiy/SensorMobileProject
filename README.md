@@ -73,7 +73,7 @@ if ($uploadOk == 0) {
 
 ## Dependencies
 ``` 
- implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
@@ -111,6 +111,19 @@ if ($uploadOk == 0) {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     ```
+
+
+## How the app looks like
+
+![](arReward.gif)
+![](dataActivity.gif)
+![](numberfrag.gif)
+![](parentplus.gif)
+![](parentplus_capture.gif)
+
+
+
+
 
 
 
