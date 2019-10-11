@@ -53,28 +53,27 @@ if ($uploadOk == 0) {
 
 ## AR image-number pairs
 #  123
-<img src="https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/giftbox.jpg" height=300>
-![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/giftbox.jpg)
+<img src="https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/giftbox.jpg" height=200>
 
 #  234
-![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/masha.jpg)
+<img src="https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/masha.jpg" height=200>
 
 #  345
-![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/minions.jpg)
+<img src=https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/minions.jpg height:200>
 
 #  456
-![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/mylittlepony.png)
+<img src=https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/mylittlepony.png height:200>
 
 #  567
-![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/pororo.jpg)
+<img src=https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/pororo.jpg height:200>
 
 #  678
-![alt text](https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/surprise.png)
+<img src=https://github.com/geonhuiy/SensorMobileProject/blob/master/FunPlus/app/src/main/assets/surprise.png height:200>
 
 
 ## How the app looks like
 
-![](https://github.com/geonhuiy/SensorMobileProject/blob/updateReadme/arReward.gif)
+![](arReward.gif)
 
 ![](dataActivity.gif)
 
